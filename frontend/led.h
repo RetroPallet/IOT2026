@@ -2,7 +2,7 @@
 #define LED_H
 
 
-/* Enumerate only the colors we need.*/
+/* COLORS */
 enum led_color {
     LED_RED    = 0b01,
     LED_GREEN  = 0b10,
