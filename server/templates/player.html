@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Player</title>
+    </head>
+    <body>
+        <a href="{{ url_for('index') }}"><button type="button">Home</button></a>
+
+        <div id="login" hidden>
+            <h1>Enter activation code</h1>
+            <form id="login-form">
+                <input type="text" id="activation_code" placeholder="Activation code" required>
+                <input type="submit" value="Submit">
+            </form>
+            <p id="error" style="color:red"></p>
+        </div>
+
+        <div id="status" hidden>
+            <h1>Hello, <span id="username"></span></h1>
+            <p>Current phase: <strong id="phase"></strong></p>
+            <button type="button" id="reset">Reset (back to PHASE_PUZZLE)</button>
+            <button type="button" id="logout">Logout</button>
+
+            <div id="keys">
+                <form class="key-form" data-phase="PHASE_PUZZLE" hidden>
+                    <label>Phase puzzle key:</label>
+                    <input type="text" name="key" required>
+                    <input type="submit" value="Unlock">
+                </form>
+                <form class="key-form" data-phase="SERIAL_PUZZLE" hidden>
+                    <label>Serial puzzle key:</label>
+                    <input type="text" name="key" required>
+                    <input type="submit" value="Unlock">
+                </form>
+                <form class="key-form" data-phase="BACKEND_PUZZLE" hidden>
+                    <label>Backend puzzle key:</label>
+                    <input type="text" name="key" required>
+                    <input type="submit" value="Unlock">
+                </form>
+                <p id="key-error" style="color:red"></p>
+                <p id="win" hidden><strong>All keys unlocked!</strong></p>
+                <a id="injection" href="{{ url_for('injection') }}" hidden><button type="button">Go to injection</button></a>
+            </div>
+        </div>
+
+        <script>
+            const KEY = 'player_id';
+            const $ = (id) => document.getElementById(id);
+
+            function setPlayerId(id) {
+                localStorage.setItem(KEY, id);
+                document.cookie = `${KEY}=${id}; path=/; SameSite=Lax`;
+            }
+
+            function clearPlayerId() {
+                localStorage.removeItem(KEY);
+                document.cookie = `${KEY}=; path=/; max-age=0; SameSite=Lax`;
+            }
+
+            function show(view) {
+                $('login').hidden = view !== 'login';
+                $('status').hidden = view !== 'status';
+            }
+
+            const PHASE_ORDER = ['PHASE_PUZZLE', 'SERIAL_PUZZLE', 'BACKEND_PUZZLE', 'WIN'];
+
+            function render(player) {
+                $('username').textContent = player.username;
+                $('phase').textContent = player.phase;
+                $('key-error').textContent = '';
+                const current = PHASE_ORDER.indexOf(player.phase);
+                document.querySelectorAll('.key-form').forEach((form) => {
+                    const index = PHASE_ORDER.indexOf(form.dataset.phase);
+                    const input = form.elements.key;
+                    const submit = form.querySelector('input[type=submit]');
+                    const solved = index < current;
+                    form.hidden = index > current;      
+                    input.disabled = solved;            
+                    submit.disabled = solved;
+                    input.value = solved ? '\u2713 unlocked' : '';
+                });
+                $('win').hidden = player.phase !== 'WIN';
+                $('injection').hidden = player.phase !== 'BACKEND_PUZZLE';
+                show('status');
+            }
+
+            async function loadPlayer() {
+                const id = localStorage.getItem(KEY);
+                if (!id) return show('login');
+
+                const res = await fetch(`/api/player/${id}`);
+                if (!res.ok) {
+                    clearPlayerId();
+                    return show('login');
+                }
+                setPlayerId(id);   
+                render(await res.json());
+            }
+
+            $('login-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                $('error').textContent = '';
+                const res = await fetch('/api/player/activate', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({activation_code: $('activation_code').value}),
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    $('error').textContent = data.error;
+                    return;
+                }
+                setPlayerId(data.id);
+                render(data);
+            });
+
+            document.querySelectorAll('.key-form').forEach((form) => {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const id = localStorage.getItem(KEY);
+                    const res = await fetch(`/api/player/${id}/advance`, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            phase: form.dataset.phase,
+                            key: form.elements.key.value,
+                        }),
+                    });
+                    if (!res.ok) {
+                        $('key-error').textContent = (await res.json()).error;
+                        return;
+                    }
+                    loadPlayer();   
+                });
+            });
+
+            $('reset').addEventListener('click', async () => {
+                const id = localStorage.getItem(KEY);
+                const res = await fetch(`/api/player/${id}/reset`, {method: 'POST'});
+                if (res.ok) loadPlayer();
+            });
+
+            $('logout').addEventListener('click', () => {
+                clearPlayerId();
+                $('activation_code').value = '';
+                show('login');
+            });
+
+            loadPlayer();
+        </script>
+    </body>
+</html>

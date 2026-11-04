@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Page </title>
+    </head>
+    <body>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('index') }}';">Home</button>
+        <h1>Add a player</h1>
+        <form method="POST">
+            <label>Enter Username:</label>
+            <input type="text" name="name" placeholder="Enter your name" required><br/>
+            <label>Enter Activation Code:</label>
+            <input type="text" name="activation_code" placeholder="Enter activation code" required><br/>
+            <input type = "submit" value = "submit"/><br/>
+        </form>
+        <h1>Player List</h1>
+         <table style="width:100%">
+            <tr>
+              <th>Username</th>
+              <th>Activation Code</th>
+              <th>Game Phase</th>
+            </tr>
+            {%for player in data%}
+               <tr>
+                 <td>{{player[0]}}</td>
+                 <td>{{player[1]}}</td>
+                 <td>{{player[2]}}</td>
+                </tr>
+            {%endfor%}
+          </table>          
+    </body>
+
+        <style>
+        table, th, td {
+          border:1px solid black;
+        }
+        </style>
+</html>

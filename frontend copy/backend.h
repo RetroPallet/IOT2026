@@ -1,0 +1,12 @@
+#ifndef BACKEND_H
+#define BACKEND_H
+
+enum state_codes {
+    WAIT_INITIALIZATION_CODE = 001,
+    ARMED_CODE = 010,
+    SERIAL_PUZZLE_CODE = 011,
+    BACKEND_PUZZLE_CODE = 100,
+    COMPLETED_CODE = 101
+};
+
+#endif

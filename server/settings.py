@@ -1,0 +1,12 @@
+import enum
+
+class GamePhase(enum.StrEnum):
+    WAIT_INITIALIZATION = 'WAIT_INITIALIZATION'
+    PHASE_PUZZLE = 'PHASE_PUZZLE'
+    SERIAL_PUZZLE = 'SERIAL_PUZZLE'
+    BACKEND_PUZZLE = 'BACKEND_PUZZLE'
+    WIN = 'WIN'
+
+DB_PATH = 'database.db'
+KEYED_PHASES = (GamePhase.PHASE_PUZZLE, GamePhase.SERIAL_PUZZLE, GamePhase.BACKEND_PUZZLE)
+# Game phases
