@@ -3,7 +3,7 @@
 #include "temperature.h"
 
 /* CONSTANTS */
-#define DHT_PIN 4
+#define DHT_PIN A1
 #define DHT_TYPE DHT11
 
 const float TEMP_THRESHOLD = 30.0;
@@ -16,7 +16,7 @@ unsigned long last_temp_read = 0;
 
 /* INITIALIZATION */
 void temperature_init() {
-    Serial.begin(9600);
+    // Serial.begin(9600);
     dht.begin();
     last_temp_read = 0;
 }
@@ -32,7 +32,7 @@ bool temperature_triggered() {
     last_temp_read = now;
     
     float temperature = dht.readTemperature();
-    Serial.println(temperature);
+    // Serial.println(temperature);
     if (isnan(temperature))
         return false;
 

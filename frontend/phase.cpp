@@ -2,8 +2,8 @@
 #include "phase.h"
 
 /* PIN DEFINITIONS */
-#define LED_REF_PIN 7
-#define LED_ADJ_PIN 8
+#define LED_REF_PIN 4
+#define LED_ADJ_PIN 3
 #define POT_PIN A0
 
 /* CONSTANTS */

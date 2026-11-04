@@ -2,6 +2,7 @@
 #include "temperature.h"
 #include "led.h"
 #include "phase.h"
+#include "epaper.h"
 
 /* DEBUG things */
 /* This is neccessary cz testing code with faulty dht11.*/
@@ -11,11 +12,19 @@ const unsigned long DEBUG_INTERVAL = 4000; // REMOVE in production.
 #define BUTTON_PIN 2
 
 /* PUZZLE CODES */
-const char* const puzzle_codes[] = {
+const String puzzle_codes[] = {
     "X7K9",
     "P4M2",
     "R8T3"
 };
+
+Employee employee = {
+    "042",
+    "Buster",
+    28,
+    "IT",
+    "Loves coffee"
+  };
 
 /* GLOBAL VARIABLES */
 game_state state      = ARMED;
@@ -31,6 +40,8 @@ void set_state(game_state new_state) {
 
     prvs_state = state;
     state = new_state;
+    
+    reset_show_code();
 }
 
 /* GAME SETUP */
@@ -38,6 +49,7 @@ void game_setup() {
     temperature_init();
     led_init();
     led_set(LED_YELLOW);
+    epaper_init();
     phase_init();
 
     pinMode(BUTTON_PIN, INPUT_PULLUP); // REMOVE in production.
@@ -51,13 +63,14 @@ void game_task() {
 
         case ARMED:
             // Temperature puzzle.
-            if (temperature_triggered() ||
-                (millis() - debug_started_at >= DEBUG_INTERVAL)) { // REMOVE in production.
+            if ((millis() - debug_started_at >= DEBUG_INTERVAL) ||
+                temperature_triggered()) {
 
                 next_state = PHASE_PUZZLE;
                 led_set(LED_RED);
                 set_state(WAIT_BACKEND);
             }
+
             break;
 
         case PHASE_PUZZLE:
@@ -70,6 +83,9 @@ void game_task() {
 
         case SERIAL_PUZZLE:
             // Serial password challenge.
+            show_employee_file(employee);
+            delay(10000); // user puzzle dummy.
+            set_state(WAIT_BACKEND);
             break;
 
         case BACKEND_PUZZLE:
@@ -81,21 +97,28 @@ void game_task() {
             switch (prvs_state) {
 
                 case ARMED:
+                    show_code(puzzle_codes[0]);
+                    /* PUT CODE TO FETCH BACKEND OK HERE!!!*/
+
                     if (digitalRead(BUTTON_PIN) == LOW) { // REMOVE in production.
                         led_set(LED_GREEN);
                         set_state(next_state);
                     }
+
                     break;
 
-                case PHASE_PUZZLE:
+                case PHASE_PUZZLE:  
+                    show_code(puzzle_codes[1]);
                     if (digitalRead(BUTTON_PIN) == LOW) { // REMOVE in production.
                         led_set(LED_RED);
                         set_state(next_state);
                     }                    
                     break;
 
-                case SERIAL_PUZZLE: 
+                case SERIAL_PUZZLE:
+                    show_code(puzzle_codes[2]);
                     if (digitalRead(BUTTON_PIN) == LOW) { // REMOVE in production.
+                        led_set(LED_YELLOW);
                         set_state(next_state);
                     }      
                     break;
