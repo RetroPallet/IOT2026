@@ -19,6 +19,8 @@ game_state state      = WAIT_INITIALIZATION;
 game_state next_state = WAIT_INITIALIZATION;
 game_state prvs_state = WAIT_INITIALIZATION;
 
+state_codes next_state_code = NO_DOWNLINK_CODE;
+
 led_color prev_led_color = LED_BLUE;
 /* STATE MANAGEMENT */
 void set_state(game_state new_state) {

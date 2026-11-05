@@ -7,7 +7,8 @@ from db_queries import (
     get_player_by_code, get_player_by_id, set_game_phase,
     get_phase_key, get_next_phase, get_measurement_keys, get_vulnerable_measurement,
 )
-from settings import GamePhase
+from settings import GamePhase, DEBUG
+from adapter import send_lorawan_downlink
 
 app = Flask(__name__)
 
@@ -56,8 +57,8 @@ def api_activate():
 
     player_id, username, phase = row
     if phase == GamePhase.WAIT_INITIALIZATION:
-        set_game_phase(player_id, GamePhase.PHASE_PUZZLE)
-        phase = GamePhase.PHASE_PUZZLE
+        set_game_phase(player_id, GamePhase.ARMED)
+        phase = GamePhase.ARMED
     return jsonify(id=player_id, username=username, phase=phase)
 
 
@@ -73,8 +74,8 @@ def api_player(player_id):
 def api_reset(player_id):
     if get_player_by_id(player_id) is None:
         return jsonify(error='Player not found'), 404
-    set_game_phase(player_id, GamePhase.PHASE_PUZZLE)
-    return jsonify(id=player_id, phase=GamePhase.PHASE_PUZZLE)
+    set_game_phase(player_id, GamePhase.ARMED)
+    return jsonify(id=player_id, phase=GamePhase.ARMED)
 
 
 @app.route('/api/player/<int:player_id>/advance', methods=['POST'])
@@ -96,6 +97,8 @@ def api_advance(player_id):
 
     next_phase = get_next_phase(current)
     set_game_phase(player_id, next_phase)
+    if (not DEBUG):
+        send_lorawan_downlink(next_phase)
     return jsonify(id=player_id, phase=next_phase)
 
 @app.route('/api/injection', methods=['POST'])
