@@ -9,8 +9,8 @@ struct Employee {
   String hint;
 };
 
-
 void epaper_init();
+void epaper_task();   
 void show_code(String code);
 void draw_file_text(int y, String text, bool large = false);
 void draw_profile_icon();

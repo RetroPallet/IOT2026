@@ -1,21 +1,12 @@
 #include <Arduino.h>
 #include "phase.h"
-
-/* PIN DEFINITIONS */
-#define LED_REF_PIN 4
-#define LED_ADJ_PIN 3
-#define POT_PIN A0
+#include "pinout.h"
 
 /* CONSTANTS */
 const unsigned long PERIOD = 1000;
 const unsigned long SECRET_OFFSET = 347;
 const unsigned long SYNC_TIME = 3000;
 const unsigned long SYNC_TOLERANCE = 30;
-
-/* VARIABLES */
-unsigned long sync_started_at = 0;
-bool is_syncing = false;
-bool solved = false;
 
 /* INITIALIZATION */
 void phase_init() {
@@ -24,8 +15,6 @@ void phase_init() {
 }
 
 bool phase_update() {
-    // returns true on synced.
-    
     static unsigned long sync_started_at = 0;
 
     unsigned long now = millis();
