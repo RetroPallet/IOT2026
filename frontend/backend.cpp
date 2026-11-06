@@ -8,8 +8,8 @@
 static SoftwareSerial lora_serial(LORA_RX_PIN, LORA_TX_PIN);
 static rn2xx3 lora(lora_serial);
 
-static const char *APP_EUI = "9085533D0CA7B32F";
-static const char *APP_KEY = "EF173870C19E098AEAEE51F4DB8191FA";
+static const char *APP_EUI = "xxxxxxxxxxxxxxxx"; // Replace with your actual App EUI
+static const char *APP_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; // Replace with your actual App Key
 
 void backend_init() {
     Serial.println(F("1 reset"));
