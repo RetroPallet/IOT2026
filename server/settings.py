@@ -1,4 +1,5 @@
 import enum
+import os
 
 class GamePhase(enum.StrEnum):
     WAIT_INITIALIZATION = 'WAIT_INITIALIZATION'
@@ -9,4 +10,4 @@ class GamePhase(enum.StrEnum):
 KEYED_PHASES = (GamePhase.PHASE_PUZZLE, GamePhase.SERIAL_PUZZLE, GamePhase.BACKEND_PUZZLE)
 
 DB_PATH = 'database.db'
-DEBUG = False
+DEBUG = os.environ.get('debug', 'True').lower() in ('true', '1', 't')

@@ -75,6 +75,9 @@ def api_reset(player_id):
     if get_player_by_id(player_id) is None:
         return jsonify(error='Player not found'), 404
     set_game_phase(player_id, GamePhase.PHASE_PUZZLE)
+    if not DEBUG:
+        send_lorawan_downlink(GamePhase.PHASE_PUZZLE)
+        
     return jsonify(id=player_id, phase=GamePhase.PHASE_PUZZLE)
 
 

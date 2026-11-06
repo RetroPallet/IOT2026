@@ -5,7 +5,6 @@
 
 enum game_state {
     WAIT_INITIALIZATION, // Initial state, waiting for the game server to initialize the game with the correct state.
-    ARMED,
     PHASE_PUZZLE,
     SERIAL_PUZZLE,
     BACKEND_PUZZLE,

@@ -18,11 +18,11 @@
         <div id="status" hidden>
             <h1>Hello, <span id="username"></span></h1>
             <p>Current phase: <strong id="phase"></strong></p>
-            <button type="button" id="reset">Reset (back to ARMED)</button>
+            <button type="button" id="reset">Reset (back to PHASE_PUZZLE)</button>
             <button type="button" id="logout">Logout</button>
 
             <div id="keys">
-                <form class="key-form" data-phase="ARMED" hidden>
+                <form class="key-form" data-phase="PHASE_PUZZLE" hidden>
                     <label>Phase puzzle key:</label>
                     <input type="text" name="key" required>
                     <input type="submit" value="Unlock">
@@ -62,7 +62,7 @@
                 $('status').hidden = view !== 'status';
             }
 
-            const PHASE_ORDER = ['ARMED', 'SERIAL_PUZZLE', 'BACKEND_PUZZLE', 'COMPLETED'];
+            const PHASE_ORDER = ['PHASE_PUZZLE', 'SERIAL_PUZZLE', 'BACKEND_PUZZLE', 'COMPLETED'];
 
             function render(player) {
                 $('username').textContent = player.username;
