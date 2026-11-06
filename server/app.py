@@ -57,8 +57,8 @@ def api_activate():
 
     player_id, username, phase = row
     if phase == GamePhase.WAIT_INITIALIZATION:
-        set_game_phase(player_id, GamePhase.ARMED)
-        phase = GamePhase.ARMED
+        set_game_phase(player_id, GamePhase.PHASE_PUZZLE)
+        phase = GamePhase.PHASE_PUZZLE
     return jsonify(id=player_id, username=username, phase=phase)
 
 
@@ -74,8 +74,8 @@ def api_player(player_id):
 def api_reset(player_id):
     if get_player_by_id(player_id) is None:
         return jsonify(error='Player not found'), 404
-    set_game_phase(player_id, GamePhase.ARMED)
-    return jsonify(id=player_id, phase=GamePhase.ARMED)
+    set_game_phase(player_id, GamePhase.PHASE_PUZZLE)
+    return jsonify(id=player_id, phase=GamePhase.PHASE_PUZZLE)
 
 
 @app.route('/api/player/<int:player_id>/advance', methods=['POST'])
