@@ -1,21 +1,16 @@
 #include "game.h"
+#include "pinout.h"
 #include "temperature.h"
 #include "led.h"
 #include "phase.h"
 #include "epaper.h"
-
-/* DEBUG things */
-/* This is neccessary cz testing code with faulty dht11.*/
-unsigned long debug_started_at = 0; // REMOVE in production.
-const unsigned long DEBUG_INTERVAL = 4000; // REMOVE in production.
-
-#define BUTTON_PIN 2
+#include "backend.h"
 
 /* PUZZLE CODES */
-const String puzzle_codes[] = {
-    "X7K9",
-    "P4M2",
-    "R8T3"
+const char* const puzzle_codes[] = {
+    "phase_puzzle_key",
+    "serial_puzzle_key",
+    "backend_puzzle_key"
 };
 
 Employee employee = {
@@ -24,112 +19,142 @@ Employee employee = {
     28,
     "IT",
     "Loves coffee"
-  };
+};
 
 /* GLOBAL VARIABLES */
-game_state state      = ARMED;
-game_state next_state = ARMED;
-game_state prvs_state = ARMED;
+game_state state      = WAIT_INITIALIZATION;
+game_state next_state = WAIT_INITIALIZATION;
+game_state prvs_state = WAIT_INITIALIZATION;
 
+state_codes next_state_code = NO_DOWNLINK_CODE;
 
-/* STATE MANAGEMENT */
+static bool phase_solved = false;   
+
+static led_color led_for_state(game_state s) {
+    switch (s) {
+        case WAIT_INITIALIZATION: return LED_BLUE;
+        case PHASE_PUZZLE:        return LED_YELLOW;
+        case SERIAL_PUZZLE:       return LED_MAGENTA;
+        case BACKEND_PUZZLE:      return LED_CYAN;
+        case WAIT_BACKEND:        return LED_WHITE;
+        case COMPLETED:           return LED_GREEN;
+    }
+    return LED_OFF;
+}
+
+static bool button_pressed() {
+    static bool last_level = HIGH;
+    static unsigned long last_change = 0;
+
+    bool level = digitalRead(BUTTON_PIN);
+    if (level != last_level && millis() - last_change > 50) {
+        last_change = millis();
+        last_level  = level;
+        return level == LOW;      // true only on press
+    }
+    return false;
+}
+
 void set_state(game_state new_state) {
-
+ 
     if (state == new_state)
         return;
-
+ 
     prvs_state = state;
     state = new_state;
-    
-    reset_show_code();
+ 
+    led_set(led_for_state(state));
+    Serial.print(F("STATE "));
+    Serial.println(state);
 }
 
 /* GAME SETUP */
 void game_setup() {
+
+    Serial.begin(57600);
     temperature_init();
     led_init();
-    led_set(LED_YELLOW);
-    epaper_init();
     phase_init();
+    epaper_init();
+    backend_init();
 
-    pinMode(BUTTON_PIN, INPUT_PULLUP); // REMOVE in production.
-    debug_started_at = millis(); // REMOVE in production.
+    pinMode(BUTTON_PIN, INPUT_PULLUP);
+
+    led_set(led_for_state(state));   
 }
 
 /* GAME STATE MACHINE */
 void game_task() {
 
+    epaper_task();   
+
     switch (state) {
 
-        case ARMED:
-            // Temperature puzzle.
-            if ((millis() - debug_started_at >= DEBUG_INTERVAL) ||
-                temperature_triggered()) {
-
-                next_state = PHASE_PUZZLE;
-                led_set(LED_RED);
-                set_state(WAIT_BACKEND);
-            }
-
-            break;
-
-        case PHASE_PUZZLE:
-            // LED synchronization puzzle.
-            if (phase_update()) {
-                next_state = SERIAL_PUZZLE;
+        case WAIT_INITIALIZATION:
+            if (button_pressed()) {
                 set_state(WAIT_BACKEND);
             }
             break;
+
+        case PHASE_PUZZLE: {
+            if (button_pressed()) {
+                set_state(WAIT_BACKEND);
+                break;
+            }
+
+            bool phase_synced = phase_update();
+            bool temp_hot = temperature_triggered();
+
+            if (phase_synced && temp_hot) {
+                if (!phase_solved) {
+                    Serial.println(F("Phase puzzle solved!"));
+                    phase_solved = true;
+                    show_code(puzzle_codes[0]);
+                }
+            } else {
+                phase_solved = false;
+            }
+            break;
+        }
 
         case SERIAL_PUZZLE:
-            // Serial password challenge.
-            show_employee_file(employee);
-            delay(10000); // user puzzle dummy.
-            set_state(WAIT_BACKEND);
+            if (button_pressed())
+                set_state(WAIT_BACKEND);
+            //show_employee_file(employee); commented for now check what implementation to pursue
             break;
 
         case BACKEND_PUZZLE:
-            // Backend SQL injection challenge.
-            break;
-
-        case WAIT_BACKEND:
-
-            switch (prvs_state) {
-
-                case ARMED:
-                    show_code(puzzle_codes[0]);
-                    /* PUT CODE TO FETCH BACKEND OK HERE!!!*/
-
-                    if (digitalRead(BUTTON_PIN) == LOW) { // REMOVE in production.
-                        led_set(LED_GREEN);
-                        set_state(next_state);
-                    }
-
-                    break;
-
-                case PHASE_PUZZLE:  
-                    show_code(puzzle_codes[1]);
-                    if (digitalRead(BUTTON_PIN) == LOW) { // REMOVE in production.
-                        led_set(LED_RED);
-                        set_state(next_state);
-                    }                    
-                    break;
-
-                case SERIAL_PUZZLE:
-                    show_code(puzzle_codes[2]);
-                    if (digitalRead(BUTTON_PIN) == LOW) { // REMOVE in production.
-                        led_set(LED_YELLOW);
-                        set_state(next_state);
-                    }      
-                    break;
-
-                default:
-                    break;
-            }
+            if (button_pressed())
+                set_state(WAIT_BACKEND);
             break;
 
         case COMPLETED:
             // Raise flag
+            if (button_pressed())
+                set_state(WAIT_BACKEND);
             break;
+
+        case WAIT_BACKEND: {
+            next_state_code = get_be_next_state_code();
+
+            switch (next_state_code) {
+                case WAIT_INITIALIZATION_CODE: next_state = WAIT_INITIALIZATION; break;
+                case PHASE_PUZZLE_CODE:        next_state = PHASE_PUZZLE;        break;
+                case SERIAL_PUZZLE_CODE:       next_state = SERIAL_PUZZLE;       break;
+                case BACKEND_PUZZLE_CODE:      next_state = BACKEND_PUZZLE;      break;
+                case COMPLETED_CODE:           next_state = COMPLETED;           break;
+                default: // NO_DOWNLINK / timeout
+                    next_state = prvs_state;
+                    break;
+            }
+
+            if (next_state != prvs_state) {
+                phase_solved = false;
+                reset_show_code();
+            }
+
+            set_state(next_state);
+            break;
+        }
     }
 }

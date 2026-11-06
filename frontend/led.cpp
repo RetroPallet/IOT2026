@@ -1,15 +1,19 @@
 #include <Arduino.h>
 #include "led.h"
+#include "pinout.h"
 
-#define LED_RED_PIN   5
-#define LED_GREEN_PIN 6
-
+#define GREEN_LEVEL 80
+#define BLUE_LEVEL  80
+ 
 void led_init() {
     pinMode(LED_RED_PIN, OUTPUT);
     pinMode(LED_GREEN_PIN, OUTPUT);
+    pinMode(LED_BLUE_PIN, OUTPUT);
 }
-
+ 
 void led_set(led_color color) {
-  analogWrite(LED_RED_PIN, (color & LED_RED) ? 255 : 0); // if red bit set.
-  analogWrite(LED_GREEN_PIN, (color & LED_GREEN) ? 80 : 0); // if green bit set, correct for unbalance with 70 pwm.
+    analogWrite(LED_RED_PIN,   (color & LED_RED)   ? 255         : 0);
+    analogWrite(LED_GREEN_PIN, (color & LED_GREEN) ? GREEN_LEVEL : 0);
+    analogWrite(LED_BLUE_PIN,  (color & LED_BLUE)  ? BLUE_LEVEL  : 0);
 }
+ 

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Injection</title>
+    </head>
+    <body>
+        <a href="{{ url_for('player') }}"><button type="button">Back to player</button></a>
+        <h1>Overview of the bank sensor</h1>
+        
+        <form id="sensorForm">
+            <label for="sensorDropdown">Select measurement:</label>
+            <select name="sensorDropdown" id="sensorDropdown">
+                <option value="">-- Select --</option>
+                {% for m in measurements %}
+                <option value="{{ m }}">{{ m }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Read value</button>
+        </form>
+
+        <h3>Result: <span id="resultValue"></span></h3>
+
+        <script>
+            document.getElementById('sensorForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const dropdown = document.getElementById('sensorDropdown');
+                const selectedValue = dropdown.options[dropdown.selectedIndex].value;
+
+                fetch('/api/injection', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sensor_value: selectedValue })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const resultSpan = document.getElementById('resultValue');
+                    if (data.value !== undefined) {
+                        resultSpan.innerText = data.value;
+                        resultSpan.style.color = "black";
+                    } else {
+                        resultSpan.innerText = "Errore: " + data.error;
+                        resultSpan.style.color = "red";
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

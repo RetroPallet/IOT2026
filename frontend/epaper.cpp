@@ -7,12 +7,16 @@
 #define COLORED   0
 #define UNCOLORED 1
 
+#define CODE_DISPLAY_MS 10000UL
+
 Epd epd;
 
 unsigned char image[1024];
 Paint paint(image, 0, 0);
 
 static bool code_displayed = false;
+static bool code_visible = false;        
+static unsigned long code_shown_at = 0;  
 
 
 // Reset display flag
@@ -23,8 +27,6 @@ void reset_show_code() {
 
 // Initialize e-paper
 void epaper_init() {
-  Serial.begin(9600);
-
   epd.LDirInit();
   epd.Clear();
 
@@ -33,8 +35,18 @@ void epaper_init() {
 }
 
 
-// Draw a single line of text
-void draw_file_text(int y, String text, bool large = false) {
+void epaper_task() {
+  if (!code_visible) return;
+
+  if (millis() - code_shown_at >= CODE_DISPLAY_MS) {
+    epd.Clear();
+    code_visible = false;
+    reset_show_code();
+  }
+}
+
+
+void draw_file_text(int y, String text, bool large=false) {
   paint.SetWidth(200);
   paint.SetHeight(large ? 24 : 16);
   paint.Clear(UNCOLORED);
@@ -86,7 +98,7 @@ void draw_profile_icon() {
 // Display employee file
 void show_employee_file(const Employee& employee) {
   if (code_displayed) return;
-  
+
   epd.Clear();
 
   // Header
@@ -111,13 +123,12 @@ void show_employee_file(const Employee& employee) {
   code_displayed = true;
 }
 
-
 // Display puzzle code
 void show_code(String code) {
-  
+
   if (code_displayed) return;
   epd.Clear();
-  
+
   Serial.println(code);
 
   paint.SetWidth(200);
@@ -134,7 +145,8 @@ void show_code(String code) {
   );
 
   epd.DisplayFrame();
-  //epd.Sleep();
 
   code_displayed = true;
+  code_visible   = true;       
+  code_shown_at  = millis();
 }
