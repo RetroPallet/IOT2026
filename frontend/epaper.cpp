@@ -11,10 +11,10 @@
 
 Epd epd;
 
-unsigned char image[600];
+unsigned char image[1024];
 Paint paint(image, 0, 0);
 
-static bool code_displayed = false;      
+static bool code_displayed = false;
 static bool code_visible = false;        
 static unsigned long code_shown_at = 0;  
 
@@ -46,7 +46,7 @@ void epaper_task() {
 }
 
 
-void draw_file_text(int y, String text, bool large) {
+void draw_file_text(int y, String text, bool large=false) {
   paint.SetWidth(200);
   paint.SetHeight(large ? 24 : 16);
   paint.Clear(UNCOLORED);
@@ -98,6 +98,7 @@ void draw_profile_icon() {
 // Display employee file
 void show_employee_file(const Employee& employee) {
   if (code_displayed) return;
+
   epd.Clear();
 
   // Header
@@ -122,7 +123,7 @@ void show_employee_file(const Employee& employee) {
   code_displayed = true;
 }
 
-
+// Display puzzle code
 void show_code(String code) {
 
   if (code_displayed) return;

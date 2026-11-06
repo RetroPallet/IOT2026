@@ -14,7 +14,7 @@ void phase_init() {
     pinMode(LED_ADJ_PIN, OUTPUT);
 }
 
-bool phase_update() {
+bool phase_update() { // returns true on synced.
     static unsigned long sync_started_at = 0;
 
     unsigned long now = millis();

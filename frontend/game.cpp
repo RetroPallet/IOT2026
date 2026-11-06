@@ -13,10 +13,18 @@ const char* const puzzle_codes[] = {
     "backend_puzzle_key"
 };
 
+Employee employee = {
+    "042",
+    "Buster",
+    28,
+    "IT",
+    "Loves coffee"
+};
+
 /* GLOBAL VARIABLES */
-game_state state      = PHASE_PUZZLE;
-game_state next_state = PHASE_PUZZLE;
-game_state prvs_state = PHASE_PUZZLE;
+game_state state      = WAIT_INITIALIZATION;
+game_state next_state = WAIT_INITIALIZATION;
+game_state prvs_state = WAIT_INITIALIZATION;
 
 state_codes next_state_code = NO_DOWNLINK_CODE;
 
@@ -68,7 +76,6 @@ void game_setup() {
     led_init();
     phase_init();
     epaper_init();
-    Serial.println(F("Calling backend init"));
     backend_init();
 
     pinMode(BUTTON_PIN, INPUT_PULLUP);
@@ -86,7 +93,6 @@ void game_task() {
         case WAIT_INITIALIZATION:
             if (button_pressed()) {
                 set_state(WAIT_BACKEND);
-                break;
             }
             break;
 
@@ -114,6 +120,7 @@ void game_task() {
         case SERIAL_PUZZLE:
             if (button_pressed())
                 set_state(WAIT_BACKEND);
+            //show_employee_file(employee); commented for now check what implementation to pursue
             break;
 
         case BACKEND_PUZZLE:

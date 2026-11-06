@@ -5,6 +5,8 @@
  *  PLATFORM    : Arduino Pro Mini (ATmega328P)
  *  VERSION     : 0.1.0
  *  AUTHORS     : Peter Boye Hansen
+ *              : Boas Miedema
+ *              : Stefano Giroletti
  *  LICENSE     : MIT
  * ============================================================================
  */
