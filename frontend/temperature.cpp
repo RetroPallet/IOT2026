@@ -6,7 +6,7 @@
 /* CONSTANTS */
 #define DHT_TYPE DHT11
 
-const float TEMP_THRESHOLD = 20.0;
+const float TEMP_THRESHOLD = 25.0;
 const unsigned long TEMP_INTERVAL = 2000;
 
 /* VARIABLES */

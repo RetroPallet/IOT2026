@@ -11,7 +11,7 @@
 
 Epd epd;
 
-unsigned char image[1024];
+unsigned char image[600];
 Paint paint(image, 0, 0);
 
 static bool code_displayed = false;
@@ -129,7 +129,7 @@ void show_code(String code) {
   if (code_displayed) return;
   epd.Clear();
 
-  Serial.println(code);
+  // Serial.println(code);
 
   paint.SetWidth(200);
   paint.SetHeight(24);

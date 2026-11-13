@@ -21,7 +21,7 @@
  * ============================================================ */
 
 #define BUTTON_PIN      2
-#define LED_BLUE_PIN 3  
+#define ACTUATOR_PIN    3  
 #define DHT_PIN         4
 #define LED_RED_PIN     5
 #define LED_GREEN_PIN   6

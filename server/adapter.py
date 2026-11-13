@@ -7,7 +7,7 @@ from settings import GamePhase
 FPORT = 1
 CONFIRMED_DOWNLINK = False
 PRIORITY = "NORMAL"
-SCHEDULE = "push"
+SCHEDULE = "replace"
 
 PHASE_CODES = {
     GamePhase.WAIT_INITIALIZATION: 1,
