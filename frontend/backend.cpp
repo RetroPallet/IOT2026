@@ -8,8 +8,8 @@
 static SoftwareSerial lora_serial(LORA_RX_PIN, LORA_TX_PIN);
 static rn2xx3 lora(lora_serial);
 
-static const char *APP_EUI = "xxxxxxxxxxxxxxxx"; // Replace with your actual App EUI
-static const char *APP_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; // Replace with your actual App Key
+static const char *APP_EUI = "xxx";
+static const char *APP_KEY = "xxx";
 
 void backend_init() {
     Serial.println(F("1 reset"));
@@ -28,6 +28,7 @@ void backend_init() {
         return;
 
     Serial.println(F("3 hweui ok"));
+    return;
 
     bool join_result = lora.initOTAA(APP_EUI, APP_KEY);
     Serial.println(F("4 join"));
