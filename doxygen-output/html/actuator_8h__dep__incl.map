@@ -1,0 +1,7 @@
+<map id="frontend/actuator.h" name="frontend/actuator.h">
+<area shape="rect" id="Node000001" title="Servo actuator positions and control." alt="" coords="101,5,247,31"/>
+<area shape="rect" id="Node000002" href="$actuator_8cpp.html" title="Servo actuator positions and control." alt="" coords="5,79,167,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,41,102,81,99,76,148,37"/>
+<area shape="rect" id="Node000003" href="$game_8cpp.html" title="Escape&#45;room game states and puzzle coordination." alt="" coords="191,79,336,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="201,37,250,76,247,81,197,41"/>
+</map>
