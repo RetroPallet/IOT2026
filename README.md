@@ -170,11 +170,7 @@ password puzzle processes input when it receives a newline.
 | A4 | RN2483 RESET, active low |
 | A5 | Unassigned |
 
-Check `frontend/pinout.h` and the display driver's `epdif.h` against your wiring.
-The bundled driver also defines `PWR_PIN` as D6 and drives it high during
-initialization, sharing the green status LED pin. Resolve that assignment for
-your hardware. The RN2483 RX connection requires the 3.3 V signal level noted
-in `pinout.h`.
+Check `frontend/pinout.h` against your wiring.
 
 ### Puzzle behavior
 
@@ -186,9 +182,6 @@ in `pinout.h`.
 - **Display:** revealed codes remain visible for approximately 10 seconds before
   the game loop clears them.
 - **Servo:** the puzzle phases map to 0°, 22°, 44°, 66° and 90° positions.
-
-The employee-record rendering functions are documented, but their implementation
-bodies remain commented out. The active display path uses `show_code()`.
 
 ## API overview
 
