@@ -1,0 +1,30 @@
+PROJECT_NAME = "IoT Escape Room - Operation Breakout"
+OUTPUT_DIRECTORY = doxygen-output
+INPUT = frontend \
+        server/app.py \
+        server/adapter.py \
+        server/db_queries.py \
+        server/settings.py \
+        README.md
+EXCLUDE_PATTERNS = */.venv/* */venv/* */env/* */__pycache__/* */.git/*
+EXCLUDE_SYMLINKS = YES
+RECURSIVE = YES
+FILE_PATTERNS = *.h *.cpp *.c *.ino *.py *.md
+EXTENSION_MAPPING = ino=C++
+EXTRACT_ALL = YES
+EXTRACT_PRIVATE = YES
+EXTRACT_STATIC = YES
+OPTIMIZE_OUTPUT_FOR_C = NO
+PYTHON_DOCSTRING = NO
+JAVADOC_AUTOBRIEF = YES
+GENERATE_HTML = YES
+GENERATE_LATEX = NO
+SOURCE_BROWSER = YES
+INLINE_SOURCES = NO
+WARN_IF_UNDOCUMENTED = YES
+WARN_IF_DOC_ERROR = YES
+QUIET = YES
+USE_MDFILE_AS_MAINPAGE = README.md
+
+# Record diagnostics without disabling documentation checks.
+WARN_LOGFILE = doxygen-warnings.log

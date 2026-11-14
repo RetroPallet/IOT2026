@@ -1,0 +1,10 @@
+<map id="frontend/led.cpp" name="frontend/led.cpp">
+<area shape="rect" id="Node000001" title="Two&#45;channel status LED control." alt="" coords="5,5,133,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="39,152,123,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,33,36,65,30,84,32,103,43,123,59,141,55,144,39,127,27,105,25,83,31,62,55,30"/>
+<area shape="rect" id="Node000003" href="$led_8h.html" title="Two&#45;channel status LED control." alt="" coords="42,79,97,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="72,31,72,65,67,65,67,31"/>
+<area shape="rect" id="Node000004" href="$pinout_8h.html" title="Arduino peripheral pin assignments." alt="" coords="121,79,196,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="85,29,135,68,132,72,82,33"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="148,106,106,144,102,141,144,102"/>
+</map>

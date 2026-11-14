@@ -1,3 +1,7 @@
+/**
+ * @file _debug_backend.cpp
+ * @brief Alternative RN2483 backend using raw serial commands.
+ */
 // backend.cpp
 #include <Arduino.h>
 #include <rn2xx3.h>
@@ -5,7 +9,13 @@
 #include "pinout.h"
 #include "backend.h"
 
+/**
+ * @brief Software serial transport for the RN2483.
+ */
 static SoftwareSerial lora_serial(LORA_RX_PIN, LORA_TX_PIN);
+/**
+ * @brief RN2483 LoRaWAN interface.
+ */
 static rn2xx3 lora(lora_serial);
 
 static const char *APP_EUI = "xxx";
@@ -15,6 +25,11 @@ static const char *APP_KEY = "xxx";
  * Raw commands towards l'RN2483
  * ============================================================ */
 
+/**
+ * @brief Read and trim one line from the LoRa serial interface.
+ * @param timeout_ms Maximum serial read timeout in milliseconds.
+ * @return The received line, possibly empty after a timeout.
+ */
 static String lora_read_line(unsigned long timeout_ms) {
     lora_serial.setTimeout(timeout_ms);
     String r = lora_serial.readStringUntil('\n');
@@ -22,6 +37,12 @@ static String lora_read_line(unsigned long timeout_ms) {
     return r;
 }
 
+/**
+ * @brief Send an RN2483 command and check its immediate acknowledgment.
+ * @param cmd Command text stored in flash memory.
+ * @param arg Optional command argument appended without a separator.
+ * @return True if the response is exactly "ok"; otherwise false.
+ */
 static bool lora_cmd(const __FlashStringHelper *cmd, const char *arg = nullptr) {
     while (lora_serial.available()) lora_serial.read();
     lora_serial.print(cmd);
@@ -37,6 +58,11 @@ static bool lora_cmd(const __FlashStringHelper *cmd, const char *arg = nullptr) 
     return true;
 }
 
+/**
+ * @brief Configure the RN2483 for EU868 OTAA using the application credentials.
+ * @param eui Sixteen-character device EUI.
+ * @return True if every configuration command succeeds.
+ */
 static bool lora_config(const String &eui) {
     return lora_cmd(F("mac reset 868"))
         && lora_cmd(F("mac set deveui "), eui.c_str())
@@ -47,6 +73,10 @@ static bool lora_config(const String &eui) {
         && lora_cmd(F("mac set dr 0"));
 }
 
+/**
+ * @brief Request an OTAA join and wait for the network response.
+ * @return True if the response starts with "accepted".
+ */
 static bool lora_join() {
     if (!lora_cmd(F("mac join otaa"))) return false;
 
@@ -59,6 +89,9 @@ static bool lora_join() {
  * Init
  * ============================================================ */
 
+/**
+ * @brief Reset the RN2483 and initialize the LoRaWAN connection.
+ */
 void backend_init() {
     Serial.println(F("1 reset"));
     pinMode(LORA_RESET_PIN, OUTPUT);
@@ -94,6 +127,11 @@ void backend_init() {
  * Uplink + downlink
  * ============================================================ */
 
+/**
+ * @brief Convert a hexadecimal character to its numeric value.
+ * @param c Character to decode.
+ * @return A value from 0 to 15, or -1 for an invalid character.
+ */
 static int hex_nibble(char c) {
     if (c >= '0' && c <= '9') return c - '0';
     if (c >= 'A' && c <= 'F') return c - 'A' + 10;
@@ -101,6 +139,11 @@ static int hex_nibble(char c) {
     return -1;
 }
 
+/**
+ * @brief Decode a two-character hexadecimal game-state payload.
+ * @param hex Hexadecimal downlink payload.
+ * @return A state code from 1 to 5, or NO_DOWNLINK_CODE for invalid input.
+ */
 static state_codes parse_downlink(const String &hex) {
     if (hex.length() == 2) {
         int hi = hex_nibble(hex[0]);
@@ -116,6 +159,10 @@ static state_codes parse_downlink(const String &hex) {
     return NO_DOWNLINK_CODE;
 }
 
+/**
+ * @brief Send a one-byte uplink and decode the next game state from a downlink.
+ * @return A valid state code, or NO_DOWNLINK_CODE on failure or absent/invalid downlink.
+ */
 state_codes get_be_next_state_code() {
     if (!lora_cmd(F("mac tx uncnf 1 01")))
         return NO_DOWNLINK_CODE;

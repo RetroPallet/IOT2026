@@ -1,4 +1,8 @@
 /**
+ * @file fonts.h
+ * @brief Bitmap font descriptors and dimensions.
+ */
+/**
   ******************************************************************************
   * @file    fonts.h
   * @author  MCD Application Team
@@ -40,8 +44,17 @@
 #define __FONTS_H
 
 /* Max size of bitmap will based on a font24 (17x24) */
+/**
+ * @brief Maximum bundled glyph height in pixels.
+ */
 #define MAX_HEIGHT_FONT         24
+/**
+ * @brief Maximum bundled glyph width in pixels.
+ */
 #define MAX_WIDTH_FONT          17
+/**
+ * @brief Bitmap file pixel-data offset in bytes.
+ */
 #define OFFSET_BITMAP           54
 
 #ifdef __cplusplus
@@ -51,18 +64,32 @@
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
 
+/**
+ * @brief Bitmap font data and glyph dimensions.
+ */
 typedef struct _tFont
 {    
   const uint8_t *table;
+  /**
+   * @brief Glyph width in pixels.
+   */
   uint16_t Width;
+  /**
+   * @brief Glyph height in pixels.
+   */
   uint16_t Height;
   
 } sFONT;
 
+/** @brief Font descriptor for glyphs 24 pixels high. */
 extern sFONT Font24;
+/** @brief Font descriptor for glyphs 20 pixels high. */
 extern sFONT Font20;
+/** @brief Font descriptor for glyphs 16 pixels high. */
 extern sFONT Font16;
+/** @brief Font descriptor for glyphs 12 pixels high. */
 extern sFONT Font12;
+/** @brief Font descriptor for glyphs 8 pixels high. */
 extern sFONT Font8;
 
 #ifdef __cplusplus

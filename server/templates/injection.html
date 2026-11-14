@@ -1,3 +1,5 @@
+<!-- @file injection.html
+     @brief Measurement lookup interface for the backend puzzle. -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,6 +23,10 @@
         <h3>Result: <span id="resultValue"></span></h3>
 
         <script>
+            /**
+             * @brief Submit the selected measurement key to the backend puzzle API.
+             * @param e Form submission event.
+             */
             document.getElementById('sensorForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const dropdown = document.getElementById('sensorDropdown');
@@ -31,7 +37,16 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ sensor_value: selectedValue })
                 })
+                /**
+                 * @brief Decode the measurement response as JSON.
+                 * @param res Fetch response.
+                 * @return A promise containing the decoded response body.
+                 */
                 .then(res => res.json())
+                /**
+                 * @brief Display a measurement value or the returned query error.
+                 * @param data Decoded measurement response.
+                 */
                 .then(data => {
                     const resultSpan = document.getElementById('resultValue');
                     if (data.value !== undefined) {

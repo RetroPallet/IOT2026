@@ -1,14 +1,21 @@
+## @file adapter.py
+# @brief The Things Network downlink integration.
 import os
 import base64
 import requests
 import logging
 from settings import GamePhase
 
+## @brief LoRaWAN application port used by the device.
 FPORT = 1
+## @brief Whether TTN should request a downlink acknowledgment.
 CONFIRMED_DOWNLINK = False
+## @brief TTN downlink scheduling priority.
 PRIORITY = "NORMAL"
+## @brief TTN queue operation used for each downlink.
 SCHEDULE = "replace"
 
+## @brief Mapping from server phases to one-byte device state codes.
 PHASE_CODES = {
     GamePhase.WAIT_INITIALIZATION: 1,
     GamePhase.PHASE_PUZZLE: 2,
@@ -17,6 +24,10 @@ PHASE_CODES = {
     GamePhase.COMPLETED: 5
 }
 
+## @brief Queue a one-byte game-phase downlink through The Things Network.
+# @param next_phase Target GamePhase to encode.
+# @return None. Invalid phases are logged and HTTP request failures are printed.
+# @note Uses applicationName, endDeviceName and APIKey from the environment; replaces queued downlinks.
 def send_lorawan_downlink(next_phase):
     code = PHASE_CODES.get(next_phase)
     if code is None:

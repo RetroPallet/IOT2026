@@ -1,5 +1,9 @@
 /**
- *  @filename   :   epdif.cpp
+ * @file epdif.cpp
+ * @brief Arduino GPIO and SPI interface for the e-paper display.
+ */
+/**
+ *  File   :   epdif.cpp
  *  @brief      :   Implements EPD interface functions
  *                  Users have to implement all the functions in epdif.cpp
  *  @author     :   Yehui from Waveshare
@@ -28,30 +32,37 @@
 #include "epdif.h"
 #include <SPI.h>
 
+/* Initialize the EpdIf object. */
 EpdIf::EpdIf() {
 };
 
+/* Release the EpdIf object. */
 EpdIf::~EpdIf() {
 };
 
+/* Write a logic level to an Arduino pin. */
 void EpdIf::DigitalWrite(int pin, int value) {
     digitalWrite(pin, value);
 }
 
+/* Read the logic level of an Arduino pin. */
 int EpdIf::DigitalRead(int pin) {
     return digitalRead(pin);
 }
 
+/* Pause execution for the requested number of milliseconds. */
 void EpdIf::DelayMs(unsigned int delaytime) {
     delay(delaytime);
 }
 
+/* Transmit one SPI byte while asserting the display chip-select signal. */
 void EpdIf::SpiTransfer(unsigned char data) {
     digitalWrite(CS_PIN, LOW);
     SPI.transfer(data);
     digitalWrite(CS_PIN, HIGH);
 }
 
+/* Configure display GPIO and start SPI at 2 MHz in mode 0. */
 int EpdIf::IfInit(void) {
     pinMode(CS_PIN, OUTPUT);
     pinMode(RST_PIN, OUTPUT);

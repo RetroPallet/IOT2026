@@ -1,3 +1,7 @@
+/**
+ * @file backend.cpp
+ * @brief LoRaWAN communication and game-state downlinks.
+ */
 // backend.cpp
 #include <Arduino.h>
 #include <rn2xx3.h>
@@ -5,12 +9,22 @@
 #include "pinout.h"
 #include "backend.h"
 
+/**
+ * @brief Software serial transport for the RN2483.
+ */
 static SoftwareSerial lora_serial(LORA_RX_PIN, LORA_TX_PIN);
+/**
+ * @brief RN2483 LoRaWAN interface.
+ */
 static rn2xx3 lora(lora_serial);
 
 static const char *APP_EUI = "xxx";
 static const char *APP_KEY = "xxx";
 
+/**
+ * @brief Reset the RN2483 and initialize the LoRaWAN connection.
+ * @note The current implementation returns before the OTAA join code.
+ */
 void backend_init() {
     Serial.println(F("1 reset"));
     pinMode(LORA_RESET_PIN, OUTPUT);
@@ -42,6 +56,11 @@ void backend_init() {
     Serial.println("Successfully joined TTN");
 }
 
+/**
+ * @brief Convert a hexadecimal character to its numeric value.
+ * @param c Character to decode.
+ * @return A value from 0 to 15, or -1 for an invalid character.
+ */
 static int hex_nibble(char c) {
     if (c >= '0' && c <= '9') return c - '0';
     if (c >= 'A' && c <= 'F') return c - 'A' + 10;
@@ -49,6 +68,10 @@ static int hex_nibble(char c) {
     return -1;
 }
 
+/**
+ * @brief Send a one-byte uplink and decode the next game state from a downlink.
+ * @return A valid state code, or NO_DOWNLINK_CODE on failure or absent/invalid downlink.
+ */
 state_codes get_be_next_state_code() {
     const byte uplink[1] = { 0x01 };
 

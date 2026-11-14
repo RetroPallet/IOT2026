@@ -1,4 +1,8 @@
 /**
+ * @file font20.c
+ * @brief Packed bitmap glyph data for the font20 font.
+ */
+/**
   ******************************************************************************
   * @file    font20.c
   * @author  MCD Application Team
@@ -40,6 +44,7 @@
 #include <avr/pgmspace.h>
 
 // Character bitmaps for Courier New 15pt
+/** @brief Packed glyph bitmap data stored in program memory. */
 const uint8_t Font20_Table[] PROGMEM = 
 {
 	// @0 ' ' (14 pixels wide)
@@ -2134,6 +2139,7 @@ const uint8_t Font20_Table[] PROGMEM =
 };
 
 
+/** @brief Font descriptor for glyphs 20 pixels high. */
 sFONT Font20 = {
   Font20_Table,
   14, /* Width */
