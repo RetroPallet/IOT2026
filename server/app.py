@@ -59,6 +59,9 @@ def api_activate():
     if phase == GamePhase.WAIT_INITIALIZATION:
         set_game_phase(player_id, GamePhase.PHASE_PUZZLE)
         phase = GamePhase.PHASE_PUZZLE
+        if not DEBUG:
+            send_lorawan_downlink(GamePhase.PHASE_PUZZLE)
+            print("sending downlink")
     return jsonify(id=player_id, username=username, phase=phase)
 
 
@@ -77,6 +80,7 @@ def api_reset(player_id):
     set_game_phase(player_id, GamePhase.PHASE_PUZZLE)
     if not DEBUG:
         send_lorawan_downlink(GamePhase.PHASE_PUZZLE)
+        print("sending downlink")
         
     return jsonify(id=player_id, phase=GamePhase.PHASE_PUZZLE)
 
@@ -102,6 +106,7 @@ def api_advance(player_id):
     set_game_phase(player_id, next_phase)
     if (not DEBUG):
         send_lorawan_downlink(next_phase)
+        print("sending downlink")
     return jsonify(id=player_id, phase=next_phase)
 
 @app.route('/api/injection', methods=['POST'])

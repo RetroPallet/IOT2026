@@ -11,7 +11,7 @@
 
 Epd epd;
 
-unsigned char image[1024];
+unsigned char image[600];
 Paint paint(image, 0, 0);
 
 static bool code_displayed = false;
@@ -46,82 +46,82 @@ void epaper_task() {
 }
 
 
-void draw_file_text(int y, String text, bool large=false) {
-  paint.SetWidth(200);
-  paint.SetHeight(large ? 24 : 16);
-  paint.Clear(UNCOLORED);
+// void draw_file_text(int y, String text, bool large=false) {
+//   paint.SetWidth(200);
+//   paint.SetHeight(large ? 24 : 16);
+//   paint.Clear(UNCOLORED);
 
-  paint.DrawStringAt(
-    4, 1,
-    text.c_str(),
-    large ? &Font16 : &Font12,
-    COLORED
-  );
+//   paint.DrawStringAt(
+//     4, 1,
+//     text.c_str(),
+//     large ? &Font16 : &Font12,
+//     COLORED
+//   );
 
-  epd.SetFrameMemory(
-    paint.GetImage(),
-    0, y,
-    paint.GetWidth(),
-    paint.GetHeight()
-  );
-}
+//   epd.SetFrameMemory(
+//     paint.GetImage(),
+//     0, y,
+//     paint.GetWidth(),
+//     paint.GetHeight()
+//   );
+// }
 
 
 // Draw anonymous profile icon
-void draw_profile_icon() {
-  paint.SetWidth(64);
-  paint.SetHeight(64);
-  paint.Clear(UNCOLORED);
+// void draw_profile_icon() {
+//   paint.SetWidth(64);
+//   paint.SetHeight(64);
+//   paint.Clear(UNCOLORED);
 
-  // Frame
-  paint.DrawRectangle(0, 0, 63, 63, COLORED);
+//   // Frame
+//   paint.DrawRectangle(0, 0, 63, 63, COLORED);
 
-  // Head
-  paint.DrawCircle(32, 22, 11, COLORED);
+//   // Head
+//   paint.DrawCircle(32, 22, 11, COLORED);
 
-  // Body
-  paint.DrawLine(12, 57, 12, 49, COLORED);
-  paint.DrawLine(12, 49, 21, 39, COLORED);
-  paint.DrawLine(21, 39, 43, 39, COLORED);
-  paint.DrawLine(43, 39, 52, 49, COLORED);
-  paint.DrawLine(52, 49, 52, 57, COLORED);
-  paint.DrawLine(12, 57, 52, 57, COLORED);
+//   // Body
+//   paint.DrawLine(12, 57, 12, 49, COLORED);
+//   paint.DrawLine(12, 49, 21, 39, COLORED);
+//   paint.DrawLine(21, 39, 43, 39, COLORED);
+//   paint.DrawLine(43, 39, 52, 49, COLORED);
+//   paint.DrawLine(52, 49, 52, 57, COLORED);
+//   paint.DrawLine(12, 57, 52, 57, COLORED);
 
-  epd.SetFrameMemory(
-    paint.GetImage(),
-    64, 43,
-    64, 64
-  );
-}
+//   epd.SetFrameMemory(
+//     paint.GetImage(),
+//     64, 43,
+//     64, 64
+//   );
+// }
 
 
 // Display employee file
-void show_employee_file(const Employee& employee) {
-  if (code_displayed) return;
+// void show_employee_file(const Employee& employee) {
+//   if (code_displayed) return;
 
-  epd.Clear();
+//   epd.Clear();
 
-  // Header
-  draw_file_text(2, "ADMIN // RECORDS", true);
-  draw_file_text(27, "FILE: " + employee.fileId);
+//   // Header
+//   draw_file_text(2, "ADMIN // RECORDS", true);
+//   draw_file_text(27, "FILE: " + employee.fileId);
 
-  // Profile image
-  draw_profile_icon();
+//   // Profile image
+//   draw_profile_icon();
 
-  // Employee information
-  draw_file_text(111, "NAME: [REDACTED]");
-  draw_file_text(128, "DOG: " + employee.dogName);
-  draw_file_text(145, "AGE: " + String(employee.age));
-  draw_file_text(162, "DEPT: " + employee.department);
+//   // Employee information
+//   draw_file_text(111, "NAME: [REDACTED]");
+//   draw_file_text(128, "DOG: " + employee.dogName);
+//   draw_file_text(145, "AGE: " + String(employee.age));
+//   draw_file_text(162, "DEPT: " + employee.department);
 
-  // Footer
-  draw_file_text(183, "STATUS: CLASSIFIED");
+//   // Footer
+//   draw_file_text(183, "STATUS: CLASSIFIED");
 
-  epd.DisplayFrame();
-  //epd.Sleep();
+//   epd.DisplayFrame();
+//   //epd.Sleep();
 
-  code_displayed = true;
-}
+//   code_displayed = true;
+// }
 
 // Display puzzle code
 void show_code(String code) {
@@ -129,7 +129,7 @@ void show_code(String code) {
   if (code_displayed) return;
   epd.Clear();
 
-  Serial.println(code);
+  // Serial.println(code);
 
   paint.SetWidth(200);
   paint.SetHeight(24);

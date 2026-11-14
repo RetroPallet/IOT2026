@@ -2,9 +2,11 @@
 #include "pinout.h"
 #include "temperature.h"
 #include "led.h"
+#include "actuator.h"
 #include "phase.h"
 #include "epaper.h"
 #include "backend.h"
+#include "password.h"
 
 /* PUZZLE CODES */
 const char* const puzzle_codes[] = {
@@ -22,9 +24,9 @@ Employee employee = {
 };
 
 /* GLOBAL VARIABLES */
-game_state state      = WAIT_INITIALIZATION;
-game_state next_state = WAIT_INITIALIZATION;
-game_state prvs_state = WAIT_INITIALIZATION;
+game_state state      = PHASE_PUZZLE;
+game_state next_state = PHASE_PUZZLE;
+game_state prvs_state = PHASE_PUZZLE;
 
 state_codes next_state_code = NO_DOWNLINK_CODE;
 
@@ -32,15 +34,27 @@ static bool phase_solved = false;
 
 static led_color led_for_state(game_state s) {
     switch (s) {
-        case WAIT_INITIALIZATION: return LED_BLUE;
+        case WAIT_INITIALIZATION: return LED_GREEN;
         case PHASE_PUZZLE:        return LED_YELLOW;
-        case SERIAL_PUZZLE:       return LED_MAGENTA;
-        case BACKEND_PUZZLE:      return LED_CYAN;
-        case WAIT_BACKEND:        return LED_WHITE;
-        case COMPLETED:           return LED_GREEN;
+        case SERIAL_PUZZLE:       return LED_OFF;
+        case BACKEND_PUZZLE:      return LED_OFF;
+        case WAIT_BACKEND:        return LED_GREEN;
+        case COMPLETED:           return LED_OFF;
     }
     return LED_OFF;
 }
+
+static actuator_degree degree_for_state(game_state s) {
+    switch (s) {
+        case WAIT_INITIALIZATION: return DEGREE_0;
+        case PHASE_PUZZLE:        return DEGREE_22;
+        case SERIAL_PUZZLE:       return DEGREE_44;
+        case BACKEND_PUZZLE:      return DEGREE_66;
+        case COMPLETED:           return DEGREE_90;
+        default:                  return DEGREE_0;
+    }
+}
+
 
 static bool button_pressed() {
     static bool last_level = HIGH;
@@ -64,35 +78,37 @@ void set_state(game_state new_state) {
     state = new_state;
  
     led_set(led_for_state(state));
-    Serial.print(F("STATE "));
-    Serial.println(state);
+    if (state != WAIT_BACKEND)
+        actuator_set(degree_for_state(state));
+    // Serial.print(F("STATE "));
+    // Serial.println(state);
 }
 
 /* GAME SETUP */
 void game_setup() {
-
     Serial.begin(57600);
-    temperature_init();
     led_init();
+    actuator_init();
+    backend_init();
+    temperature_init();
     phase_init();
     epaper_init();
-    backend_init();
-
     pinMode(BUTTON_PIN, INPUT_PULLUP);
-
-    led_set(led_for_state(state));   
+    led_set(led_for_state(state));
+    actuator_set(degree_for_state(state));
 }
 
 /* GAME STATE MACHINE */
 void game_task() {
 
-    epaper_task();   
+    epaper_task();
 
     switch (state) {
 
         case WAIT_INITIALIZATION:
             if (button_pressed()) {
                 set_state(WAIT_BACKEND);
+                break;
             }
             break;
 
@@ -104,6 +120,7 @@ void game_task() {
 
             bool phase_synced = phase_update();
             bool temp_hot = temperature_triggered();
+            led_set(temp_hot ? LED_RED : LED_YELLOW);
 
             if (phase_synced && temp_hot) {
                 if (!phase_solved) {
@@ -121,6 +138,10 @@ void game_task() {
             if (button_pressed())
                 set_state(WAIT_BACKEND);
             //show_employee_file(employee); commented for now check what implementation to pursue
+            if(password_update()){
+                // Serial.println(F("Password puzzle solved!\n"));
+                show_code(puzzle_codes[1]);
+            }
             break;
 
         case BACKEND_PUZZLE:
