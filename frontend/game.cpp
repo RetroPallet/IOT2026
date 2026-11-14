@@ -1,3 +1,7 @@
+/**
+ * @file game.cpp
+ * @brief Escape-room game states and puzzle coordination.
+ */
 #include "game.h"
 #include "pinout.h"
 #include "temperature.h"
@@ -15,6 +19,9 @@ const char* const puzzle_codes[] = {
     "backend_puzzle_key"
 };
 
+/**
+ * @brief Employee record used by the serial puzzle.
+ */
 Employee employee = {
     "042",
     "Buster",
@@ -24,14 +31,34 @@ Employee employee = {
 };
 
 /* GLOBAL VARIABLES */
+/**
+ * @brief Current device game state.
+ */
 game_state state      = PHASE_PUZZLE;
+/**
+ * @brief Candidate state selected from the backend reply.
+ */
 game_state next_state = PHASE_PUZZLE;
+/**
+ * @brief State to restore when no usable backend reply is received.
+ */
 game_state prvs_state = PHASE_PUZZLE;
 
+/**
+ * @brief Most recently received backend state code.
+ */
 state_codes next_state_code = NO_DOWNLINK_CODE;
 
+/**
+ * @brief Whether the current synchronized/hot condition has already revealed a code.
+ */
 static bool phase_solved = false;   
 
+/**
+ * @brief Select the default status LED color for a game state.
+ * @param s Game state to map.
+ * @return The mapped LED color, or LED_OFF for an unmapped state.
+ */
 static led_color led_for_state(game_state s) {
     switch (s) {
         case WAIT_INITIALIZATION: return LED_GREEN;
@@ -44,6 +71,11 @@ static led_color led_for_state(game_state s) {
     return LED_OFF;
 }
 
+/**
+ * @brief Select the actuator position for a game state.
+ * @param s Game state to map.
+ * @return The mapped servo angle, or DEGREE_0 for an unmapped state.
+ */
 static actuator_degree degree_for_state(game_state s) {
     switch (s) {
         case WAIT_INITIALIZATION: return DEGREE_0;
@@ -56,6 +88,10 @@ static actuator_degree degree_for_state(game_state s) {
 }
 
 
+/**
+ * @brief Detect an active-low button press with a 50 ms debounce interval.
+ * @return True only when a press edge is accepted.
+ */
 static bool button_pressed() {
     static bool last_level = HIGH;
     static unsigned long last_change = 0;
@@ -69,6 +105,11 @@ static bool button_pressed() {
     return false;
 }
 
+/**
+ * @brief Change the game state and update the status LED and actuator.
+ * @param new_state Game state to enter.
+ * @note WAIT_BACKEND preserves the actuator position; an unchanged state has no effect.
+ */
 void set_state(game_state new_state) {
  
     if (state == new_state)
@@ -85,6 +126,9 @@ void set_state(game_state new_state) {
 }
 
 /* GAME SETUP */
+/**
+ * @brief Initialize serial communication, peripherals and the initial game-state outputs.
+ */
 void game_setup() {
     Serial.begin(57600);
     led_init();
@@ -99,6 +143,10 @@ void game_setup() {
 }
 
 /* GAME STATE MACHINE */
+/**
+ * @brief Run one game-state iteration, update puzzles and process requested backend transitions.
+ * @note Backend communication and display updates may block.
+ */
 void game_task() {
 
     epaper_task();

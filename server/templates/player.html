@@ -1,3 +1,5 @@
+<!-- @file player.html
+     @brief Player activation, puzzle keys and phase status. -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -45,18 +47,34 @@
 
         <script>
             const KEY = 'player_id';
+            /**
+             * @brief Find a DOM element by ID.
+             * @param id Element identifier.
+             * @return The element, or null.
+             */
             const $ = (id) => document.getElementById(id);
 
+            /**
+             * @brief Store the player ID in local storage and a same-site cookie.
+             * @param id Numeric player identifier.
+             */
             function setPlayerId(id) {
                 localStorage.setItem(KEY, id);
                 document.cookie = `${KEY}=${id}; path=/; SameSite=Lax`;
             }
 
+            /**
+             * @brief Remove the locally stored player ID and expire its cookie.
+             */
             function clearPlayerId() {
                 localStorage.removeItem(KEY);
                 document.cookie = `${KEY}=; path=/; max-age=0; SameSite=Lax`;
             }
 
+            /**
+             * @brief Select the login or player-status view.
+             * @param view View name: login or status.
+             */
             function show(view) {
                 $('login').hidden = view !== 'login';
                 $('status').hidden = view !== 'status';
@@ -64,11 +82,19 @@
 
             const PHASE_ORDER = ['PHASE_PUZZLE', 'SERIAL_PUZZLE', 'BACKEND_PUZZLE', 'COMPLETED'];
 
+            /**
+             * @brief Update phase forms and completion controls from player data.
+             * @param player Object containing username and phase.
+             */
             function render(player) {
                 $('username').textContent = player.username;
                 $('phase').textContent = player.phase;
                 $('key-error').textContent = '';
                 const current = PHASE_ORDER.indexOf(player.phase);
+                /**
+                 * @brief Update or register controls for each phase form.
+                 * @param form Puzzle-key form element.
+                 */
                 document.querySelectorAll('.key-form').forEach((form) => {
                     const index = PHASE_ORDER.indexOf(form.dataset.phase);
                     const input = form.elements.key;
@@ -84,6 +110,10 @@
                 show('status');
             }
 
+            /**
+             * @brief Restore the stored player session or display the login form.
+             * @return A promise resolved after the player view has been updated.
+             */
             async function loadPlayer() {
                 const id = localStorage.getItem(KEY);
                 if (!id) return show('login');
@@ -97,6 +127,10 @@
                 render(await res.json());
             }
 
+            /**
+             * @brief Submit the activation code and display the activated player.
+             * @param e Form submission event.
+             */
             $('login-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 $('error').textContent = '';
@@ -114,7 +148,15 @@
                 render(data);
             });
 
+            /**
+             * @brief Update or register controls for each phase form.
+             * @param form Puzzle-key form element.
+             */
             document.querySelectorAll('.key-form').forEach((form) => {
+                /**
+                 * @brief Submit a puzzle key for the selected phase and refresh player data.
+                 * @param e Form submission event.
+                 */
                 form.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     const id = localStorage.getItem(KEY);
@@ -134,12 +176,18 @@
                 });
             });
 
+            /**
+             * @brief Request a phase reset and reload the player view on success.
+             */
             $('reset').addEventListener('click', async () => {
                 const id = localStorage.getItem(KEY);
                 const res = await fetch(`/api/player/${id}/reset`, {method: 'POST'});
                 if (res.ok) loadPlayer();
             });
 
+            /**
+             * @brief Clear the local session and return to the login form.
+             */
             $('logout').addEventListener('click', () => {
                 clearPlayerId();
                 $('activation_code').value = '';

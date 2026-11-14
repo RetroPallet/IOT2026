@@ -1,5 +1,9 @@
 /**
- *  @filename   :   imagedata.h
+ * @file imagedata.h
+ * @brief Example e-paper bitmap data.
+ */
+/**
+ *  File   :   imagedata.h
  *  @brief      :   head file for imagedata.cpp
  *
  *  Copyright (C) Waveshare     September 5 2017
@@ -23,6 +27,9 @@
  * THE SOFTWARE.
  */
 
+/**
+ * @brief Packed demonstration bitmap.
+ */
 extern const unsigned char IMAGE_DATA[];
 
 /* FILE END */

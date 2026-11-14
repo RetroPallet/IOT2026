@@ -1,3 +1,5 @@
+## @file app.py
+# @brief Flask pages and game API endpoints.
 import hmac
 
 from flask import Flask, render_template, request, redirect, url_for, jsonify
@@ -10,18 +12,23 @@ from db_queries import (
 from settings import GamePhase, DEBUG
 from adapter import send_lorawan_downlink
 
+## @brief Flask application instance.
 app = Flask(__name__)
 
 init_db()
 init_phases()
 
 
+## @brief Render the home page for GET / and /home.
+# @return Rendered index.html.
 @app.route('/')
 @app.route('/home')
 def index():
     return render_template('index.html')
 
 
+## @brief Display registered players or create a player from submitted form fields.
+# @return Rendered admin.html for GET, or a redirect after POST.
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     if request.method == 'POST':
@@ -30,11 +37,16 @@ def admin():
     return render_template('admin.html', data=get_players())
 
 
+## @brief Render the player interface.
+# @return Rendered player.html.
 @app.route('/player')
 def player():
     return render_template('player.html')
 
 
+## @brief Render the measurement puzzle for a player in BACKEND_PUZZLE.
+# @return Rendered injection.html, or a home-page redirect when access is unavailable.
+# @note Reads the player identifier from the player_id cookie.
 @app.route('/injection')
 def injection():
     player_id = request.cookies.get('player_id', type=int) 
@@ -48,6 +60,9 @@ def injection():
 
 
 # --- API ---
+## @brief Activate a player using the JSON activation_code field.
+# @return Player JSON with status 200, or error JSON with status 404.
+# @note Advances WAIT_INITIALIZATION to PHASE_PUZZLE and sends a downlink when DEBUG is false.
 @app.route('/api/player/activate', methods=['POST'])
 def api_activate():
     code = (request.get_json(silent=True) or {}).get('activation_code', '').strip()
@@ -65,6 +80,9 @@ def api_activate():
     return jsonify(id=player_id, username=username, phase=phase)
 
 
+## @brief Return the stored player identity and phase.
+# @param player_id Numeric player identifier.
+# @return Player JSON with status 200, or error JSON with status 404.
 @app.route('/api/player/<int:player_id>')
 def api_player(player_id):
     row = get_player_by_id(player_id)
@@ -73,6 +91,9 @@ def api_player(player_id):
     return jsonify(id=row[0], username=row[1], phase=row[2])
 
 
+## @brief Reset a player to PHASE_PUZZLE and optionally queue a device downlink.
+# @param player_id Numeric player identifier.
+# @return Player phase JSON with status 200, or error JSON with status 404.
 @app.route('/api/player/<int:player_id>/reset', methods=['POST'])
 def api_reset(player_id):
     if get_player_by_id(player_id) is None:
@@ -85,6 +106,10 @@ def api_reset(player_id):
     return jsonify(id=player_id, phase=GamePhase.PHASE_PUZZLE)
 
 
+## @brief Validate the submitted phase and unlock key before advancing a player.
+# @param player_id Numeric player identifier.
+# @return Updated phase JSON (200), or error JSON for a missing player (404), locked phase (409) or wrong key (403).
+# @note Compares keys with hmac.compare_digest and sends a downlink when DEBUG is false.
 @app.route('/api/player/<int:player_id>/advance', methods=['POST'])
 def api_advance(player_id):
     row = get_player_by_id(player_id)
@@ -109,6 +134,8 @@ def api_advance(player_id):
         print("sending downlink")
     return jsonify(id=player_id, phase=next_phase)
 
+## @brief Run a submitted sensor_value lookup for the backend puzzle.
+# @return Value JSON (200), or error JSON for missing player (401), wrong phase (403), query error (400) or no result (404).
 @app.route('/api/injection', methods=['POST'])
 def api_injection():
     player_id = request.cookies.get('player_id', type=int) 
