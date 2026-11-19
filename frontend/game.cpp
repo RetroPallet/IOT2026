@@ -34,21 +34,16 @@ Employee employee = {
 /**
  * @brief Current device game state.
  */
-game_state state      = PHASE_PUZZLE;
+game_state state      = WAIT_INITIALIZATION;
 /**
  * @brief Candidate state selected from the backend reply.
  */
-game_state next_state = PHASE_PUZZLE;
-/**
- * @brief State to restore when no usable backend reply is received.
- */
-game_state prvs_state = PHASE_PUZZLE;
-
+game_state next_state = WAIT_INITIALIZATION;
+game_state prvs_state = WAIT_INITIALIZATION;
 /**
  * @brief Most recently received backend state code.
  */
 state_codes next_state_code = NO_DOWNLINK_CODE;
-
 /**
  * @brief Whether the current synchronized/hot condition has already revealed a code.
  */
@@ -61,30 +56,14 @@ static bool phase_solved = false;
  */
 static led_color led_for_state(game_state s) {
     switch (s) {
-        case WAIT_INITIALIZATION: return LED_GREEN;
+        case WAIT_INITIALIZATION: return LED_BLUE;
         case PHASE_PUZZLE:        return LED_YELLOW;
-        case SERIAL_PUZZLE:       return LED_OFF;
-        case BACKEND_PUZZLE:      return LED_OFF;
-        case WAIT_BACKEND:        return LED_GREEN;
-        case COMPLETED:           return LED_OFF;
+        case SERIAL_PUZZLE:       return LED_MAGENTA;
+        case BACKEND_PUZZLE:      return LED_CYAN;
+        case WAIT_BACKEND:        return LED_WHITE;
+        case COMPLETED:           return LED_GREEN;
     }
     return LED_OFF;
-}
-
-/**
- * @brief Select the actuator position for a game state.
- * @param s Game state to map.
- * @return The mapped servo angle, or DEGREE_0 for an unmapped state.
- */
-static actuator_degree degree_for_state(game_state s) {
-    switch (s) {
-        case WAIT_INITIALIZATION: return DEGREE_0;
-        case PHASE_PUZZLE:        return DEGREE_22;
-        case SERIAL_PUZZLE:       return DEGREE_44;
-        case BACKEND_PUZZLE:      return DEGREE_66;
-        case COMPLETED:           return DEGREE_90;
-        default:                  return DEGREE_0;
-    }
 }
 
 
@@ -119,8 +98,6 @@ void set_state(game_state new_state) {
     state = new_state;
  
     led_set(led_for_state(state));
-    if (state != WAIT_BACKEND)
-        actuator_set(degree_for_state(state));
     // Serial.print(F("STATE "));
     // Serial.println(state);
 }
@@ -132,14 +109,12 @@ void set_state(game_state new_state) {
 void game_setup() {
     Serial.begin(57600);
     led_init();
-    actuator_init();
     backend_init();
     temperature_init();
     phase_init();
     epaper_init();
     pinMode(BUTTON_PIN, INPUT_PULLUP);
     led_set(led_for_state(state));
-    actuator_set(degree_for_state(state));
 }
 
 /* GAME STATE MACHINE */

@@ -9,12 +9,18 @@
  * @brief Red and green channel bit masks for the status LED.
  */
 enum led_color {
-    LED_OFF    = 0b00, /**< Both LED channels off. */
-    LED_RED    = 0b01, /**< Red channel enabled. */
-    LED_GREEN  = 0b10, /**< Green channel enabled. */
-    LED_YELLOW = 0b11 /**< Both channels enabled with yellow mixing. */
-};
+    LED_OFF     = 0b000,
 
+    LED_RED     = 0b001,
+    LED_GREEN   = 0b010,
+    LED_BLUE    = 0b100,
+
+    LED_YELLOW  = 0b011,
+    LED_MAGENTA = 0b101,
+    LED_CYAN    = 0b110,
+
+    LED_WHITE   = 0b111
+};
 /**
  * @brief Configure the red and green LED pins as outputs and switch the LED off.
  */

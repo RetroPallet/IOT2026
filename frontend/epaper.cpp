@@ -173,8 +173,7 @@ void epaper_task() {
 // }
 
 // Display puzzle code
-/* Render a puzzle code and start its display timeout. */
-void show_code(String code) {
+void show_code(const char* code) {
 
   if (code_displayed) return;
   epd.Clear();
@@ -185,7 +184,7 @@ void show_code(String code) {
   paint.SetHeight(24);
   paint.Clear(UNCOLORED);
 
-  paint.DrawStringAt(10, 4, code.c_str(), &Font16, COLORED);
+  paint.DrawStringAt(10, 4, code, &Font16, COLORED);
 
   epd.SetFrameMemory(
     paint.GetImage(),

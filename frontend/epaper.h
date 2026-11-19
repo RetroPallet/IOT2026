@@ -45,7 +45,7 @@ void epaper_task();
  * @param code Puzzle code to display.
  * @note Calls are ignored while the display guard is set.
  */
-void show_code(String code);
+void show_code(const char* code);
 /**
  * @fn void draw_file_text(int y, String text, bool large)
  * @brief Draw a line of text into the employee-file frame memory.

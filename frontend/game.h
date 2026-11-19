@@ -12,7 +12,6 @@
  */
 enum game_state {
     WAIT_INITIALIZATION, /**< Wait for game initialization. */
-    ARMED, /**< Reserved armed state. */
     PHASE_PUZZLE, /**< Run the LED phase and temperature puzzle. */
     SERIAL_PUZZLE, /**< Run the serial password puzzle. */
     BACKEND_PUZZLE, /**< Wait while the player solves the server puzzle. */
@@ -24,9 +23,9 @@ enum game_state {
  * @brief Identifiers for the device puzzles.
  */
 enum puzzle_id {
-    TEMP_PUZZLE_ID, /**< Identifier for the temp puzzle. */
-    PHASE_PUZZLE_ID, /**< Identifier for the phase puzzle. */
-    SERIAL_PUZZLE_ID /**< Identifier for the serial puzzle. */
+    TEMP_PUZZLE_ID,
+    PHASE_PUZZLE_ID,
+    SERIAL_PUZZLE_ID
 };
 
 /**
