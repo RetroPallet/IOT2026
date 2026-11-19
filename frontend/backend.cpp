@@ -22,8 +22,8 @@ static const char *APP_EUI = "xxx";
 static const char *APP_KEY = "xxx";
 
 /**
- * @brief Reset the RN2483 and initialize the LoRaWAN connection.
- * @note The current implementation returns before the OTAA join code.
+ * @brief Reset the RN2483 and join the LoRaWAN network using OTAA.
+ * @note Returns early if the module does not report a valid HWEUI; otherwise blocks, retrying every minute until the join succeeds.
  */
 void backend_init() {
     Serial.println(F("1 reset"));
@@ -42,7 +42,6 @@ void backend_init() {
         return;
 
     Serial.println(F("3 hweui ok"));
-    return;
 
     bool join_result = lora.initOTAA(APP_EUI, APP_KEY);
     Serial.println(F("4 join"));

@@ -20,15 +20,6 @@ enum game_state {
 };
 
 /**
- * @brief Identifiers for the device puzzles.
- */
-enum puzzle_id {
-    TEMP_PUZZLE_ID,
-    PHASE_PUZZLE_ID,
-    SERIAL_PUZZLE_ID
-};
-
-/**
  * @brief Current device game state.
  */
 extern game_state state;
@@ -43,9 +34,9 @@ void game_setup();
  */
 void game_task();
 /**
- * @brief Change the game state and update the status LED and actuator.
+ * @brief Change the game state and update the status LED.
  * @param new_state Game state to enter.
- * @note WAIT_BACKEND preserves the actuator position; an unchanged state has no effect.
+ * @note The previous state is stored so WAIT_BACKEND can return to it; an unchanged state has no effect.
  */
 void set_state(game_state new_state);
 

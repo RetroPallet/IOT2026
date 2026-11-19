@@ -1,6 +1,6 @@
 /**
  * @file led.cpp
- * @brief Two-channel status LED control.
+ * @brief RGB status LED control.
  */
 #include <Arduino.h>
 #include "led.h"
@@ -15,10 +15,13 @@
  */
 #define BLUE_LEVEL  80
 
+/**
+ * @brief Last color written to the LED; 0xFF forces the first update.
+ */
 static uint8_t current = 0xFF;
 
 /**
- * @brief Configure the red and green LED pins as outputs and switch the LED off.
+ * @brief Configure the red, green and blue LED pins as outputs and switch the LED off.
  */
 void led_init() {
     pinMode(LED_RED_PIN, OUTPUT);
@@ -28,9 +31,9 @@ void led_init() {
 }
 
 /**
- * @brief Set the two-channel status LED color using PWM.
+ * @brief Set the RGB status LED color using PWM.
  * @param color Requested status LED color.
- * @note Repeated colors are ignored; yellow uses a reduced green intensity.
+ * @note Repeated colors are ignored; green and blue use reduced intensities (GREEN_LEVEL, BLUE_LEVEL).
  */
 void led_set(led_color color) {
     if (color == current) return;

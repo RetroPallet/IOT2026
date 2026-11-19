@@ -29,7 +29,7 @@
  */
 #define BUTTON_PIN      2
 /**
- * @brief Arduino pin assignment for the led blue
+ * @brief Arduino pin assignment for led blue.
  */
 #define LED_BLUE_PIN    3
 /**

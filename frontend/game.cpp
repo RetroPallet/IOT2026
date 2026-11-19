@@ -6,28 +6,19 @@
 #include "pinout.h"
 #include "temperature.h"
 #include "led.h"
-#include "actuator.h"
 #include "phase.h"
 #include "epaper.h"
 #include "backend.h"
 #include "password.h"
 
 /* PUZZLE CODES */
+/**
+ * @brief Unlock keys revealed by the device puzzles, in game order.
+ */
 const char* const puzzle_codes[] = {
     "phase_puzzle_key",
     "serial_puzzle_key",
     "backend_puzzle_key"
-};
-
-/**
- * @brief Employee record used by the serial puzzle.
- */
-Employee employee = {
-    "042",
-    "Buster",
-    28,
-    "IT",
-    "Loves coffee"
 };
 
 /* GLOBAL VARIABLES */
@@ -39,6 +30,9 @@ game_state state      = WAIT_INITIALIZATION;
  * @brief Candidate state selected from the backend reply.
  */
 game_state next_state = WAIT_INITIALIZATION;
+/**
+ * @brief State to restore when the backend returns no valid state.
+ */
 game_state prvs_state = WAIT_INITIALIZATION;
 /**
  * @brief Most recently received backend state code.
@@ -85,9 +79,9 @@ static bool button_pressed() {
 }
 
 /**
- * @brief Change the game state and update the status LED and actuator.
+ * @brief Change the game state and update the status LED.
  * @param new_state Game state to enter.
- * @note WAIT_BACKEND preserves the actuator position; an unchanged state has no effect.
+ * @note The previous state is stored so WAIT_BACKEND can return to it; an unchanged state has no effect.
  */
 void set_state(game_state new_state) {
  
@@ -98,8 +92,6 @@ void set_state(game_state new_state) {
     state = new_state;
  
     led_set(led_for_state(state));
-    // Serial.print(F("STATE "));
-    // Serial.println(state);
 }
 
 /* GAME SETUP */
@@ -160,9 +152,7 @@ void game_task() {
         case SERIAL_PUZZLE:
             if (button_pressed())
                 set_state(WAIT_BACKEND);
-            //show_employee_file(employee); commented for now check what implementation to pursue
-            if(password_update()){
-                // Serial.println(F("Password puzzle solved!\n"));
+            if (password_update()) {
                 show_code(puzzle_codes[1]);
             }
             break;
@@ -173,7 +163,6 @@ void game_task() {
             break;
 
         case COMPLETED:
-            // Raise flag
             if (button_pressed())
                 set_state(WAIT_BACKEND);
             break;
