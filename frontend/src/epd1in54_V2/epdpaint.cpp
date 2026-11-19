@@ -1,9 +1,5 @@
 /**
- * @file epdpaint.cpp
- * @brief Monochrome bitmap drawing primitives.
- */
-/**
- *  File   :   epdpaint.cpp
+ *  @filename   :   epdpaint.cpp
  *  @brief      :   Paint tools
  *  @author     :   Yehui from Waveshare
  *  
@@ -31,7 +27,6 @@
 #include <avr/pgmspace.h>
 #include "epdpaint.h"
 
-/* Initialize the Paint object. */
 Paint::Paint(unsigned char* image, int width, int height) {
     this->rotate = ROTATE_0;
     this->image = image;
@@ -40,11 +35,12 @@ Paint::Paint(unsigned char* image, int width, int height) {
     this->height = height;
 }
 
-/* Release the Paint object. */
 Paint::~Paint() {
 }
 
-/* Fill the image buffer with the requested color. */
+/**
+ *  @brief: clear the image
+ */
 void Paint::Clear(int colored) {
     for (int x = 0; x < this->width; x++) {
         for (int y = 0; y < this->height; y++) {
@@ -53,7 +49,10 @@ void Paint::Clear(int colored) {
     }
 }
 
-/* Set one pixel using physical buffer coordinates without rotation. */
+/**
+ *  @brief: this draws a pixel by absolute coordinates.
+ *          this function won't be affected by the rotate parameter.
+ */
 void Paint::DrawAbsolutePixel(int x, int y, int colored) {
     if (x < 0 || x >= this->width || y < 0 || y >= this->height) {
         return;
@@ -74,44 +73,39 @@ void Paint::DrawAbsolutePixel(int x, int y, int colored) {
 }
 
 /**
- * @brief Access the caller-owned monochrome image buffer.
- * @return A pointer to the image buffer.
+ *  @brief: Getters and Setters
  */
 unsigned char* Paint::GetImage(void) {
     return this->image;
 }
 
-/* Read the drawing-buffer width. */
 int Paint::GetWidth(void) {
     return this->width;
 }
 
-/* Set the drawing-buffer width, rounding up to a multiple of eight pixels. */
 void Paint::SetWidth(int width) {
     this->width = width % 8 ? width + 8 - (width % 8) : width;
 }
 
-/* Read the drawing-buffer height. */
 int Paint::GetHeight(void) {
     return this->height;
 }
 
-/* Set the drawing-buffer height in pixels. */
 void Paint::SetHeight(int height) {
     this->height = height;
 }
 
-/* Read the drawing rotation. */
 int Paint::GetRotate(void) {
     return this->rotate;
 }
 
-/* Set the drawing orientation. */
 void Paint::SetRotate(int rotate){
     this->rotate = rotate;
 }
 
-/* Set one pixel after applying the configured rotation. */
+/**
+ *  @brief: this draws a pixel by the coordinates
+ */
 void Paint::DrawPixel(int x, int y, int colored) {
     int point_temp;
     if (this->rotate == ROTATE_0) {
@@ -145,7 +139,9 @@ void Paint::DrawPixel(int x, int y, int colored) {
     }
 }
 
-/* Draw one ASCII character into the image buffer. */
+/**
+ *  @brief: this draws a charactor on the frame buffer but not refresh
+ */
 void Paint::DrawCharAt(int x, int y, char ascii_char, sFONT* font, int colored) {
     int i, j;
     unsigned int char_offset = (ascii_char - ' ') * font->Height * (font->Width / 8 + (font->Width % 8 ? 1 : 0));
@@ -166,7 +162,9 @@ void Paint::DrawCharAt(int x, int y, char ascii_char, sFONT* font, int colored) 
     }
 }
 
-/* Draw a null-terminated text string into the image buffer. */
+/**
+*  @brief: this displays a string on the frame buffer but not refresh
+*/
 void Paint::DrawStringAt(int x, int y, const char* text, sFONT* font, int colored) {
     const char* p_text = text;
     unsigned int counter = 0;
@@ -184,7 +182,9 @@ void Paint::DrawStringAt(int x, int y, const char* text, sFONT* font, int colore
     }
 }
 
-/* Draw a line between two endpoints in the image buffer. */
+/**
+*  @brief: this draws a line on the frame buffer
+*/
 void Paint::DrawLine(int x0, int y0, int x1, int y1, int colored) {
     /* Bresenham algorithm */
     int dx = x1 - x0 >= 0 ? x1 - x0 : x0 - x1;
@@ -206,7 +206,9 @@ void Paint::DrawLine(int x0, int y0, int x1, int y1, int colored) {
     }
 }
 
-/* Draw a horizontal line into the image buffer. */
+/**
+*  @brief: this draws a horizontal line on the frame buffer
+*/
 void Paint::DrawHorizontalLine(int x, int y, int line_width, int colored) {
     int i;
     for (i = x; i < x + line_width; i++) {
@@ -214,7 +216,9 @@ void Paint::DrawHorizontalLine(int x, int y, int line_width, int colored) {
     }
 }
 
-/* Draw a vertical line into the image buffer. */
+/**
+*  @brief: this draws a vertical line on the frame buffer
+*/
 void Paint::DrawVerticalLine(int x, int y, int line_height, int colored) {
     int i;
     for (i = y; i < y + line_height; i++) {
@@ -222,7 +226,9 @@ void Paint::DrawVerticalLine(int x, int y, int line_height, int colored) {
     }
 }
 
-/* Draw a rectangle outline in the image buffer. */
+/**
+*  @brief: this draws a rectangle
+*/
 void Paint::DrawRectangle(int x0, int y0, int x1, int y1, int colored) {
     int min_x, min_y, max_x, max_y;
     min_x = x1 > x0 ? x0 : x1;
@@ -236,7 +242,9 @@ void Paint::DrawRectangle(int x0, int y0, int x1, int y1, int colored) {
     DrawVerticalLine(max_x, min_y, max_y - min_y + 1, colored);
 }
 
-/* Draw a filled rectangle in the image buffer. */
+/**
+*  @brief: this draws a filled rectangle
+*/
 void Paint::DrawFilledRectangle(int x0, int y0, int x1, int y1, int colored) {
     int min_x, min_y, max_x, max_y;
     int i;
@@ -250,7 +258,9 @@ void Paint::DrawFilledRectangle(int x0, int y0, int x1, int y1, int colored) {
     }
 }
 
-/* Draw a circle outline in the image buffer. */
+/**
+*  @brief: this draws a circle
+*/
 void Paint::DrawCircle(int x, int y, int radius, int colored) {
     /* Bresenham algorithm */
     int x_pos = -radius;
@@ -276,7 +286,9 @@ void Paint::DrawCircle(int x, int y, int radius, int colored) {
     } while (x_pos <= 0);
 }
 
-/* Draw a filled circle in the image buffer. */
+/**
+*  @brief: this draws a filled circle
+*/
 void Paint::DrawFilledCircle(int x, int y, int radius, int colored) {
     /* Bresenham algorithm */
     int x_pos = -radius;

@@ -1,12 +1,7 @@
-/**
- * @file game.cpp
- * @brief Escape-room game states and puzzle coordination.
- */
 #include "game.h"
 #include "pinout.h"
 #include "temperature.h"
 #include "led.h"
-#include "actuator.h"
 #include "phase.h"
 #include "epaper.h"
 #include "backend.h"
@@ -19,79 +14,37 @@ const char* const puzzle_codes[] = {
     "backend_puzzle_key"
 };
 
-/**
- * @brief Employee record used by the serial puzzle.
- */
-Employee employee = {
-    "042",
-    "Buster",
-    28,
-    "IT",
-    "Loves coffee"
-};
+// Employee employee = {
+//     "042",
+//     "Buster",
+//     28,
+//     "IT",
+//     "Loves coffee"
+// };
 
 /* GLOBAL VARIABLES */
-/**
- * @brief Current device game state.
- */
-game_state state      = PHASE_PUZZLE;
-/**
- * @brief Candidate state selected from the backend reply.
- */
-game_state next_state = PHASE_PUZZLE;
-/**
- * @brief State to restore when no usable backend reply is received.
- */
-game_state prvs_state = PHASE_PUZZLE;
+game_state state      = WAIT_INITIALIZATION;
+game_state next_state = WAIT_INITIALIZATION;
+game_state prvs_state = WAIT_INITIALIZATION;
 
-/**
- * @brief Most recently received backend state code.
- */
+
 state_codes next_state_code = NO_DOWNLINK_CODE;
 
-/**
- * @brief Whether the current synchronized/hot condition has already revealed a code.
- */
 static bool phase_solved = false;   
 
-/**
- * @brief Select the default status LED color for a game state.
- * @param s Game state to map.
- * @return The mapped LED color, or LED_OFF for an unmapped state.
- */
 static led_color led_for_state(game_state s) {
     switch (s) {
-        case WAIT_INITIALIZATION: return LED_GREEN;
+        case WAIT_INITIALIZATION: return LED_BLUE;
         case PHASE_PUZZLE:        return LED_YELLOW;
-        case SERIAL_PUZZLE:       return LED_OFF;
-        case BACKEND_PUZZLE:      return LED_OFF;
-        case WAIT_BACKEND:        return LED_GREEN;
-        case COMPLETED:           return LED_OFF;
+        case SERIAL_PUZZLE:       return LED_MAGENTA;
+        case BACKEND_PUZZLE:      return LED_CYAN;
+        case WAIT_BACKEND:        return LED_WHITE;
+        case COMPLETED:           return LED_GREEN;
     }
     return LED_OFF;
 }
 
-/**
- * @brief Select the actuator position for a game state.
- * @param s Game state to map.
- * @return The mapped servo angle, or DEGREE_0 for an unmapped state.
- */
-static actuator_degree degree_for_state(game_state s) {
-    switch (s) {
-        case WAIT_INITIALIZATION: return DEGREE_0;
-        case PHASE_PUZZLE:        return DEGREE_22;
-        case SERIAL_PUZZLE:       return DEGREE_44;
-        case BACKEND_PUZZLE:      return DEGREE_66;
-        case COMPLETED:           return DEGREE_90;
-        default:                  return DEGREE_0;
-    }
-}
 
-
-/**
- * @brief Detect an active-low button press with a 50 ms debounce interval.
- * @return True only when a press edge is accepted.
- */
 static bool button_pressed() {
     static bool last_level = HIGH;
     static unsigned long last_change = 0;
@@ -105,11 +58,6 @@ static bool button_pressed() {
     return false;
 }
 
-/**
- * @brief Change the game state and update the status LED and actuator.
- * @param new_state Game state to enter.
- * @note WAIT_BACKEND preserves the actuator position; an unchanged state has no effect.
- */
 void set_state(game_state new_state) {
  
     if (state == new_state)
@@ -119,34 +67,23 @@ void set_state(game_state new_state) {
     state = new_state;
  
     led_set(led_for_state(state));
-    if (state != WAIT_BACKEND)
-        actuator_set(degree_for_state(state));
     // Serial.print(F("STATE "));
     // Serial.println(state);
 }
 
 /* GAME SETUP */
-/**
- * @brief Initialize serial communication, peripherals and the initial game-state outputs.
- */
 void game_setup() {
     Serial.begin(57600);
     led_init();
-    actuator_init();
     backend_init();
     temperature_init();
     phase_init();
     epaper_init();
     pinMode(BUTTON_PIN, INPUT_PULLUP);
     led_set(led_for_state(state));
-    actuator_set(degree_for_state(state));
 }
 
 /* GAME STATE MACHINE */
-/**
- * @brief Run one game-state iteration, update puzzles and process requested backend transitions.
- * @note Backend communication and display updates may block.
- */
 void game_task() {
 
     epaper_task();
@@ -205,6 +142,19 @@ void game_task() {
 
         case WAIT_BACKEND: {
             next_state_code = get_be_next_state_code();
+
+            // No downlink (expected for now): advance linearly
+            // WAIT_INIT -> PHASE -> SERIAL -> BACKEND -> COMPLETED -> WAIT_INIT
+            if (next_state_code == NO_DOWNLINK_CODE) {
+                switch (prvs_state) {
+                    case WAIT_INITIALIZATION: next_state_code = PHASE_PUZZLE_CODE;        break;
+                    case PHASE_PUZZLE:        next_state_code = SERIAL_PUZZLE_CODE;       break;
+                    case SERIAL_PUZZLE:       next_state_code = BACKEND_PUZZLE_CODE;      break;
+                    case BACKEND_PUZZLE:      next_state_code = COMPLETED_CODE;           break;
+                    default:                  next_state_code = WAIT_INITIALIZATION_CODE; break;
+                }
+            }
+            delay(5000);
 
             switch (next_state_code) {
                 case WAIT_INITIALIZATION_CODE: next_state = WAIT_INITIALIZATION; break;

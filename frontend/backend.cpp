@@ -1,7 +1,3 @@
-/**
- * @file backend.cpp
- * @brief LoRaWAN communication and game-state downlinks.
- */
 // backend.cpp
 #include <Arduino.h>
 #include <rn2xx3.h>
@@ -9,22 +5,12 @@
 #include "pinout.h"
 #include "backend.h"
 
-/**
- * @brief Software serial transport for the RN2483.
- */
 static SoftwareSerial lora_serial(LORA_RX_PIN, LORA_TX_PIN);
-/**
- * @brief RN2483 LoRaWAN interface.
- */
 static rn2xx3 lora(lora_serial);
 
 static const char *APP_EUI = "xxx";
 static const char *APP_KEY = "xxx";
 
-/**
- * @brief Reset the RN2483 and initialize the LoRaWAN connection.
- * @note The current implementation returns before the OTAA join code.
- */
 void backend_init() {
     Serial.println(F("1 reset"));
     pinMode(LORA_RESET_PIN, OUTPUT);
@@ -42,25 +28,21 @@ void backend_init() {
         return;
 
     Serial.println(F("3 hweui ok"));
-    return;
+    // return;
 
     bool join_result = lora.initOTAA(APP_EUI, APP_KEY);
     Serial.println(F("4 join"));
 
     while(!join_result)
     {
-        Serial.println("Unable to join. Are your keys correct, and do you have TTN coverage?");
+        Serial.println(F("Unable to join. Are your keys correct, and do you have TTN coverage?"));
+        return;
         delay(60000); //delay a minute before retry
         join_result = lora.init();
     }
-    Serial.println("Successfully joined TTN");
+    Serial.println(F("Successfully joined TTN"));
 }
 
-/**
- * @brief Convert a hexadecimal character to its numeric value.
- * @param c Character to decode.
- * @return A value from 0 to 15, or -1 for an invalid character.
- */
 static int hex_nibble(char c) {
     if (c >= '0' && c <= '9') return c - '0';
     if (c >= 'A' && c <= 'F') return c - 'A' + 10;
@@ -68,11 +50,22 @@ static int hex_nibble(char c) {
     return -1;
 }
 
-/**
- * @brief Send a one-byte uplink and decode the next game state from a downlink.
- * @return A valid state code, or NO_DOWNLINK_CODE on failure or absent/invalid downlink.
- */
+// 1 = send the uplink without waiting for the radio, always return NO_DOWNLINK.
+// 0 = real behaviour (blocking txBytes + downlink parsing).
+#define SIMULATE_NO_DOWNLINK 1
+
 state_codes get_be_next_state_code() {
+#if SIMULATE_NO_DOWNLINK
+    // Drop any pending reply from the previous uplink (e.g. "not_joined").
+    while (lora_serial.available())
+        lora_serial.read();
+
+    // Same command txBytes() would send, but fire-and-forget: no wait,
+    // no retries, no automatic re-join inside the library.
+    lora_serial.print(F("mac tx uncnf 1 01\r\n"));
+    Serial.println(F("uplink sent"));
+    return NO_DOWNLINK_CODE;
+#else
     const byte uplink[1] = { 0x01 };
 
     switch (lora.txBytes(uplink, sizeof(uplink))) {
@@ -106,4 +99,5 @@ state_codes get_be_next_state_code() {
             Serial.println(F("Unknown response from TX function"));
             return NO_DOWNLINK_CODE;
     }
+#endif
 }

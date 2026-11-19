@@ -1,7 +1,3 @@
-/**
- * @file frontend.ino
- * @brief Main Arduino escape-room sketch.
- */
 /*
  * ============================================================================
  *  PROJECT     : IoT Escape Room - Operation Breakout
@@ -18,16 +14,10 @@
 
 #include "game.h"
 
-/**
- * @brief Initialize the Arduino sketch.
- */
 void setup() {
     game_setup();
 }
 
-/**
- * @brief Run one iteration of the Arduino sketch.
- */
 void loop() {
     game_task();
 }

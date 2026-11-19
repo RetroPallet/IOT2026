@@ -1,42 +1,19 @@
-/**
- * @file phase.cpp
- * @brief Potentiometer-controlled LED phase puzzle.
- */
 #include <Arduino.h>
 #include "phase.h"
 #include "pinout.h"
 
 /* CONSTANTS */
-/**
- * @brief Blink period in milliseconds.
- */
 const unsigned long PERIOD = 1000;
-/**
- * @brief Hidden phase shift in milliseconds.
- */
 const unsigned long SECRET_OFFSET = 347;
-/**
- * @brief Required continuous synchronization duration in milliseconds.
- */
 const unsigned long SYNC_TIME = 3000;
-/**
- * @brief Allowed phase error in milliseconds around zero.
- */
 const unsigned long SYNC_TOLERANCE = 30;
 
 /* INITIALIZATION */
-/**
- * @brief Configure the reference and adjustable phase LEDs as outputs.
- */
 void phase_init() {
     pinMode(LED_REF_PIN, OUTPUT);
     pinMode(LED_ADJ_PIN, OUTPUT);
 }
 
-/**
- * @brief Update both blinking LEDs from the potentiometer-controlled phase offset.
- * @return True after the phase remains within SYNC_TOLERANCE for at least SYNC_TIME milliseconds.
- */
 bool phase_update() { // returns true on synced.
     static unsigned long sync_started_at = 0;
 

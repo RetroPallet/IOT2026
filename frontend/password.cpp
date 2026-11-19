@@ -1,45 +1,18 @@
-/**
- * @file password.cpp
- * @brief Serial password puzzle.
- */
 #include <Arduino.h>
 #include "password.h"
 
-/**
- * @brief Password-buffer capacity including the null terminator.
- */
 #define INPUT_SIZE 64
-/**
- * @brief Null-terminated serial password buffer.
- */
 char input[INPUT_SIZE];
-/**
- * @brief Next free position in the password buffer.
- */
 uint8_t input_idx = 0;
-/**
- * @brief Whether the buffer-limit warning has been printed.
- */
 bool char_limit = 0;
-/**
- * @brief Whether the current serial-password prompt has been issued.
- */
 bool puzzle_started = 0;
 /* CURRENT PASSWORD */
-/**
- * @brief Expected serial puzzle password.
- */
 const char password[] = {"patricia"};
 
-/**
- * @brief Consume available serial input and check newline-terminated password attempts.
- * @return True if at least one password processed by this call is correct.
- * @note Carriage returns are ignored and input is limited to INPUT_SIZE - 1 characters.
- */
 bool password_update(){
   if(!puzzle_started){
     puzzle_started++;
-    Serial.println("Password puzzle started. Please enter password:");        
+    Serial.println(F("Password puzzle started. Please enter password:"));        
   }
   bool password_correct = 0;
   while (Serial.available() > 0) { /* Reads when character is available */
@@ -51,9 +24,9 @@ bool password_update(){
 
       // Compare entered password with correct password
       if(strcmp(input, password))
-        Serial.println("Incorrect");
+        Serial.println(F("Incorrect"));
       else{
-        Serial.println("Login successful, welcome Henning. The magic code is serial_puzzle_key");
+        Serial.println(F("Login successful, welcome Henning. The magic code is serial_puzzle_key"));
         password_correct++;
         puzzle_started=0;
       }
@@ -65,7 +38,7 @@ bool password_update(){
       input[input_idx++] = c;
     }
     if(input_idx == INPUT_SIZE - 1 && !char_limit){
-      Serial.println("\nYou have passed the characterlimit of ");
+      Serial.println(F("\nYou have passed the characterlimit of "));
       Serial.println(INPUT_SIZE);
       char_limit++;
     }

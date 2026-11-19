@@ -1,9 +1,5 @@
 /**
- * @file imagedata.cpp
- * @brief Example e-paper bitmap data.
- */
-/**
- *  File   :   imagedata.cpp
+ *  @filename   :   imagedata.cpp
  *  @brief      :   data file for epd demo
  *
  *  Copyright (C) Waveshare     September 5 2017
@@ -30,9 +26,6 @@
 #include "imagedata.h"
 #include <avr/pgmspace.h>
 
-/**
- * @brief Packed demonstration bitmap.
- */
 const unsigned char IMAGE_DATA[] PROGMEM = {
 /* 0X00,0X01,0XC8,0X00,0XC8,0X00, */
 0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0X8F,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,
