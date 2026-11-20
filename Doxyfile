@@ -7,6 +7,7 @@ INPUT = frontend \
         server/db_queries.py \
         server/settings.py \
         README.md
+EXCLUDE = frontend/src
 EXCLUDE_PATTERNS = */.venv/* */venv/* */env/* */__pycache__/* */.git/*
 EXCLUDE_SYMLINKS = YES
 RECURSIVE = YES
