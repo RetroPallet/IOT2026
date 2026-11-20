@@ -61,7 +61,6 @@ bool temperature_triggered() {
     last_temp_read = now;
 
     float temperature = dht.readTemperature();
-    // Serial.println(temperature);
 
     if (isnan(temperature))
         return temp_hot;

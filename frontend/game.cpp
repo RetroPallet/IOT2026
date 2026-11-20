@@ -6,49 +6,38 @@
 #include "pinout.h"
 #include "temperature.h"
 #include "led.h"
-#include "actuator.h"
 #include "phase.h"
 #include "epaper.h"
 #include "backend.h"
 #include "password.h"
 
 /* PUZZLE CODES */
+/**
+ * @brief Unlock keys revealed by the device puzzles, in game order.
+ */
 const char* const puzzle_codes[] = {
     "phase_puzzle_key",
     "serial_puzzle_key",
     "backend_puzzle_key"
 };
 
-/**
- * @brief Employee record used by the serial puzzle.
- */
-Employee employee = {
-    "042",
-    "Buster",
-    28,
-    "IT",
-    "Loves coffee"
-};
-
 /* GLOBAL VARIABLES */
 /**
  * @brief Current device game state.
  */
-game_state state      = PHASE_PUZZLE;
+game_state state      = WAIT_INITIALIZATION;
 /**
  * @brief Candidate state selected from the backend reply.
  */
-game_state next_state = PHASE_PUZZLE;
+game_state next_state = WAIT_INITIALIZATION;
 /**
- * @brief State to restore when no usable backend reply is received.
+ * @brief State to restore when the backend returns no valid state.
  */
-game_state prvs_state = PHASE_PUZZLE;
-
+game_state prvs_state = WAIT_INITIALIZATION;
 /**
  * @brief Most recently received backend state code.
  */
 state_codes next_state_code = NO_DOWNLINK_CODE;
-
 /**
  * @brief Whether the current synchronized/hot condition has already revealed a code.
  */
@@ -61,30 +50,14 @@ static bool phase_solved = false;
  */
 static led_color led_for_state(game_state s) {
     switch (s) {
-        case WAIT_INITIALIZATION: return LED_GREEN;
+        case WAIT_INITIALIZATION: return LED_BLUE;
         case PHASE_PUZZLE:        return LED_YELLOW;
-        case SERIAL_PUZZLE:       return LED_OFF;
-        case BACKEND_PUZZLE:      return LED_OFF;
-        case WAIT_BACKEND:        return LED_GREEN;
-        case COMPLETED:           return LED_OFF;
+        case SERIAL_PUZZLE:       return LED_MAGENTA;
+        case BACKEND_PUZZLE:      return LED_CYAN;
+        case WAIT_BACKEND:        return LED_WHITE;
+        case COMPLETED:           return LED_GREEN;
     }
     return LED_OFF;
-}
-
-/**
- * @brief Select the actuator position for a game state.
- * @param s Game state to map.
- * @return The mapped servo angle, or DEGREE_0 for an unmapped state.
- */
-static actuator_degree degree_for_state(game_state s) {
-    switch (s) {
-        case WAIT_INITIALIZATION: return DEGREE_0;
-        case PHASE_PUZZLE:        return DEGREE_22;
-        case SERIAL_PUZZLE:       return DEGREE_44;
-        case BACKEND_PUZZLE:      return DEGREE_66;
-        case COMPLETED:           return DEGREE_90;
-        default:                  return DEGREE_0;
-    }
 }
 
 
@@ -106,9 +79,9 @@ static bool button_pressed() {
 }
 
 /**
- * @brief Change the game state and update the status LED and actuator.
+ * @brief Change the game state and update the status LED.
  * @param new_state Game state to enter.
- * @note WAIT_BACKEND preserves the actuator position; an unchanged state has no effect.
+ * @note The previous state is stored so WAIT_BACKEND can return to it; an unchanged state has no effect.
  */
 void set_state(game_state new_state) {
  
@@ -119,10 +92,6 @@ void set_state(game_state new_state) {
     state = new_state;
  
     led_set(led_for_state(state));
-    if (state != WAIT_BACKEND)
-        actuator_set(degree_for_state(state));
-    // Serial.print(F("STATE "));
-    // Serial.println(state);
 }
 
 /* GAME SETUP */
@@ -132,14 +101,12 @@ void set_state(game_state new_state) {
 void game_setup() {
     Serial.begin(57600);
     led_init();
-    actuator_init();
     backend_init();
     temperature_init();
     phase_init();
     epaper_init();
     pinMode(BUTTON_PIN, INPUT_PULLUP);
     led_set(led_for_state(state));
-    actuator_set(degree_for_state(state));
 }
 
 /* GAME STATE MACHINE */
@@ -185,9 +152,7 @@ void game_task() {
         case SERIAL_PUZZLE:
             if (button_pressed())
                 set_state(WAIT_BACKEND);
-            //show_employee_file(employee); commented for now check what implementation to pursue
-            if(password_update()){
-                // Serial.println(F("Password puzzle solved!\n"));
+            if (password_update()) {
                 show_code(puzzle_codes[1]);
             }
             break;
@@ -198,7 +163,6 @@ void game_task() {
             break;
 
         case COMPLETED:
-            // Raise flag
             if (button_pressed())
                 set_state(WAIT_BACKEND);
             break;

@@ -1,8 +1,4 @@
 /**
- * @file font24.c
- * @brief Packed bitmap glyph data for the font24 font.
- */
-/**
   ******************************************************************************
   * @file    font24.c
   * @author  MCD Application Team
@@ -43,7 +39,6 @@
 #include "fonts.h"
 #include <avr/pgmspace.h>
 
-/** @brief Packed glyph bitmap data stored in program memory. */
 const uint8_t Font24_Table [] PROGMEM = 
 {
 	// @0 ' ' (17 pixels wide)
@@ -2517,7 +2512,6 @@ const uint8_t Font24_Table [] PROGMEM =
 	0x00, 0x00, 0x00, //                  
 };
 
-/** @brief Font descriptor for glyphs 24 pixels high. */
 sFONT Font24 = {
   Font24_Table,
   17, /* Width */

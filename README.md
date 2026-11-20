@@ -14,9 +14,9 @@ downlinks through The Things Network (TTN) to update the device state.
 | `frontend/phase.cpp` | Potentiometer-controlled LED synchronization puzzle |
 | `frontend/temperature.cpp` | DHT11 temperature threshold check |
 | `frontend/password.cpp` | Serial password puzzle |
-| `frontend/backend.cpp` | RN2483 communication using the rn2xx3 library |
-| `frontend/_debug_backend.cpp` | Alternative RN2483 implementation using raw commands |
-| `frontend/epaper.cpp` | E-paper code and employee-record rendering |
+| `frontend/backend.cpp` | RN2483 OTAA join and state downlinks using the rn2xx3 library |
+| `frontend/led.cpp` | RGB status LED |
+| `frontend/epaper.cpp` | E-paper puzzle-code rendering |
 | `frontend/src/epd1in54_V2/` | Bundled Waveshare display driver, drawing helpers and fonts |
 | `server/app.py` | Flask pages and API routes |
 | `server/db_queries.py` | SQLite schema, queries and phase initialization |
@@ -24,7 +24,7 @@ downlinks through The Things Network (TTN) to update the device state.
 | `server/settings.py` | Server phases, database path and downlink configuration |
 | `server/templates/` | Browser interface and JavaScript |
 | `Doxyfile` | Doxygen configuration |
-| `DOCUMENTATION.md` | Documentation scope and generation notes |
+| `docs/` | Generated Doxygen HTML |
 
 ## Game flow
 
@@ -43,9 +43,20 @@ Players submit keys on the player page. A button press on the Arduino enters
 `WAIT_BACKEND`, sends an uplink, and checks for a queued state update. If no valid
 state is received, the device returns to its previous state.
 
-The current firmware starts directly in `PHASE_PUZZLE`. The server still creates
-new players in `WAIT_INITIALIZATION` and advances them when their activation code
-is submitted.
+The firmware starts in `WAIT_INITIALIZATION`, matching the server, which creates
+new players in that phase and advances them when their activation code is
+submitted.
+
+The RGB status LED shows the current device state:
+
+| State | LED color |
+| --- | --- |
+| `WAIT_INITIALIZATION` | Blue |
+| `PHASE_PUZZLE` | Yellow, red while the temperature sensor is hot |
+| `SERIAL_PUZZLE` | Magenta |
+| `BACKEND_PUZZLE` | Cyan |
+| `WAIT_BACKEND` | White |
+| `COMPLETED` | Green |
 
 ## Run the web application
 
@@ -118,30 +129,22 @@ also follow the Uno/Nano-style mapping. Select the board and processor matching
 your actual hardware in the Arduino IDE.
 
 Required components include a DHT11 sensor, a potentiometer, a push button,
-reference and adjustable LEDs, a red/green status LED, a servo, an RN2483 LoRaWAN
-module and a Waveshare 1.54-inch V2 e-paper display.
+reference and adjustable LEDs, an RGB status LED, an RN2483 LoRaWAN module and a Waveshare 1.54-inch V2 e-paper display.
 
 Install these Arduino libraries:
 
 - DHT sensor library by Adafruit
 - Adafruit Unified Sensor
-- Servo
 - An RN2483 library exposing `rn2xx3.h`
 
 The sketch also uses `SoftwareSerial` and `SPI`. The e-paper driver is included
 in the repository.
 
-### Select a backend implementation
+### Configure LoRaWAN
 
-`backend.cpp` and `_debug_backend.cpp` define the same public backend functions.
-Keep only one implementation in the sketch's compiled source set before building;
-otherwise, duplicate definitions prevent linking. Move the unused file outside
-the sketch folder.
-
-The current `backend.cpp` returns before its OTAA join code. The alternative
-`_debug_backend.cpp` contains the raw-command configuration and join sequence.
-For device communication, configure `APP_EUI` and `APP_KEY` in the selected file
-and ensure its initialization performs the required join.
+Set `APP_EUI` and `APP_KEY` in `frontend/backend.cpp` to your TTN device's
+values. At startup the device joins TTN with OTAA and blocks, retrying every
+minute, until the join succeeds.
 
 Open `frontend/frontend.ino` and set the serial monitor to **57600 baud**. The
 password puzzle processes input when it receives a newline.
@@ -152,10 +155,10 @@ password puzzle processes input when it receives a newline.
 | --- | --- |
 | D0 / D1 | Hardware serial RX / TX |
 | D2 | Push button, active low with internal pull-up |
-| D3 | Servo signal |
+| D3 | Blue status LED channel (PWM) |
 | D4 | DHT11 data |
-| D5 | Red status LED channel |
-| D6 | Green status LED channel |
+| D5 | Red status LED channel (PWM) |
+| D6 | Green status LED channel (PWM) |
 | D7 | E-paper BUSY |
 | D8 | E-paper RESET |
 | D9 | E-paper DC |
@@ -181,7 +184,6 @@ Check `frontend/pinout.h` against your wiring.
 - **Password:** the current password is defined in `frontend/password.cpp`.
 - **Display:** revealed codes remain visible for approximately 10 seconds before
   the game loop clears them.
-- **Servo:** the puzzle phases map to 0°, 22°, 44°, 66° and 90° positions.
 
 ## API overview
 

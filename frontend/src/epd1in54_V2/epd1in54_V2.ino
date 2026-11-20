@@ -1,40 +1,18 @@
-/**
- * @file epd1in54_V2.ino
- * @brief Waveshare 1.54-inch V2 e-paper controller driver.
- */
 #include <SPI.h>
 #include "epd1in54_V2.h"
 #include "imagedata.h"
 #include "epdpaint.h"
 #include <stdio.h>
 
-/**
- * @brief E-paper controller instance.
- */
 Epd epd;
-/**
- * @brief Packed monochrome drawing buffer.
- */
 unsigned char image[1024];
-/**
- * @brief Drawing helper backed by image.
- */
 Paint paint(image, 0, 0);
 
 unsigned long time_start_ms;
 unsigned long time_now_s;
-/**
- * @brief E-paper foreground pixel value.
- */
 #define COLORED     0
-/**
- * @brief E-paper background pixel value.
- */
 #define UNCOLORED   1
 
-/**
- * @brief Initialize the Waveshare display demonstration.
- */
 void setup()
 {
   // put your setup code here, to run once:
@@ -106,9 +84,6 @@ void setup()
   epd.Sleep();
 }
 
-/**
- * @brief Run the display demonstration loop.
- */
 void loop()
 {
 
