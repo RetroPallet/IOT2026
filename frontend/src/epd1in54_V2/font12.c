@@ -1,10 +1,6 @@
 /**
- * @file font12.c
- * @brief Packed bitmap glyph data for the font12 font.
- */
-/**
   ******************************************************************************
-  * @file    font12.c
+  * @file    Font12.c
   * @author  MCD Application Team
   * @version V1.0.0
   * @date    18-February-2014
@@ -47,7 +43,6 @@
 //  Font data for Courier New 12pt
 // 
 
-/** @brief Packed glyph bitmap data stored in program memory. */
 const uint8_t Font12_Table[] PROGMEM = 
 {
 	// @0 ' ' (7 pixels wide)
@@ -1381,7 +1376,6 @@ const uint8_t Font12_Table[] PROGMEM =
 	0x00, //        
 };
 
-/** @brief Font descriptor for glyphs 12 pixels high. */
 sFONT Font12 = {
   Font12_Table,
   7, /* Width */
