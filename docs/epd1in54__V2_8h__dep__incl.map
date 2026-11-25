@@ -1,9 +1,0 @@
-<map id="frontend/src/epd1in54_V2/epd1in54_V2.h" name="frontend/src/epd1in54_V2/epd1in54_V2.h">
-<area shape="rect" id="Node000001" title="Waveshare 1.54&#45;inch V2 e&#45;paper controller driver." alt="" coords="182,5,346,45"/>
-<area shape="rect" id="Node000002" href="$epaper_8cpp.html" title="E&#45;paper puzzle&#45;code and employee&#45;record rendering." alt="" coords="5,101,157,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="213,54,107,103,105,98,210,49"/>
-<area shape="rect" id="Node000003" href="$epd1in54__V2_8cpp.html" title="Waveshare 1.54&#45;inch V2 e&#45;paper controller driver." alt="" coords="182,93,346,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="267,59,267,93,261,93,261,59"/>
-<area shape="rect" id="Node000004" href="$epd1in54__V2_8ino.html" title="Waveshare 1.54&#45;inch V2 e&#45;paper controller driver." alt="" coords="370,93,534,133"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="319,49,412,91,410,96,316,53"/>
-</map>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IoT Escape Room - Operation Breakout: frontend/game.cpp File Reference</title>
+<title>IoT Escape Room: frontend/game.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">IoT Escape Room - Operation Breakout
+   <div id="projectname">IoT Escape Room
    </div>
   </td>
  </tr>
@@ -86,7 +86,6 @@ $(function() {
 <code>#include &quot;<a class="el" href="pinout_8h_source.html">pinout.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="temperature_8h_source.html">temperature.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="actuator_8h_source.html">actuator.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phase_8h_source.html">phase.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="epaper_8h_source.html">epaper.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="backend_8h_source.html">backend.h</a>&quot;</code><br />
@@ -96,30 +95,26 @@ Include dependency graph for game.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="game_8cpp__incl.png" border="0" usemap="#afrontend_2game_8cpp" alt=""/></div>
 <map name="afrontend_2game_8cpp" id="afrontend_2game_8cpp">
-<area shape="rect" title="Escape&#45;room game states and puzzle coordination." alt="" coords="388,5,533,31"/>
+<area shape="rect" title="Escape&#45;room game states and puzzle coordination." alt="" coords="337,5,483,31"/>
 <area shape="rect" href="game_8h.html" title="Escape&#45;room game states and puzzle coordination." alt="" coords="5,79,76,104"/>
-<area shape="poly" title=" " alt="" coords="388,32,254,52,90,81,89,76,253,47,387,27"/>
+<area shape="poly" title=" " alt="" coords="343,33,90,81,89,76,342,28"/>
 <area shape="rect" href="pinout_8h.html" title="Arduino peripheral pin assignments." alt="" coords="101,79,175,104"/>
-<area shape="poly" title=" " alt="" coords="408,33,190,81,189,76,407,28"/>
+<area shape="poly" title=" " alt="" coords="367,33,189,79,188,74,366,28"/>
 <area shape="rect" href="temperature_8h.html" title="DHT11 temperature threshold puzzle." alt="" coords="199,79,314,104"/>
-<area shape="poly" title=" " alt="" coords="429,33,303,77,302,72,427,28"/>
-<area shape="rect" href="led_8h.html" title="Two&#45;channel status LED control." alt="" coords="339,79,393,104"/>
-<area shape="poly" title=" " alt="" coords="447,33,394,72,391,68,444,29"/>
-<area shape="rect" href="actuator_8h.html" title="Servo actuator positions and control." alt="" coords="417,79,504,104"/>
-<area shape="poly" title=" " alt="" coords="463,31,463,65,458,65,458,31"/>
-<area shape="rect" href="phase_8h.html" title="Potentiometer&#45;controlled LED phase puzzle." alt="" coords="528,79,601,104"/>
-<area shape="poly" title=" " alt="" coords="479,28,538,68,535,73,476,33"/>
-<area shape="rect" href="epaper_8h.html" title="E&#45;paper puzzle&#45;code and employee&#45;record rendering." alt="" coords="625,79,704,104"/>
-<area shape="poly" title=" " alt="" coords="494,28,620,72,618,77,493,33"/>
-<area shape="rect" href="backend_8h.html" title="LoRaWAN communication and game&#45;state downlinks." alt="" coords="729,79,817,104"/>
-<area shape="poly" title=" " alt="" coords="511,28,716,74,715,80,510,33"/>
-<area shape="rect" href="password_8h.html" title="Serial password puzzle." alt="" coords="841,79,937,104"/>
-<area shape="poly" title=" " alt="" coords="534,28,827,76,826,81,533,33"/>
-<area shape="rect" title=" " alt="" coords="48,152,132,177"/>
-<area shape="poly" title=" " alt="" coords="51,103,76,139,72,142,47,106"/>
-<area shape="poly" title=" " alt="" coords="132,106,108,142,103,139,128,103"/>
-<area shape="rect" title=" " alt="" coords="425,152,496,177"/>
-<area shape="poly" title=" " alt="" coords="463,104,463,138,458,138,458,104"/>
+<area shape="poly" title=" " alt="" coords="386,33,295,75,293,70,384,28"/>
+<area shape="rect" href="led_8h.html" title="RGB status LED control." alt="" coords="339,79,393,104"/>
+<area shape="poly" title=" " alt="" coords="405,32,383,68,378,66,400,30"/>
+<area shape="rect" href="phase_8h.html" title="Potentiometer&#45;controlled LED phase puzzle." alt="" coords="417,79,491,104"/>
+<area shape="poly" title=" " alt="" coords="420,30,442,66,437,68,415,32"/>
+<area shape="rect" href="epaper_8h.html" title="E&#45;paper puzzle&#45;code rendering." alt="" coords="515,79,593,104"/>
+<area shape="poly" title=" " alt="" coords="434,28,519,70,517,75,432,33"/>
+<area shape="rect" href="backend_8h.html" title="LoRaWAN communication and game&#45;state downlinks." alt="" coords="618,79,706,104"/>
+<area shape="poly" title=" " alt="" coords="451,28,609,72,607,77,450,33"/>
+<area shape="rect" href="password_8h.html" title="Serial password puzzle." alt="" coords="730,79,826,104"/>
+<area shape="poly" title=" " alt="" coords="470,28,717,76,716,81,469,33"/>
+<area shape="rect" title=" " alt="" coords="47,152,131,177"/>
+<area shape="poly" title=" " alt="" coords="51,103,76,139,71,142,46,106"/>
+<area shape="poly" title=" " alt="" coords="132,106,107,142,102,139,128,103"/>
 </map>
 </div>
 </div>
@@ -130,14 +125,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a9212e0aee356d671e627785c2e43cfc9" id="r_a9212e0aee356d671e627785c2e43cfc9"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73">led_color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#a9212e0aee356d671e627785c2e43cfc9">led_for_state</a> (<a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a> s)</td></tr>
 <tr class="memdesc:a9212e0aee356d671e627785c2e43cfc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the default status LED color for a game state.  <br /></td></tr>
 <tr class="separator:a9212e0aee356d671e627785c2e43cfc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84a2fe73d5918c6fdcc6ff876a2a7911" id="r_a84a2fe73d5918c6fdcc6ff876a2a7911"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="actuator_8h.html#a10922fbf32ef56fe4bf42631380f1ea3">actuator_degree</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#a84a2fe73d5918c6fdcc6ff876a2a7911">degree_for_state</a> (<a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a> s)</td></tr>
-<tr class="memdesc:a84a2fe73d5918c6fdcc6ff876a2a7911"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the actuator position for a game state.  <br /></td></tr>
-<tr class="separator:a84a2fe73d5918c6fdcc6ff876a2a7911"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab058ebf025dbe04fb10a03a090bd329b" id="r_ab058ebf025dbe04fb10a03a090bd329b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#ab058ebf025dbe04fb10a03a090bd329b">button_pressed</a> ()</td></tr>
 <tr class="memdesc:ab058ebf025dbe04fb10a03a090bd329b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detect an active-low button press with a 50 ms debounce interval.  <br /></td></tr>
 <tr class="separator:ab058ebf025dbe04fb10a03a090bd329b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f6bf6723bdd2790ab13490d0013a076" id="r_a0f6bf6723bdd2790ab13490d0013a076"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#a0f6bf6723bdd2790ab13490d0013a076">set_state</a> (<a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a> new_state)</td></tr>
-<tr class="memdesc:a0f6bf6723bdd2790ab13490d0013a076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the game state and update the status LED and actuator.  <br /></td></tr>
+<tr class="memdesc:a0f6bf6723bdd2790ab13490d0013a076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the game state and update the status LED.  <br /></td></tr>
 <tr class="separator:a0f6bf6723bdd2790ab13490d0013a076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e3e3dd41cb3df85c06b3def774d450a" id="r_a4e3e3dd41cb3df85c06b3def774d450a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#a4e3e3dd41cb3df85c06b3def774d450a">game_setup</a> ()</td></tr>
 <tr class="memdesc:a4e3e3dd41cb3df85c06b3def774d450a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize serial communication, peripherals and the initial game-state outputs.  <br /></td></tr>
@@ -149,18 +141,16 @@ Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a8e2ccb4b510737583472d5e6625d5a86" id="r_a8e2ccb4b510737583472d5e6625d5a86"><td class="memItemLeft" align="right" valign="top">const char *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#a8e2ccb4b510737583472d5e6625d5a86">puzzle_codes</a> []</td></tr>
+<tr class="memdesc:a8e2ccb4b510737583472d5e6625d5a86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlock keys revealed by the device puzzles, in game order.  <br /></td></tr>
 <tr class="separator:a8e2ccb4b510737583472d5e6625d5a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c8d0c4db98a2a77f0f9fe74c5e912a7" id="r_a2c8d0c4db98a2a77f0f9fe74c5e912a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structEmployee.html">Employee</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#a2c8d0c4db98a2a77f0f9fe74c5e912a7">employee</a></td></tr>
-<tr class="memdesc:a2c8d0c4db98a2a77f0f9fe74c5e912a7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structEmployee.html" title="Employee data shown by the serial puzzle.">Employee</a> record used by the serial puzzle.  <br /></td></tr>
-<tr class="separator:a2c8d0c4db98a2a77f0f9fe74c5e912a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa695ed09e3998fb66889f148925a12aa" id="r_aa695ed09e3998fb66889f148925a12aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#aa695ed09e3998fb66889f148925a12aa">state</a> = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a85dd647f955bff1bd181727c3fea13e7">PHASE_PUZZLE</a></td></tr>
+<tr class="memitem:aa695ed09e3998fb66889f148925a12aa" id="r_aa695ed09e3998fb66889f148925a12aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#aa695ed09e3998fb66889f148925a12aa">state</a> = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a8e7ae7d9e9c941ec342573b6e11e2f60">WAIT_INITIALIZATION</a></td></tr>
 <tr class="memdesc:aa695ed09e3998fb66889f148925a12aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current device game state.  <br /></td></tr>
 <tr class="separator:aa695ed09e3998fb66889f148925a12aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d581ef4115e6a9e87fd08e05736a4bf" id="r_a5d581ef4115e6a9e87fd08e05736a4bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#a5d581ef4115e6a9e87fd08e05736a4bf">next_state</a> = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a85dd647f955bff1bd181727c3fea13e7">PHASE_PUZZLE</a></td></tr>
+<tr class="memitem:a5d581ef4115e6a9e87fd08e05736a4bf" id="r_a5d581ef4115e6a9e87fd08e05736a4bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#a5d581ef4115e6a9e87fd08e05736a4bf">next_state</a> = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a8e7ae7d9e9c941ec342573b6e11e2f60">WAIT_INITIALIZATION</a></td></tr>
 <tr class="memdesc:a5d581ef4115e6a9e87fd08e05736a4bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Candidate state selected from the backend reply.  <br /></td></tr>
 <tr class="separator:a5d581ef4115e6a9e87fd08e05736a4bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2826e1d5e7f50dcd1844d8d95394f914" id="r_a2826e1d5e7f50dcd1844d8d95394f914"><td class="memItemLeft" align="right" valign="top"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#a2826e1d5e7f50dcd1844d8d95394f914">prvs_state</a> = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a85dd647f955bff1bd181727c3fea13e7">PHASE_PUZZLE</a></td></tr>
-<tr class="memdesc:a2826e1d5e7f50dcd1844d8d95394f914"><td class="mdescLeft">&#160;</td><td class="mdescRight">State to restore when no usable backend reply is received.  <br /></td></tr>
+<tr class="memitem:a2826e1d5e7f50dcd1844d8d95394f914" id="r_a2826e1d5e7f50dcd1844d8d95394f914"><td class="memItemLeft" align="right" valign="top"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#a2826e1d5e7f50dcd1844d8d95394f914">prvs_state</a> = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a8e7ae7d9e9c941ec342573b6e11e2f60">WAIT_INITIALIZATION</a></td></tr>
+<tr class="memdesc:a2826e1d5e7f50dcd1844d8d95394f914"><td class="mdescLeft">&#160;</td><td class="mdescRight">State to restore when the backend returns no valid state.  <br /></td></tr>
 <tr class="separator:a2826e1d5e7f50dcd1844d8d95394f914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a261d2d717cca0ff35e6097d750a4a1c2" id="r_a261d2d717cca0ff35e6097d750a4a1c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="backend_8h.html#ab44f81e9f0b8e5687ca7a45c0301d751">state_codes</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="game_8cpp.html#a261d2d717cca0ff35e6097d750a4a1c2">next_state_code</a> = <a class="el" href="backend_8h.html#ab44f81e9f0b8e5687ca7a45c0301d751a2e8e8b01e04f0660d312aeb756eab21c">NO_DOWNLINK_CODE</a></td></tr>
 <tr class="memdesc:a261d2d717cca0ff35e6097d750a4a1c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Most recently received backend state code.  <br /></td></tr>
@@ -200,44 +190,7 @@ Variables</h2></td></tr>
 <p>Detect an active-low button press with a 50 ms debounce interval. </p>
 <dl class="section return"><dt>Returns</dt><dd>True only when a press edge is accepted. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00095">95</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a84a2fe73d5918c6fdcc6ff876a2a7911" name="a84a2fe73d5918c6fdcc6ff876a2a7911"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84a2fe73d5918c6fdcc6ff876a2a7911">&#9670;&#160;</a></span>degree_for_state()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="actuator_8h.html#a10922fbf32ef56fe4bf42631380f1ea3">actuator_degree</a> degree_for_state </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a>&#160;</td>
-          <td class="paramname"><em>s</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Select the actuator position for a game state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">s</td><td>Game state to map. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The mapped servo angle, or DEGREE_0 for an unmapped state. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00079">79</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00068">68</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
 
 </div>
 </div>
@@ -258,7 +211,7 @@ Variables</h2></td></tr>
 
 <p>Initialize serial communication, peripherals and the initial game-state outputs. </p>
 
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00132">132</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00101">101</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
 
 </div>
 </div>
@@ -280,7 +233,7 @@ Variables</h2></td></tr>
 <p>Run one game-state iteration, update puzzles and process requested backend transitions. </p>
 <dl class="section note"><dt>Note</dt><dd>Backend communication and display updates may block. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00150">150</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00117">117</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
 
 </div>
 </div>
@@ -317,7 +270,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The mapped LED color, or LED_OFF for an unmapped state. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00062">62</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00051">51</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
 
 </div>
 </div>
@@ -337,45 +290,20 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Change the game state and update the status LED and actuator. </p>
+<p>Change the game state and update the status LED. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">new_state</td><td>Game state to enter. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>WAIT_BACKEND preserves the actuator position; an unchanged state has no effect. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The previous state is stored so WAIT_BACKEND can return to it; an unchanged state has no effect. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00113">113</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00086">86</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a2c8d0c4db98a2a77f0f9fe74c5e912a7" name="a2c8d0c4db98a2a77f0f9fe74c5e912a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c8d0c4db98a2a77f0f9fe74c5e912a7">&#9670;&#160;</a></span>employee</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structEmployee.html">Employee</a> employee</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    <span class="stringliteral">&quot;042&quot;</span>,</div>
-<div class="line">    <span class="stringliteral">&quot;Buster&quot;</span>,</div>
-<div class="line">    28,</div>
-<div class="line">    <span class="stringliteral">&quot;IT&quot;</span>,</div>
-<div class="line">    <span class="stringliteral">&quot;Loves coffee&quot;</span></div>
-<div class="line">}</div>
-</div><!-- fragment -->
-<p><a class="el" href="structEmployee.html" title="Employee data shown by the serial puzzle.">Employee</a> record used by the serial puzzle. </p>
-
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00025">25</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
-
-</div>
-</div>
 <a id="a5d581ef4115e6a9e87fd08e05736a4bf" name="a5d581ef4115e6a9e87fd08e05736a4bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d581ef4115e6a9e87fd08e05736a4bf">&#9670;&#160;</a></span>next_state</h2>
 
@@ -383,14 +311,14 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a> next_state = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a85dd647f955bff1bd181727c3fea13e7">PHASE_PUZZLE</a></td>
+          <td class="memname"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a> next_state = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a8e7ae7d9e9c941ec342573b6e11e2f60">WAIT_INITIALIZATION</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Candidate state selected from the backend reply. </p>
 
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00041">41</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00032">32</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
 
 </div>
 </div>
@@ -408,7 +336,7 @@ Variables</h2></td></tr>
 
 <p>Most recently received backend state code. </p>
 
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00050">50</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00040">40</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
 
 </div>
 </div>
@@ -434,7 +362,7 @@ Variables</h2></td></tr>
 
 <p>Whether the current synchronized/hot condition has already revealed a code. </p>
 
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00055">55</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00044">44</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
 
 </div>
 </div>
@@ -445,14 +373,14 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a> prvs_state = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a85dd647f955bff1bd181727c3fea13e7">PHASE_PUZZLE</a></td>
+          <td class="memname"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a> prvs_state = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a8e7ae7d9e9c941ec342573b6e11e2f60">WAIT_INITIALIZATION</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>State to restore when no usable backend reply is received. </p>
+<p>State to restore when the backend returns no valid state. </p>
 
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00045">45</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00036">36</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
 
 </div>
 </div>
@@ -473,7 +401,9 @@ Variables</h2></td></tr>
 <div class="line">    <span class="stringliteral">&quot;backend_puzzle_key&quot;</span></div>
 <div class="line">}</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00016">16</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
+<p>Unlock keys revealed by the device puzzles, in game order. </p>
+
+<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00018">18</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
 
 </div>
 </div>
@@ -484,14 +414,14 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a> state = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a85dd647f955bff1bd181727c3fea13e7">PHASE_PUZZLE</a></td>
+          <td class="memname"><a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2">game_state</a> state = <a class="el" href="game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a8e7ae7d9e9c941ec342573b6e11e2f60">WAIT_INITIALIZATION</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Current device game state. </p>
 
-<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00037">37</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="game_8cpp_source.html#l00028">28</a> of file <a class="el" href="game_8cpp_source.html">game.cpp</a>.</p>
 
 </div>
 </div>

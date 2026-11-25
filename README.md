@@ -1,4 +1,4 @@
-# IoT Escape Room — Operation Breakout
+# IoT Reverse Escape Room
 
 An escape-room prototype combining an Arduino puzzle device with a Flask web
 application. Players solve physical and software puzzles, submit unlock keys in

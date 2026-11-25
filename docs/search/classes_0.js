@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_5ftfont_0',['_tFont',['../struct__tFont.html',1,'']]]
+  ['gamephase_0',['GamePhase',['../classsettings_1_1GamePhase.html',1,'settings']]]
 ];

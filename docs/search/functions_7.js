@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['hdirinit_0',['HDirInit',['../classEpd.html#accafde2cf488861f29cec4726a6358b5',1,'Epd']]],
-  ['hex_5fnibble_1',['hex_nibble',['../__debug__backend_8cpp.html#a525d0cd8e8480e336832f8115761ab92',1,'hex_nibble(char c):&#160;_debug_backend.cpp'],['../backend_8cpp.html#a525d0cd8e8480e336832f8115761ab92',1,'hex_nibble(char c):&#160;backend.cpp']]]
+  ['index_0',['index',['../namespaceapp.html#a4727fbeb35bed8ec5000ba2eb4cec4a7',1,'app']]],
+  ['init_5fdb_1',['init_db',['../namespacedb__queries.html#af88407276540a6cd17e731c880e530d5',1,'db_queries']]],
+  ['init_5fphases_2',['init_phases',['../namespacedb__queries.html#a0f0c2be456429f3e7e5213be959a6f3d',1,'db_queries']]],
+  ['injection_3',['injection',['../namespaceapp.html#a955003d3c3c4beb067646b229c824f04',1,'app']]]
 ];

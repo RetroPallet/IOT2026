@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IoT Escape Room - Operation Breakout: frontend/led.h File Reference</title>
+<title>IoT Escape Room: frontend/led.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">IoT Escape Room - Operation Breakout
+   <div id="projectname">IoT Escape Room
    </div>
   </td>
  </tr>
@@ -80,17 +80,17 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Two-channel status LED control.  
+<p>RGB status LED control.  
 <a href="#details">More...</a></p>
 <div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="led_8h__dep__incl.png" border="0" usemap="#afrontend_2led_8hdep" alt=""/></div>
 <map name="afrontend_2led_8hdep" id="afrontend_2led_8hdep">
-<area shape="rect" title="Two&#45;channel status LED control." alt="" coords="101,5,215,31"/>
+<area shape="rect" title="RGB status LED control." alt="" coords="101,5,215,31"/>
 <area shape="rect" href="game_8cpp.html" title="Escape&#45;room game states and puzzle coordination." alt="" coords="5,79,151,104"/>
 <area shape="poly" title=" " alt="" coords="137,42,93,80,89,76,133,38"/>
-<area shape="rect" href="led_8cpp.html" title="Two&#45;channel status LED control." alt="" coords="175,79,303,104"/>
+<area shape="rect" href="led_8cpp.html" title="RGB status LED control." alt="" coords="175,79,303,104"/>
 <area shape="poly" title=" " alt="" coords="183,38,228,76,224,80,180,42"/>
 </map>
 </div>
@@ -99,25 +99,32 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:add3b17d7e612b943fa4ce611ee324e73" id="r_add3b17d7e612b943fa4ce611ee324e73"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73">led_color</a> { <a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73afc0ca8cc6cbe215fd3f1ae6d40255b40">LED_OFF</a> = 0b00
-, <a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73ad80f13022b6d309268fadc7b1da89cb9">LED_RED</a> = 0b01
-, <a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73a0ad916c7f80666dc88f6b5b22a72e742">LED_GREEN</a> = 0b10
-, <a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73a81b537bb7607998bab91c7f08c5883de">LED_YELLOW</a> = 0b11
+<tr class="memitem:add3b17d7e612b943fa4ce611ee324e73" id="r_add3b17d7e612b943fa4ce611ee324e73"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73">led_color</a> { <br />
+&#160;&#160;<a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73afc0ca8cc6cbe215fd3f1ae6d40255b40">LED_OFF</a> = 0b000
+, <a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73ad80f13022b6d309268fadc7b1da89cb9">LED_RED</a> = 0b001
+, <a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73a0ad916c7f80666dc88f6b5b22a72e742">LED_GREEN</a> = 0b010
+, <a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73aa67c57c0ff22a2772cb6a5751a3327bf">LED_BLUE</a> = 0b100
+, <br />
+&#160;&#160;<a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73a81b537bb7607998bab91c7f08c5883de">LED_YELLOW</a> = 0b011
+, <a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73af942b8844d07bcf04804008bb1421ae1">LED_MAGENTA</a> = 0b101
+, <a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73af0939e8f07680b1a6d2ba02a70b819d2">LED_CYAN</a> = 0b110
+, <a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73ace843b172a923d4eea99189d6764dfe4">LED_WHITE</a> = 0b111
+<br />
  }</td></tr>
-<tr class="memdesc:add3b17d7e612b943fa4ce611ee324e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Red and green channel bit masks for the status LED.  <a href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73">More...</a><br /></td></tr>
+<tr class="memdesc:add3b17d7e612b943fa4ce611ee324e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status LED colors as red (bit 0), green (bit 1) and blue (bit 2) channel masks.  <a href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73">More...</a><br /></td></tr>
 <tr class="separator:add3b17d7e612b943fa4ce611ee324e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7b3b624857fba1776c75412289a20230" id="r_a7b3b624857fba1776c75412289a20230"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="led_8h.html#a7b3b624857fba1776c75412289a20230">led_init</a> ()</td></tr>
-<tr class="memdesc:a7b3b624857fba1776c75412289a20230"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the red and green LED pins as outputs and switch the LED off.  <br /></td></tr>
+<tr class="memdesc:a7b3b624857fba1776c75412289a20230"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the red, green and blue LED pins as outputs and switch the LED off.  <br /></td></tr>
 <tr class="separator:a7b3b624857fba1776c75412289a20230"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ee8e4143c3f1bdef3ce4f74f0dcaa54" id="r_a9ee8e4143c3f1bdef3ce4f74f0dcaa54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="led_8h.html#a9ee8e4143c3f1bdef3ce4f74f0dcaa54">led_set</a> (<a class="el" href="led_8h.html#add3b17d7e612b943fa4ce611ee324e73">led_color</a> color)</td></tr>
-<tr class="memdesc:a9ee8e4143c3f1bdef3ce4f74f0dcaa54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the two-channel status LED color using PWM.  <br /></td></tr>
+<tr class="memdesc:a9ee8e4143c3f1bdef3ce4f74f0dcaa54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the RGB status LED color using PWM.  <br /></td></tr>
 <tr class="separator:a9ee8e4143c3f1bdef3ce4f74f0dcaa54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Two-channel status LED control. </p>
+<div class="textblock"><p>RGB status LED control. </p>
 
 <p class="definition">Definition in file <a class="el" href="led_8h_source.html">led.h</a>.</p>
 </div><h2 class="groupheader">Enumeration Type Documentation</h2>
@@ -133,15 +140,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Red and green channel bit masks for the status LED. </p>
+<p>Status LED colors as red (bit 0), green (bit 1) and blue (bit 2) channel masks. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73afc0ca8cc6cbe215fd3f1ae6d40255b40" name="add3b17d7e612b943fa4ce611ee324e73afc0ca8cc6cbe215fd3f1ae6d40255b40"></a>LED_OFF&#160;</td><td class="fielddoc"><p>Both LED channels off. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73afc0ca8cc6cbe215fd3f1ae6d40255b40" name="add3b17d7e612b943fa4ce611ee324e73afc0ca8cc6cbe215fd3f1ae6d40255b40"></a>LED_OFF&#160;</td><td class="fielddoc"><p>All channels off. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73ad80f13022b6d309268fadc7b1da89cb9" name="add3b17d7e612b943fa4ce611ee324e73ad80f13022b6d309268fadc7b1da89cb9"></a>LED_RED&#160;</td><td class="fielddoc"><p>Red channel enabled. </p>
+<tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73ad80f13022b6d309268fadc7b1da89cb9" name="add3b17d7e612b943fa4ce611ee324e73ad80f13022b6d309268fadc7b1da89cb9"></a>LED_RED&#160;</td><td class="fielddoc"><p>Red channel only. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73a0ad916c7f80666dc88f6b5b22a72e742" name="add3b17d7e612b943fa4ce611ee324e73a0ad916c7f80666dc88f6b5b22a72e742"></a>LED_GREEN&#160;</td><td class="fielddoc"><p>Green channel enabled. </p>
+<tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73a0ad916c7f80666dc88f6b5b22a72e742" name="add3b17d7e612b943fa4ce611ee324e73a0ad916c7f80666dc88f6b5b22a72e742"></a>LED_GREEN&#160;</td><td class="fielddoc"><p>Green channel only. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73a81b537bb7607998bab91c7f08c5883de" name="add3b17d7e612b943fa4ce611ee324e73a81b537bb7607998bab91c7f08c5883de"></a>LED_YELLOW&#160;</td><td class="fielddoc"><p>Both channels enabled with yellow mixing. </p>
+<tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73aa67c57c0ff22a2772cb6a5751a3327bf" name="add3b17d7e612b943fa4ce611ee324e73aa67c57c0ff22a2772cb6a5751a3327bf"></a>LED_BLUE&#160;</td><td class="fielddoc"><p>Blue channel only. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73a81b537bb7607998bab91c7f08c5883de" name="add3b17d7e612b943fa4ce611ee324e73a81b537bb7607998bab91c7f08c5883de"></a>LED_YELLOW&#160;</td><td class="fielddoc"><p>Red and green channels. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73af942b8844d07bcf04804008bb1421ae1" name="add3b17d7e612b943fa4ce611ee324e73af942b8844d07bcf04804008bb1421ae1"></a>LED_MAGENTA&#160;</td><td class="fielddoc"><p>Red and blue channels. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73af0939e8f07680b1a6d2ba02a70b819d2" name="add3b17d7e612b943fa4ce611ee324e73af0939e8f07680b1a6d2ba02a70b819d2"></a>LED_CYAN&#160;</td><td class="fielddoc"><p>Green and blue channels. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="add3b17d7e612b943fa4ce611ee324e73ace843b172a923d4eea99189d6764dfe4" name="add3b17d7e612b943fa4ce611ee324e73ace843b172a923d4eea99189d6764dfe4"></a>LED_WHITE&#160;</td><td class="fielddoc"><p>All channels on. </p>
 </td></tr>
 </table>
 
@@ -165,9 +180,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Configure the red and green LED pins as outputs and switch the LED off. </p>
+<p>Configure the red, green and blue LED pins as outputs and switch the LED off. </p>
 
-<p class="definition">Definition at line <a class="el" href="led_8cpp_source.html#l00020">20</a> of file <a class="el" href="led_8cpp_source.html">led.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="led_8cpp_source.html#l00026">26</a> of file <a class="el" href="led_8cpp_source.html">led.cpp</a>.</p>
 
 </div>
 </div>
@@ -187,16 +202,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set the two-channel status LED color using PWM. </p>
+<p>Set the RGB status LED color using PWM. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">color</td><td>Requested status LED color. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Repeated colors are ignored; yellow uses a reduced green intensity. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Repeated colors are ignored; green and blue use reduced intensities (GREEN_LEVEL, BLUE_LEVEL). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="led_8cpp_source.html#l00031">31</a> of file <a class="el" href="led_8cpp_source.html">led.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="led_8cpp_source.html#l00038">38</a> of file <a class="el" href="led_8cpp_source.html">led.cpp</a>.</p>
 
 </div>
 </div>

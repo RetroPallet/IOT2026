@@ -1,4 +1,4 @@
-PROJECT_NAME = "IoT Escape Room - Operation Breakout"
+PROJECT_NAME = "IoT Escape Room"
 OUTPUT_DIRECTORY = docs
 HTML_OUTPUT = .
 INPUT = frontend \
@@ -25,7 +25,7 @@ SOURCE_BROWSER = YES
 INLINE_SOURCES = NO
 WARN_IF_UNDOCUMENTED = YES
 WARN_IF_DOC_ERROR = YES
-QUIET = YES
+QUIET = NO
 USE_MDFILE_AS_MAINPAGE = README.md
 
 # Record diagnostics without disabling documentation checks.

@@ -1,6 +1,27 @@
 var searchData=
 [
-  ['offset_5fbitmap_0',['OFFSET_BITMAP',['../fonts_8h.html#ad1ec3e3884b25d062a4f07eb814e5f49',1,'fonts.h']]],
-  ['operation_20breakout_1',['IoT Escape Room — Operation Breakout',['../index.html',1,'']]],
-  ['overview_2',['API overview',['../index.html#autotoc_md10',1,'']]]
+  ['paint_0',['paint',['../epaper_8cpp.html#a37050fd97cc70153fd3b573e2bc6597a',1,'epaper.cpp']]],
+  ['password_1',['password',['../password_8cpp.html#a6c857fc5b1917d65a997274053f7dfd6',1,'password.cpp']]],
+  ['password_2ecpp_2',['password.cpp',['../password_8cpp.html',1,'']]],
+  ['password_2eh_3',['password.h',['../password_8h.html',1,'']]],
+  ['password_5fupdate_4',['password_update',['../password_8cpp.html#a9d6d2745f304e2c68a96114a3dc8f185',1,'password_update():&#160;password.cpp'],['../password_8h.html#a9d6d2745f304e2c68a96114a3dc8f185',1,'password_update():&#160;password.cpp']]],
+  ['period_5',['PERIOD',['../phase_8cpp.html#a26ddcd9d50b4ec50bb01bb89c0bf725e',1,'phase.cpp']]],
+  ['phase_2ecpp_6',['phase.cpp',['../phase_8cpp.html',1,'']]],
+  ['phase_2eh_7',['phase.h',['../phase_8h.html',1,'']]],
+  ['phase_5fcodes_8',['PHASE_CODES',['../namespaceadapter.html#a2939ab6b6c6861f72689f3b46f334904',1,'adapter']]],
+  ['phase_5finit_9',['phase_init',['../phase_8h.html#ab138f885244c349db2bd5cb320db0d85',1,'phase_init():&#160;phase.cpp'],['../phase_8cpp.html#ab138f885244c349db2bd5cb320db0d85',1,'phase_init():&#160;phase.cpp']]],
+  ['phase_5fpuzzle_10',['phase_puzzle',['../game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2a85dd647f955bff1bd181727c3fea13e7',1,'PHASE_PUZZLE:&#160;game.h'],['../classsettings_1_1GamePhase.html#a8c804fe19a1072ffa238e1c81ee003ae',1,'settings.GamePhase.PHASE_PUZZLE']]],
+  ['phase_5fpuzzle_5fcode_11',['PHASE_PUZZLE_CODE',['../backend_8h.html#ab44f81e9f0b8e5687ca7a45c0301d751ab500aa962c1f540b45a2264c22b973ad',1,'backend.h']]],
+  ['phase_5fsolved_12',['phase_solved',['../game_8cpp.html#adb212b34e1c07ad0e297106a377c2f9c',1,'game.cpp']]],
+  ['phase_5fupdate_13',['phase_update',['../phase_8cpp.html#a37718698efd44fac0e7cf8e1a8bac77e',1,'phase_update():&#160;phase.cpp'],['../phase_8h.html#a37718698efd44fac0e7cf8e1a8bac77e',1,'phase_update():&#160;phase.cpp']]],
+  ['pin_20assignments_14',['Pin assignments',['../index.html#autotoc_md8',1,'']]],
+  ['pinout_2eh_15',['pinout.h',['../pinout_8h.html',1,'']]],
+  ['player_16',['player',['../namespaceapp.html#af4ead5ca797c79d0c85308a14d30b630',1,'app']]],
+  ['pot_5fpin_17',['POT_PIN',['../pinout_8h.html#aae89f73e4cdcb650ae5c585818d3a861',1,'pinout.h']]],
+  ['priority_18',['PRIORITY',['../namespaceadapter.html#a50d2c2a653e4123494868fdb3154c65f',1,'adapter']]],
+  ['project_20structure_19',['Project structure',['../index.html#autotoc_md1',1,'']]],
+  ['prvs_5fstate_20',['prvs_state',['../game_8cpp.html#a2826e1d5e7f50dcd1844d8d95394f914',1,'game.cpp']]],
+  ['puzzle_20behavior_21',['Puzzle behavior',['../index.html#autotoc_md9',1,'']]],
+  ['puzzle_5fcodes_22',['puzzle_codes',['../game_8cpp.html#a8e2ccb4b510737583472d5e6625d5a86',1,'game.cpp']]],
+  ['puzzle_5fstarted_23',['puzzle_started',['../password_8cpp.html#a7e78e08b8556546de9a55fea7d2c2177',1,'password.cpp']]]
 ];

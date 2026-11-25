@@ -1,26 +1,22 @@
 <map id="frontend/game.cpp" name="frontend/game.cpp">
-<area shape="rect" id="Node000001" title="Escape&#45;room game states and puzzle coordination." alt="" coords="388,5,533,31"/>
+<area shape="rect" id="Node000001" title="Escape&#45;room game states and puzzle coordination." alt="" coords="337,5,483,31"/>
 <area shape="rect" id="Node000002" href="$game_8h.html" title="Escape&#45;room game states and puzzle coordination." alt="" coords="5,79,76,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="388,32,254,52,90,81,89,76,253,47,387,27"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="343,33,90,81,89,76,342,28"/>
 <area shape="rect" id="Node000004" href="$pinout_8h.html" title="Arduino peripheral pin assignments." alt="" coords="101,79,175,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="408,33,190,81,189,76,407,28"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="367,33,189,79,188,74,366,28"/>
 <area shape="rect" id="Node000005" href="$temperature_8h.html" title="DHT11 temperature threshold puzzle." alt="" coords="199,79,314,104"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="429,33,303,77,302,72,427,28"/>
-<area shape="rect" id="Node000006" href="$led_8h.html" title="Two&#45;channel status LED control." alt="" coords="339,79,393,104"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="447,33,394,72,391,68,444,29"/>
-<area shape="rect" id="Node000007" href="$actuator_8h.html" title="Servo actuator positions and control." alt="" coords="417,79,504,104"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="463,31,463,65,458,65,458,31"/>
-<area shape="rect" id="Node000009" href="$phase_8h.html" title="Potentiometer&#45;controlled LED phase puzzle." alt="" coords="528,79,601,104"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="479,28,538,68,535,73,476,33"/>
-<area shape="rect" id="Node000010" href="$epaper_8h.html" title="E&#45;paper puzzle&#45;code and employee&#45;record rendering." alt="" coords="625,79,704,104"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="494,28,620,72,618,77,493,33"/>
-<area shape="rect" id="Node000011" href="$backend_8h.html" title="LoRaWAN communication and game&#45;state downlinks." alt="" coords="729,79,817,104"/>
-<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="511,28,716,74,715,80,510,33"/>
-<area shape="rect" id="Node000012" href="$password_8h.html" title="Serial password puzzle." alt="" coords="841,79,937,104"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="534,28,827,76,826,81,533,33"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="48,152,132,177"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="51,103,76,139,72,142,47,106"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="132,106,108,142,103,139,128,103"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="425,152,496,177"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="463,104,463,138,458,138,458,104"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="386,33,295,75,293,70,384,28"/>
+<area shape="rect" id="Node000006" href="$led_8h.html" title="RGB status LED control." alt="" coords="339,79,393,104"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="405,32,383,68,378,66,400,30"/>
+<area shape="rect" id="Node000007" href="$phase_8h.html" title="Potentiometer&#45;controlled LED phase puzzle." alt="" coords="417,79,491,104"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="420,30,442,66,437,68,415,32"/>
+<area shape="rect" id="Node000008" href="$epaper_8h.html" title="E&#45;paper puzzle&#45;code rendering." alt="" coords="515,79,593,104"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="434,28,519,70,517,75,432,33"/>
+<area shape="rect" id="Node000009" href="$backend_8h.html" title="LoRaWAN communication and game&#45;state downlinks." alt="" coords="618,79,706,104"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="451,28,609,72,607,77,450,33"/>
+<area shape="rect" id="Node000010" href="$password_8h.html" title="Serial password puzzle." alt="" coords="730,79,826,104"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="470,28,717,76,716,81,469,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="47,152,131,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="51,103,76,139,71,142,46,106"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="132,106,107,142,102,139,128,103"/>
 </map>

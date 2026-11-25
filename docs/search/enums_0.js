@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['actuator_5fdegree_0',['actuator_degree',['../actuator_8h.html#a10922fbf32ef56fe4bf42631380f1ea3',1,'actuator.h']]]
+  ['game_5fstate_0',['game_state',['../game_8h.html#ad0ed1832dd134806ad335cdcc1a59ad2',1,'game.h']]]
 ];

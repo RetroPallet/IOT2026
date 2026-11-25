@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['reset_5fpin_0',['reset_pin',['../classEpd.html#a7cb68f8920c0af20af955c2e3ad23da3',1,'Epd']]],
-  ['rotate_1',['rotate',['../classPaint.html#a381b2f2f12c020c6c257a884435b0658',1,'Paint']]]
+  ['temp_5fhot_0',['temp_hot',['../temperature_8cpp.html#af53b000221e06c8a7c8aeff7405a93df',1,'temperature.cpp']]],
+  ['temp_5finterval_1',['TEMP_INTERVAL',['../temperature_8cpp.html#ad15b1aee5008c0f4d3e2664d09b82074',1,'temperature.cpp']]],
+  ['temp_5fthreshold_2',['TEMP_THRESHOLD',['../temperature_8cpp.html#a71b098ddcb9c93125e736d02f55cda33',1,'temperature.cpp']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IoT Escape Room - Operation Breakout: frontend/temperature.cpp Source File</title>
+<title>IoT Escape Room: frontend/temperature.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">IoT Escape Room - Operation Breakout
+   <div id="projectname">IoT Escape Room
    </div>
   </td>
  </tr>
@@ -118,14 +118,13 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <a class="code hl_variable" href="temperature_8cpp.html#a1b666b129f008dc191cb4b96b319af8a">last_temp_read</a> = now;</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">float</span> temperature = <a class="code hl_function" href="temperature_8cpp.html#a6cfd3910a419b94236d21fd00dcfe787">dht</a>.readTemperature();</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="comment">// Serial.println(temperature);</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">if</span> (isnan(temperature))</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="temperature_8cpp.html#af53b000221e06c8a7c8aeff7405a93df">temp_hot</a>;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_variable" href="temperature_8cpp.html#af53b000221e06c8a7c8aeff7405a93df">temp_hot</a> = temperature &gt;= <a class="code hl_variable" href="temperature_8cpp.html#a71b098ddcb9c93125e736d02f55cda33">TEMP_THRESHOLD</a>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="temperature_8cpp.html#af53b000221e06c8a7c8aeff7405a93df">temp_hot</a>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">if</span> (isnan(temperature))</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="temperature_8cpp.html#af53b000221e06c8a7c8aeff7405a93df">temp_hot</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_variable" href="temperature_8cpp.html#af53b000221e06c8a7c8aeff7405a93df">temp_hot</a> = temperature &gt;= <a class="code hl_variable" href="temperature_8cpp.html#a71b098ddcb9c93125e736d02f55cda33">TEMP_THRESHOLD</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="temperature_8cpp.html#af53b000221e06c8a7c8aeff7405a93df">temp_hot</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
 </div>
 <div class="ttc" id="apinout_8h_html"><div class="ttname"><a href="pinout_8h.html">pinout.h</a></div><div class="ttdoc">Arduino peripheral pin assignments.</div></div>
 <div class="ttc" id="apinout_8h_html_a661d236dd49f3aef3a2cf46cf6a1405e"><div class="ttname"><a href="pinout_8h.html#a661d236dd49f3aef3a2cf46cf6a1405e">DHT_PIN</a></div><div class="ttdeci">#define DHT_PIN</div><div class="ttdoc">Arduino pin assignment for dht.</div><div class="ttdef"><b>Definition</b> <a href="pinout_8h_source.html#l00038">pinout.h:38</a></div></div>

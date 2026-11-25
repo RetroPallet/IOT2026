@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IoT Escape Room - Operation Breakout: frontend/pinout.h Source File</title>
+<title>IoT Escape Room: frontend/pinout.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">IoT Escape Room - Operation Breakout
+   <div id="projectname">IoT Escape Room
    </div>
   </td>
  </tr>
@@ -93,7 +93,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> *  D0  RX serial (reserved)        D8  EPD RST</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> *  D1  TX serial (reserved)        D9  EPD DC</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> *  D2  Button                      D10 EPD CS</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> *  D3  LED RGB - BLUE (reserved)   D11 EPD DIN/MOSI</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> *  D3  LED RGB - BLUE (PWM)        D11 EPD DIN/MOSI</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> *  D4  DHT11                       D12 LoRa RN2483 TX -&gt; Arduino RX</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> *  D5  LED RGB - RED (PWM)         D13 EPD CLK/SCK</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"> *  D6  LED RGB - GREEN (PWM)       A0  Potentiometer</span></div>
@@ -105,7 +105,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> * ============================================================ */</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="pinout_8h.html#abc2ad14f0789907024ac765711ffd3da">   30</a></span><span class="preprocessor">#define BUTTON_PIN      2</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="pinout_8h.html#a33ff9d1dc53e2c36865babb7b6f55489">   34</a></span><span class="preprocessor">#define ACTUATOR_PIN    3  </span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="pinout_8h.html#a5aec9d3b503fb1a30a21b16c7be86cff">   34</a></span><span class="preprocessor">#define LED_BLUE_PIN    3</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="pinout_8h.html#a661d236dd49f3aef3a2cf46cf6a1405e">   38</a></span><span class="preprocessor">#define DHT_PIN         4</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="pinout_8h.html#ab9824ab080c30006c1baaa0dd7e863c5">   42</a></span><span class="preprocessor">#define LED_RED_PIN     5</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="pinout_8h.html#a0539be032702009fb24beec89c6fa0c0">   46</a></span><span class="preprocessor">#define LED_GREEN_PIN   6</span></div>

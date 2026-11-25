@@ -1,27 +1,5 @@
 var searchData=
 [
-  ['degree_5ffor_5fstate_0',['degree_for_state',['../game_8cpp.html#a84a2fe73d5918c6fdcc6ff876a2a7911',1,'game.cpp']]],
-  ['delayms_1',['DelayMs',['../classEpdIf.html#a2b0ecc5fe679f10d254d8afab2213adb',1,'EpdIf']]],
-  ['dht_2',['dht',['../temperature_8cpp.html#a6cfd3910a419b94236d21fd00dcfe787',1,'temperature.cpp']]],
-  ['digitalread_3',['DigitalRead',['../classEpdIf.html#a3a5578c04a2420abdfbbaeec1598ee81',1,'EpdIf']]],
-  ['digitalwrite_4',['DigitalWrite',['../classEpdIf.html#a074fadf70db18135f508bf7691d5094a',1,'EpdIf']]],
-  ['display_5',['Display',['../classEpd.html#adc36d22a1fc38b99edd6eb7cb0c7f219',1,'Epd']]],
-  ['displayframe_6',['DisplayFrame',['../classEpd.html#aec1b2972f52edabee2cc3b2a035b80f6',1,'Epd']]],
-  ['displaypart_7',['DisplayPart',['../classEpd.html#a90f538fb153bf7a88b83fa871d82d885',1,'Epd']]],
-  ['displaypartbaseimage_8',['DisplayPartBaseImage',['../classEpd.html#a8269669b460d4d05ba7b370bd7d9d77d',1,'Epd']]],
-  ['displaypartbasewhiteimage_9',['DisplayPartBaseWhiteImage',['../classEpd.html#abd70cbbb97e3865f35c4fadd45f89d89',1,'Epd']]],
-  ['displaypartframe_10',['DisplayPartFrame',['../classEpd.html#a03dfe7606a55fc729b6e4d71627f1145',1,'Epd']]],
-  ['draw_5ffile_5ftext_11',['draw_file_text',['../epaper_8h.html#a40815811f18cfd531acd93bcf91f5eb7',1,'epaper.h']]],
-  ['draw_5fprofile_5ficon_12',['draw_profile_icon',['../epaper_8h.html#a8602ed9728e65d467c4f9512a161f2a9',1,'epaper.h']]],
-  ['drawabsolutepixel_13',['DrawAbsolutePixel',['../classPaint.html#a0d2bf54ceebd69706ed727af2b085c5a',1,'Paint']]],
-  ['drawcharat_14',['DrawCharAt',['../classPaint.html#a0812e7b94d16b45068f45ff3cbc94e2c',1,'Paint']]],
-  ['drawcircle_15',['DrawCircle',['../classPaint.html#ae2de4ec26393d507aafe011448ca3842',1,'Paint']]],
-  ['drawfilledcircle_16',['DrawFilledCircle',['../classPaint.html#a7abb70f0a1e59af89cf244ff0461f031',1,'Paint']]],
-  ['drawfilledrectangle_17',['DrawFilledRectangle',['../classPaint.html#abff259093417fa5420b1d3815771328b',1,'Paint']]],
-  ['drawhorizontalline_18',['DrawHorizontalLine',['../classPaint.html#a2327213e355bc55832abd011a55bae7b',1,'Paint']]],
-  ['drawline_19',['DrawLine',['../classPaint.html#af5e564d85e74938308d527a4345bfc3b',1,'Paint']]],
-  ['drawpixel_20',['DrawPixel',['../classPaint.html#a70814fc3f3c373e5323975ca1469d33d',1,'Paint']]],
-  ['drawrectangle_21',['DrawRectangle',['../classPaint.html#a3d6c4ad0f8ce9fdd6dc187499a1fcd25',1,'Paint']]],
-  ['drawstringat_22',['DrawStringAt',['../classPaint.html#abcd76669a5ac9096d96530569725ef70',1,'Paint']]],
-  ['drawverticalline_23',['DrawVerticalLine',['../classPaint.html#a17f7c40964f76a59740ca80c7d047edb',1,'Paint']]]
+  ['epaper_5finit_0',['epaper_init',['../epaper_8cpp.html#a2b51ff150676d1b89590f539675272ce',1,'epaper_init():&#160;epaper.cpp'],['../epaper_8h.html#a2b51ff150676d1b89590f539675272ce',1,'epaper_init():&#160;epaper.cpp']]],
+  ['epaper_5ftask_1',['epaper_task',['../epaper_8cpp.html#a09f402cd347d283f71a215e9b0fb0c4f',1,'epaper_task():&#160;epaper.cpp'],['../epaper_8h.html#a09f402cd347d283f71a215e9b0fb0c4f',1,'epaper_task():&#160;epaper.cpp']]]
 ];

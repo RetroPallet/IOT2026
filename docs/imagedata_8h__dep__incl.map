@@ -1,7 +1,0 @@
-<map id="frontend/src/epd1in54_V2/imagedata.h" name="frontend/src/epd1in54_V2/imagedata.h">
-<area shape="rect" id="Node000001" title="Example e&#45;paper bitmap data." alt="" coords="99,5,263,45"/>
-<area shape="rect" id="Node000002" href="$epd1in54__V2_8ino.html" title="Waveshare 1.54&#45;inch V2 e&#45;paper controller driver." alt="" coords="5,93,169,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,57,110,95,106,91,148,53"/>
-<area shape="rect" id="Node000003" href="$imagedata_8cpp.html" title="Example e&#45;paper bitmap data." alt="" coords="193,93,357,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="214,53,256,91,253,95,210,57"/>
-</map>

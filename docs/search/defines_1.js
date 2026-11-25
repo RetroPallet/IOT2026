@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['busy_5fpin_0',['BUSY_PIN',['../epdif_8h.html#a18220360fc1f5e8a8f8590ec6d237951',1,'epdif.h']]],
-  ['button_5fpin_1',['BUTTON_PIN',['../pinout_8h.html#abc2ad14f0789907024ac765711ffd3da',1,'pinout.h']]]
+  ['code_5fdisplay_5fms_0',['CODE_DISPLAY_MS',['../epaper_8cpp.html#a60e947ec381343f62bec8140363e4c85',1,'epaper.cpp']]],
+  ['colored_1',['COLORED',['../epaper_8cpp.html#a6dc8f5f6cd3fb1bdf454fe905019a666',1,'epaper.cpp']]]
 ];

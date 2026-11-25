@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IoT Escape Room - Operation Breakout: frontend/backend.h File Reference</title>
+<title>IoT Escape Room: frontend/backend.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">IoT Escape Room - Operation Breakout
+   <div id="projectname">IoT Escape Room
    </div>
   </td>
  </tr>
@@ -87,13 +87,11 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="backend_8h__dep__incl.png" border="0" usemap="#afrontend_2backend_8hdep" alt=""/></div>
 <map name="afrontend_2backend_8hdep" id="afrontend_2backend_8hdep">
-<area shape="rect" title="LoRaWAN communication and game&#45;state downlinks." alt="" coords="253,5,400,31"/>
-<area shape="rect" href="__debug__backend_8cpp.html" title="Alternative RN2483 backend using raw serial commands." alt="" coords="5,79,221,104"/>
-<area shape="poly" title=" " alt="" coords="280,37,149,81,147,76,279,32"/>
-<area shape="rect" href="backend_8cpp.html" title="LoRaWAN communication and game&#45;state downlinks." alt="" coords="245,79,408,104"/>
-<area shape="poly" title=" " alt="" coords="329,44,329,79,324,79,324,44"/>
-<area shape="rect" href="game_8cpp.html" title="Escape&#45;room game states and puzzle coordination." alt="" coords="433,79,578,104"/>
-<area shape="poly" title=" " alt="" coords="369,33,477,76,475,81,367,38"/>
+<area shape="rect" title="LoRaWAN communication and game&#45;state downlinks." alt="" coords="103,5,249,31"/>
+<area shape="rect" href="backend_8cpp.html" title="LoRaWAN communication and game&#45;state downlinks." alt="" coords="5,79,168,104"/>
+<area shape="poly" title=" " alt="" coords="153,41,103,81,100,76,149,37"/>
+<area shape="rect" href="game_8cpp.html" title="Escape&#45;room game states and puzzle coordination." alt="" coords="193,79,338,104"/>
+<area shape="poly" title=" " alt="" coords="203,37,252,76,249,81,199,41"/>
 </map>
 </div>
 </div>
@@ -177,9 +175,10 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reset the RN2483 and initialize the LoRaWAN connection. </p>
-<dl class="section note"><dt>Note</dt><dd>The current implementation returns before the OTAA join code. </dd></dl>
+<p>Reset the RN2483 and initialize the LoRaWAN connection.</p>
+<dl class="section note"><dt>Note</dt><dd>Returns early if the module does not report a valid HWEUI; otherwise blocks, retrying every minute until the join succeeds. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="__debug__backend_8cpp_source.html#l00095">95</a> of file <a class="el" href="__debug__backend_8cpp_source.html">_debug_backend.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backend_8cpp_source.html#l00028">28</a> of file <a class="el" href="backend_8cpp_source.html">backend.cpp</a>.</p>
 
 </div>
 </div>
@@ -201,7 +200,7 @@ Functions</h2></td></tr>
 <p>Send a one-byte uplink and decode the next game state from a downlink. </p>
 <dl class="section return"><dt>Returns</dt><dd>A valid state code, or NO_DOWNLINK_CODE on failure or absent/invalid downlink. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="__debug__backend_8cpp_source.html#l00166">166</a> of file <a class="el" href="__debug__backend_8cpp_source.html">_debug_backend.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backend_8cpp_source.html#l00074">74</a> of file <a class="el" href="backend_8cpp_source.html">backend.cpp</a>.</p>
 
 </div>
 </div>

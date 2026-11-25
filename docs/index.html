@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IoT Escape Room - Operation Breakout: IoT Escape Room — Operation Breakout</title>
+<title>IoT Escape Room: IoT Reverse Escape Room</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">IoT Escape Room - Operation Breakout
+   <div id="projectname">IoT Escape Room
    </div>
   </td>
  </tr>
@@ -69,7 +69,7 @@ $(function() {
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">IoT Escape Room — Operation Breakout </div></div>
+  <div class="headertitle"><div class="title">IoT Reverse Escape Room </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a> An escape-room prototype combining an Arduino puzzle device with a Flask web application. Players solve physical and software puzzles, submit unlock keys in the browser, and progress through game phases. The server can queue LoRaWAN downlinks through The Things Network (TTN) to update the device state.</p>
@@ -89,11 +89,11 @@ Project structure</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code><a class="el" href="password_8cpp.html" title="Serial password puzzle.">frontend/password.cpp</a></code>   </td><td class="markdownTableBodyNone">Serial password puzzle    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code><a class="el" href="backend_8cpp.html" title="LoRaWAN communication and game-state downlinks.">frontend/backend.cpp</a></code>   </td><td class="markdownTableBodyNone">RN2483 communication using the rn2xx3 library    </td></tr>
+<td class="markdownTableBodyNone"><code><a class="el" href="backend_8cpp.html" title="LoRaWAN communication and game-state downlinks.">frontend/backend.cpp</a></code>   </td><td class="markdownTableBodyNone">RN2483 OTAA join and state downlinks using the rn2xx3 library    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code><a class="el" href="__debug__backend_8cpp.html" title="Alternative RN2483 backend using raw serial commands.">frontend/_debug_backend.cpp</a></code>   </td><td class="markdownTableBodyNone">Alternative RN2483 implementation using raw commands    </td></tr>
+<td class="markdownTableBodyNone"><code><a class="el" href="led_8cpp.html" title="RGB status LED control.">frontend/led.cpp</a></code>   </td><td class="markdownTableBodyNone">RGB status LED    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code><a class="el" href="epaper_8cpp.html" title="E-paper puzzle-code and employee-record rendering.">frontend/epaper.cpp</a></code>   </td><td class="markdownTableBodyNone">E-paper code and employee-record rendering    </td></tr>
+<td class="markdownTableBodyNone"><code><a class="el" href="epaper_8cpp.html" title="E-paper puzzle-code rendering.">frontend/epaper.cpp</a></code>   </td><td class="markdownTableBodyNone">E-paper puzzle-code rendering    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>frontend/src/epd1in54_V2/</code>   </td><td class="markdownTableBodyNone">Bundled Waveshare display driver, drawing helpers and fonts    </td></tr>
 <tr class="markdownTableRowEven">
@@ -109,7 +109,7 @@ Project structure</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><code>Doxyfile</code>   </td><td class="markdownTableBodyNone">Doxygen configuration    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>DOCUMENTATION.md</code>   </td><td class="markdownTableBodyNone">Documentation scope and generation notes   </td></tr>
+<td class="markdownTableBodyNone"><code>docs/</code>   </td><td class="markdownTableBodyNone">Generated Doxygen HTML   </td></tr>
 </table>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Game flow</h1>
@@ -122,7 +122,24 @@ Game flow</h1>
 <li><code>COMPLETED</code>: all puzzle keys have been accepted.</li>
 </ol>
 <p>Players submit keys on the player page. A button press on the Arduino enters <code>WAIT_BACKEND</code>, sends an uplink, and checks for a queued state update. If no valid state is received, the device returns to its previous state.</p>
-<p>The current firmware starts directly in <code>PHASE_PUZZLE</code>. The server still creates new players in <code>WAIT_INITIALIZATION</code> and advances them when their activation code is submitted.</p>
+<p>The firmware starts in <code>WAIT_INITIALIZATION</code>, matching the server, which creates new players in that phase and advances them when their activation code is submitted.</p>
+<p>The RGB status LED shows the current device state:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">State   </th><th class="markdownTableHeadNone">LED color    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>WAIT_INITIALIZATION</code>   </td><td class="markdownTableBodyNone">Blue    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>PHASE_PUZZLE</code>   </td><td class="markdownTableBodyNone">Yellow, red while the temperature sensor is hot    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>SERIAL_PUZZLE</code>   </td><td class="markdownTableBodyNone">Magenta    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>BACKEND_PUZZLE</code>   </td><td class="markdownTableBodyNone">Cyan    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>WAIT_BACKEND</code>   </td><td class="markdownTableBodyNone">White    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>COMPLETED</code>   </td><td class="markdownTableBodyNone">Green   </td></tr>
+</table>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Run the web application</h1>
 <p>Use Python 3.11 or newer; the server uses <code>enum.StrEnum</code>.</p>
@@ -172,19 +189,17 @@ Server configuration</h2>
 <h1><a class="anchor" id="autotoc_md6"></a>
 Set up the Arduino device</h1>
 <p>The sketch identifies an Arduino Pro Mini with an ATmega328P. The pin assignments also follow the Uno/Nano-style mapping. Select the board and processor matching your actual hardware in the Arduino IDE.</p>
-<p>Required components include a DHT11 sensor, a potentiometer, a push button, reference and adjustable LEDs, a red/green status LED, a servo, an RN2483 LoRaWAN module and a Waveshare 1.54-inch V2 e-paper display.</p>
+<p>Required components include a DHT11 sensor, a potentiometer, a push button, reference and adjustable LEDs, an RGB status LED, an RN2483 LoRaWAN module and a Waveshare 1.54-inch V2 e-paper display.</p>
 <p>Install these Arduino libraries:</p>
 <ul>
 <li>DHT sensor library by Adafruit</li>
 <li>Adafruit Unified Sensor</li>
-<li>Servo</li>
 <li>An RN2483 library exposing <code>rn2xx3.h</code></li>
 </ul>
 <p>The sketch also uses <code>SoftwareSerial</code> and <code>SPI</code>. The e-paper driver is included in the repository.</p>
 <h2><a class="anchor" id="autotoc_md7"></a>
-Select a backend implementation</h2>
-<p><code><a class="el" href="backend_8cpp.html" title="LoRaWAN communication and game-state downlinks.">backend.cpp</a></code> and <code><a class="el" href="__debug__backend_8cpp.html" title="Alternative RN2483 backend using raw serial commands.">_debug_backend.cpp</a></code> define the same public backend functions. Keep only one implementation in the sketch's compiled source set before building; otherwise, duplicate definitions prevent linking. Move the unused file outside the sketch folder.</p>
-<p>The current <code><a class="el" href="backend_8cpp.html" title="LoRaWAN communication and game-state downlinks.">backend.cpp</a></code> returns before its OTAA join code. The alternative <code><a class="el" href="__debug__backend_8cpp.html" title="Alternative RN2483 backend using raw serial commands.">_debug_backend.cpp</a></code> contains the raw-command configuration and join sequence. For device communication, configure <code>APP_EUI</code> and <code>APP_KEY</code> in the selected file and ensure its initialization performs the required join.</p>
+Configure LoRaWAN</h2>
+<p>Set <code>APP_EUI</code> and <code>APP_KEY</code> in <code><a class="el" href="backend_8cpp.html" title="LoRaWAN communication and game-state downlinks.">frontend/backend.cpp</a></code> to your TTN device's values. At startup the device joins TTN with OTAA and blocks, retrying every minute, until the join succeeds.</p>
 <p>Open <code><a class="el" href="frontend_8ino.html" title="Main Arduino escape-room sketch.">frontend/frontend.ino</a></code> and set the serial monitor to <b>57600 baud</b>. The password puzzle processes input when it receives a newline.</p>
 <h2><a class="anchor" id="autotoc_md8"></a>
 Pin assignments</h2>
@@ -196,13 +211,13 @@ Pin assignments</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">D2   </td><td class="markdownTableBodyNone">Push button, active low with internal pull-up    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">D3   </td><td class="markdownTableBodyNone">Servo signal    </td></tr>
+<td class="markdownTableBodyNone">D3   </td><td class="markdownTableBodyNone">Blue status LED channel (PWM)    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">D4   </td><td class="markdownTableBodyNone">DHT11 data    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">D5   </td><td class="markdownTableBodyNone">Red status LED channel    </td></tr>
+<td class="markdownTableBodyNone">D5   </td><td class="markdownTableBodyNone">Red status LED channel (PWM)    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">D6   </td><td class="markdownTableBodyNone">Green status LED channel    </td></tr>
+<td class="markdownTableBodyNone">D6   </td><td class="markdownTableBodyNone">Green status LED channel (PWM)    </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">D7   </td><td class="markdownTableBodyNone">E-paper BUSY    </td></tr>
 <tr class="markdownTableRowEven">
@@ -230,7 +245,7 @@ Pin assignments</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">A5   </td><td class="markdownTableBodyNone">Unassigned   </td></tr>
 </table>
-<p>Check <code><a class="el" href="pinout_8h.html" title="Arduino peripheral pin assignments.">frontend/pinout.h</a></code> and the display driver's <code><a class="el" href="epdif_8h.html" title="Arduino GPIO and SPI interface for the e-paper display.">epdif.h</a></code> against your wiring. The bundled driver also defines <code>PWR_PIN</code> as D6 and drives it high during initialization, sharing the green status LED pin. Resolve that assignment for your hardware. The RN2483 RX connection requires the 3.3 V signal level noted in <code><a class="el" href="pinout_8h.html" title="Arduino peripheral pin assignments.">pinout.h</a></code>.</p>
+<p>Check <code><a class="el" href="pinout_8h.html" title="Arduino peripheral pin assignments.">frontend/pinout.h</a></code> against your wiring.</p>
 <h2><a class="anchor" id="autotoc_md9"></a>
 Puzzle behavior</h2>
 <ul>
@@ -238,7 +253,6 @@ Puzzle behavior</h2>
 <li><b>Temperature:</b> a threshold of 25 °C, checked at intervals of at least 2000 ms. Invalid readings retain the last valid threshold state.</li>
 <li><b>Password:</b> the current password is defined in <code><a class="el" href="password_8cpp.html" title="Serial password puzzle.">frontend/password.cpp</a></code>.</li>
 <li><b>Display:</b> revealed codes remain visible for approximately 10 seconds before the game loop clears them.</li>
-<li><b>Servo:</b> the puzzle phases map to 0°, 22°, 44°, 66° and 90° positions.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md10"></a>
 API overview</h1>

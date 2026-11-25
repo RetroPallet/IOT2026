@@ -1,6 +1,6 @@
 <map id="frontend/epaper.h" name="frontend/epaper.h">
-<area shape="rect" id="Node000001" title="E&#45;paper puzzle&#45;code and employee&#45;record rendering." alt="" coords="99,5,237,31"/>
-<area shape="rect" id="Node000002" href="$epaper_8cpp.html" title="E&#45;paper puzzle&#45;code and employee&#45;record rendering." alt="" coords="5,79,157,104"/>
+<area shape="rect" id="Node000001" title="E&#45;paper puzzle&#45;code rendering." alt="" coords="99,5,237,31"/>
+<area shape="rect" id="Node000002" href="$epaper_8cpp.html" title="E&#45;paper puzzle&#45;code rendering." alt="" coords="5,79,157,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,41,97,81,94,76,142,37"/>
 <area shape="rect" id="Node000003" href="$game_8cpp.html" title="Escape&#45;room game states and puzzle coordination." alt="" coords="182,79,327,104"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,37,242,76,239,81,191,41"/>

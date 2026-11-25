@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['db_5fqueries_2epy_0',['db_queries.py',['../db__queries_8py.html',1,'']]]
+  ['epaper_2ecpp_0',['epaper.cpp',['../epaper_8cpp.html',1,'']]],
+  ['epaper_2eh_1',['epaper.h',['../epaper_8h.html',1,'']]]
 ];
