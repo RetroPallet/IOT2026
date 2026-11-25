@@ -1,9 +1,5 @@
 /**
- * @file epdif.h
- * @brief Arduino GPIO and SPI interface for the e-paper display.
- */
-/**
- *  File   :   epdif.h
+ *  @filename   :   epdif.h
  *  @brief      :   Header file of epdif.cpp providing EPD interface functions
  *                  Users have to implement all the functions in epdif.cpp
  *  @author     :   Yehui from Waveshare
@@ -35,67 +31,21 @@
 #include <Arduino.h>
 
 // Pin definition
-/**
- * @brief Arduino pin assignment for rst.
- */
 #define RST_PIN         8
-/**
- * @brief Arduino pin assignment for dc.
- */
 #define DC_PIN          9
-/**
- * @brief Arduino pin assignment for cs.
- */
 #define CS_PIN          10
-/**
- * @brief Arduino pin assignment for busy.
- */
 #define BUSY_PIN        7
-/**
- * @brief Arduino pin assignment for pwr.
- */
 #define PWR_PIN         6
 
-/**
- * @brief Arduino GPIO and SPI adaptation layer.
- */
 class EpdIf {
 public:
-    /**
-     * @brief Initialize the EpdIf object.
-     */
     EpdIf(void);
-    /**
-     * @brief Release the EpdIf object.
-     */
     ~EpdIf(void);
 
-    /**
-     * @brief Configure display GPIO and start SPI at 2 MHz in mode 0.
-     * @return Zero after configuring the interface.
-     */
     static int  IfInit(void);
-    /**
-     * @brief Write a logic level to an Arduino pin.
-     * @param pin Arduino pin number.
-     * @param value Logic level to write.
-     */
     static void DigitalWrite(int pin, int value); 
-    /**
-     * @brief Read the logic level of an Arduino pin.
-     * @param pin Arduino pin number.
-     * @return The pin level, HIGH or LOW.
-     */
     static int  DigitalRead(int pin);
-    /**
-     * @brief Pause execution for the requested number of milliseconds.
-     * @param delaytime Delay in milliseconds.
-     */
     static void DelayMs(unsigned int delaytime);
-    /**
-     * @brief Transmit one SPI byte while asserting the display chip-select signal.
-     * @param data Data byte to transmit.
-     */
     static void SpiTransfer(unsigned char data);
 };
 

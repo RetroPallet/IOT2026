@@ -13,7 +13,7 @@
  *  D0  RX serial (reserved)        D8  EPD RST
  *  D1  TX serial (reserved)        D9  EPD DC
  *  D2  Button                      D10 EPD CS
- *  D3  LED RGB - BLUE (reserved)   D11 EPD DIN/MOSI
+ *  D3  LED RGB - BLUE (PWM)        D11 EPD DIN/MOSI
  *  D4  DHT11                       D12 LoRa RN2483 TX -> Arduino RX
  *  D5  LED RGB - RED (PWM)         D13 EPD CLK/SCK
  *  D6  LED RGB - GREEN (PWM)       A0  Potentiometer
@@ -29,9 +29,9 @@
  */
 #define BUTTON_PIN      2
 /**
- * @brief Arduino pin assignment for actuator.
+ * @brief Arduino pin assignment for led blue.
  */
-#define ACTUATOR_PIN    3  
+#define LED_BLUE_PIN    3
 /**
  * @brief Arduino pin assignment for dht.
  */

@@ -12,21 +12,11 @@
  */
 enum game_state {
     WAIT_INITIALIZATION, /**< Wait for game initialization. */
-    ARMED, /**< Reserved armed state. */
     PHASE_PUZZLE, /**< Run the LED phase and temperature puzzle. */
     SERIAL_PUZZLE, /**< Run the serial password puzzle. */
     BACKEND_PUZZLE, /**< Wait while the player solves the server puzzle. */
     WAIT_BACKEND, /**< Request the next state from the backend. */
     COMPLETED /**< Game completed. */
-};
-
-/**
- * @brief Identifiers for the device puzzles.
- */
-enum puzzle_id {
-    TEMP_PUZZLE_ID, /**< Identifier for the temp puzzle. */
-    PHASE_PUZZLE_ID, /**< Identifier for the phase puzzle. */
-    SERIAL_PUZZLE_ID /**< Identifier for the serial puzzle. */
 };
 
 /**
@@ -44,9 +34,9 @@ void game_setup();
  */
 void game_task();
 /**
- * @brief Change the game state and update the status LED and actuator.
+ * @brief Change the game state and update the status LED.
  * @param new_state Game state to enter.
- * @note WAIT_BACKEND preserves the actuator position; an unchanged state has no effect.
+ * @note The previous state is stored so WAIT_BACKEND can return to it; an unchanged state has no effect.
  */
 void set_state(game_state new_state);
 

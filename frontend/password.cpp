@@ -39,7 +39,7 @@ const char password[] = {"patricia"};
 bool password_update(){
   if(!puzzle_started){
     puzzle_started++;
-    Serial.println("Password puzzle started. Please enter password:");        
+    Serial.println(F("Password puzzle started. Please enter password:"));        
   }
   bool password_correct = 0;
   while (Serial.available() > 0) { /* Reads when character is available */
@@ -51,9 +51,9 @@ bool password_update(){
 
       // Compare entered password with correct password
       if(strcmp(input, password))
-        Serial.println("Incorrect");
+        Serial.println(F("Incorrect"));
       else{
-        Serial.println("Login successful, welcome Henning. The magic code is serial_puzzle_key");
+        Serial.println(F("Login successful, welcome Henning. The magic code is serial_puzzle_key"));
         password_correct++;
         puzzle_started=0;
       }
@@ -65,7 +65,7 @@ bool password_update(){
       input[input_idx++] = c;
     }
     if(input_idx == INPUT_SIZE - 1 && !char_limit){
-      Serial.println("\nYou have passed the characterlimit of ");
+      Serial.println(F("\nYou have passed the characterlimit of "));
       Serial.println(INPUT_SIZE);
       char_limit++;
     }

@@ -1,7 +1,3 @@
-/**
- * @file epd1in54_V2.cpp
- * @brief Waveshare 1.54-inch V2 e-paper controller driver.
- */
 /*****************************************************************************
 * | File      	:   epd1in54_V2.cpp
 * | Author      :   Waveshare team
@@ -36,7 +32,6 @@
 
 
 // waveform full refresh
-/** @brief Controller waveform table for full refreshes. */
 unsigned char WF_Full_1IN54[159] =
 {											
 0x80,	0x48,	0x40,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,
@@ -61,7 +56,6 @@ unsigned char WF_Full_1IN54[159] =
 };
 
 // waveform partial refresh(fast)
-/** @brief Controller waveform table for partial refreshes. */
 unsigned char WF_PARTIAL_1IN54_0[159] =
 {
 0x0,0x40,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
@@ -85,12 +79,10 @@ unsigned char WF_PARTIAL_1IN54_0[159] =
 0x02,0x17,0x41,0xB0,0x32,0x28,
 };
 
-/* Release the Epd object. */
 Epd::~Epd()
 {
 };
 
-/* Initialize the Epd object. */
 Epd::Epd()
 {
 	reset_pin = RST_PIN;
@@ -101,21 +93,27 @@ Epd::Epd()
 	height = EPD_HEIGHT;
 };
 
-/* Transmit a controller command over SPI. */
+/**
+ *  @brief: basic function for sending commands
+ */
 void Epd::SendCommand(unsigned char command)
 {
 	DigitalWrite(dc_pin, LOW);
 	SpiTransfer(command);
 }
 
-/* Transmit one data byte over SPI. */
+/**
+ *  @brief: basic function for sending data
+ */
 void Epd::SendData(unsigned char data)
 {
 	DigitalWrite(dc_pin, HIGH);
 	SpiTransfer(data);
 }
 
-/* Wait until the e-paper controller releases its busy signal. */
+/**
+ *  @brief: Wait until the busy_pin goes HIGH
+ */
 void Epd::WaitUntilIdle(void)
 {
 	while(DigitalRead(busy_pin) == 1) {      //LOW: idle, HIGH: busy
@@ -124,7 +122,6 @@ void Epd::WaitUntilIdle(void)
 	DelayMs(200);
 }
 
-/* Write the first 153 bytes of the waveform lookup table. */
 void Epd::Lut(unsigned char* lut)
 {
 	SendCommand(0x32);
@@ -133,7 +130,6 @@ void Epd::Lut(unsigned char* lut)
 	WaitUntilIdle();
 }
 
-/* Load a waveform table and its controller voltage settings. */
 void Epd::SetLut(unsigned char* lut)
 {
 	Lut(lut);
@@ -154,7 +150,6 @@ void Epd::SetLut(unsigned char* lut)
 }
 
 // High Direction
-/* Initialize the display controller for the high-direction scanning mode. */
 int Epd::HDirInit(void)
 {
 	/* this calls the peripheral hardware interface, see epdif */
@@ -210,7 +205,6 @@ int Epd::HDirInit(void)
 }
 
 // Low Direction
-/* Initialize the display controller for the low-direction scanning mode. */
 int Epd::LDirInit(void)
 {
 	/* this calls the peripheral hardware interface, see epdif */
@@ -266,7 +260,11 @@ int Epd::LDirInit(void)
 }
 
 
-/* Pulse the display reset pin. */
+/**
+ *  @brief: module reset.
+ *          often used to awaken the module in deep sleep,
+ *          see Epd::Sleep();
+ */
 void Epd::Reset(void)
 {
 	DigitalWrite(reset_pin, HIGH);
@@ -277,7 +275,6 @@ void Epd::Reset(void)
 	DelayMs(20);
 }
 
-/* Clear the display to white. */
 void Epd::Clear(void)
 {
 	int w, h;
@@ -300,7 +297,6 @@ void Epd::Clear(void)
 	DisplayFrame();
 }
 
-/* Write a full-screen bitmap and perform a full refresh. */
 void Epd::Display(const unsigned char* frame_buffer)
 {
 	int w = (EPD_WIDTH % 8 == 0)? (EPD_WIDTH / 8 ): (EPD_WIDTH / 8 + 1);
@@ -319,7 +315,6 @@ void Epd::Display(const unsigned char* frame_buffer)
 	DisplayFrame();
 }
 
-/* Write a bitmap as the base image for subsequent partial refreshes. */
 void Epd::DisplayPartBaseImage(const unsigned char* frame_buffer)
 {
 	int w = (EPD_WIDTH % 8 == 0)? (EPD_WIDTH / 8 ): (EPD_WIDTH / 8 + 1);
@@ -344,7 +339,6 @@ void Epd::DisplayPartBaseImage(const unsigned char* frame_buffer)
 	//DISPLAY REFRESH
 	DisplayFrame();
 }
-/* Initialize the partial-refresh base image to white. */
 void Epd::DisplayPartBaseWhiteImage(void)
 {
 	int w = (EPD_WIDTH % 8 == 0)? (EPD_WIDTH / 8 ): (EPD_WIDTH / 8 + 1);
@@ -370,7 +364,6 @@ void Epd::DisplayPartBaseWhiteImage(void)
 }
 
 
-/* Write a full-screen bitmap using the partial-refresh waveform. */
 void Epd::DisplayPart(const unsigned char* frame_buffer)
 {
 	int w = (EPD_WIDTH % 8 == 0)? (EPD_WIDTH / 8 ): (EPD_WIDTH / 8 + 1);
@@ -390,7 +383,9 @@ void Epd::DisplayPart(const unsigned char* frame_buffer)
 }
 
 
-/* Set the rectangular controller RAM address window. */
+/**
+ *  @brief: private function to specify the memory area for data R/W
+ */
 void Epd::SetMemoryArea(int x_start, int y_start, int x_end, int y_end)
 {
 	SendCommand(0x44);
@@ -404,7 +399,9 @@ void Epd::SetMemoryArea(int x_start, int y_start, int x_end, int y_end)
 	SendData((y_end >> 8) & 0xFF);
 }
 
-/* Set the controller RAM write cursor. */
+/**
+ *  @brief: private function to specify the start point for data R/W
+ */
 void Epd::SetMemoryPointer(int x, int y)
 {
 	SendCommand(0x4e);
@@ -417,7 +414,13 @@ void Epd::SetMemoryPointer(int x, int y)
 }
 
 
-/* Trigger a full refresh from controller frame memory and wait for completion. */
+/**
+ *  @brief: update the display
+ *          there are 2 memory areas embedded in the e-paper display
+ *          but once this function is called,
+ *          the the next action of SetFrameMemory or ClearFrame will
+ *          set the other memory area.
+ */
 void Epd::DisplayFrame(void)
 {
 	//DISPLAY REFRESH
@@ -427,7 +430,6 @@ void Epd::DisplayFrame(void)
 	WaitUntilIdle();
 }
 
-/* Trigger a partial refresh from controller frame memory and wait for completion. */
 void Epd::DisplayPartFrame(void)
 {
 	SendCommand(0x22);
@@ -437,7 +439,6 @@ void Epd::DisplayPartFrame(void)
 }
 
 
-/* Copy a bitmap region into controller frame memory. */
 void Epd::SetFrameMemory(
         const unsigned char* image_buffer,
         int x,
@@ -487,7 +488,6 @@ void Epd::SetFrameMemory(
 	}
 }
 
-/* Copy a bitmap region into controller memory using partial-update settings. */
 void Epd::SetFrameMemoryPartial(
         const unsigned char* image_buffer,
         int x,
@@ -556,7 +556,14 @@ void Epd::SetFrameMemoryPartial(
 	}
 }
 
-/* Put the display controller into deep sleep. */
+/**
+ *  @brief: After this command is transmitted, the chip would enter the
+ *          deep-sleep mode to save power.
+ *          The deep sleep mode would return to standby by hardware reset.
+ *          The only one parameter is a check code, the command would be
+ *          executed if check code = 0xA5.
+ *          You can use Epd::Init() to awaken
+ */
 void Epd::Sleep()
 {
 	SendCommand(0x10); //enter deep sleep

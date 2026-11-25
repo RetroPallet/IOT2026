@@ -1,11 +1,13 @@
 PROJECT_NAME = "IoT Escape Room - Operation Breakout"
-OUTPUT_DIRECTORY = doxygen-output
+OUTPUT_DIRECTORY = docs
+HTML_OUTPUT = .
 INPUT = frontend \
         server/app.py \
         server/adapter.py \
         server/db_queries.py \
         server/settings.py \
         README.md
+EXCLUDE = frontend/src
 EXCLUDE_PATTERNS = */.venv/* */venv/* */env/* */__pycache__/* */.git/*
 EXCLUDE_SYMLINKS = YES
 RECURSIVE = YES
