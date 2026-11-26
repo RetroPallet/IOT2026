@@ -106,18 +106,34 @@ stored phase.
 | `DB_PATH` in `server/settings.py` | `database.db` | SQLite database path |
 
 The `debug` setting controls outgoing device messages. It is separate from Flask's
-development debugger; `python app.py` starts Flask with its debugger disabled.
+development debugger (`flask run --debug`). Downlinks are **disabled by default**:
+do not put `debug` in `server/.env`, pass it explicitly on the command line when
+you want the device to receive messages.
 
-To enable TTN downlinks on Linux or macOS, set the environment variables before
-starting the server:
+Run without downlinks (default), from `server/`:
 
 ```bash
-export debug=false
-export applicationName='your-application-id'
-export endDeviceName='your-device-id'
-export APIKey='your-ttn-api-key'
-python app.py
+flask --app app.py run
 ```
+
+Run with TTN downlinks enabled, from `server/`:
+
+```bash
+debug=false flask --app app.py run
+```
+
+`flask run` reads `applicationName`, `endDeviceName` and `APIKey` from
+`server/.env` (via `python-dotenv`), so run it from the `server/` directory. A
+variable set on the command line takes precedence over `.env`. Example `.env`:
+
+```bash
+applicationName=your-application-id
+endDeviceName=your-device-id
+APIKey=your-ttn-api-key
+```
+
+`python app.py` does not load `.env`; with it, export the variables yourself
+(e.g. `export debug=false` plus the TTN variables) before starting the server.
 
 `adapter.py` uses the TTN EU1 API, application port 1, normal priority and
 unconfirmed downlinks. Each request replaces the device's queued downlinks.

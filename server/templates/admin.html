@@ -1,40 +1,56 @@
 <!-- @file admin.html
      @brief Player registration form and player overview. -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Admin Page </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('index') }}';">Home</button>
-        <h1>Add a player</h1>
-        <form method="POST">
-            <label>Enter Username:</label>
-            <input type="text" name="name" placeholder="Enter your name" required><br/>
-            <label>Enter Activation Code:</label>
-            <input type="text" name="activation_code" placeholder="Enter activation code" required><br/>
-            <input type = "submit" value = "submit"/><br/>
-        </form>
-        <h1>Player List</h1>
-         <table style="width:100%">
-            <tr>
-              <th>Username</th>
-              <th>Activation Code</th>
-              <th>Game Phase</th>
-            </tr>
-            {%for player in data%}
-               <tr>
-                 <td>{{player[0]}}</td>
-                 <td>{{player[1]}}</td>
-                 <td>{{player[2]}}</td>
-                </tr>
-            {%endfor%}
-          </table>          
-    </body>
+        <main class="container">
+            <header class="topbar">
+                <span class="brand">Bye by-pass &middot; admin</span>
+                <button class="btn btn-secondary" type="button" onclick="window.location.href='{{ url_for('index') }}';">Home</button>
+            </header>
 
-        <style>
-        table, th, td {
-          border:1px solid black;
-        }
-        </style>
+            <section class="card">
+                <h1>Add a player</h1>
+                <form method="POST">
+                    <div class="field">
+                        <label for="name">Enter Username:</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="field">
+                        <label for="activation_code">Enter Activation Code:</label>
+                        <input type="text" id="activation_code" name="activation_code" placeholder="Enter activation code" required>
+                    </div>
+                    <input type = "submit" value = "submit"/>
+                </form>
+            </section>
+
+            <section class="card">
+                <h1>Player List</h1>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                          <th>Username</th>
+                          <th>Activation Code</th>
+                          <th>Game Phase</th>
+                        </tr>
+                        {%for player in data%}
+                           <tr>
+                             <td>{{player[0]}}</td>
+                             <td class="mono">{{player[1]}}</td>
+                             <td><span class="phase-badge" data-phase="{{player[2]}}">{{player[2]}}</span></td>
+                            </tr>
+                        {%else%}
+                           <tr><td colspan="3" class="empty">No players yet</td></tr>
+                        {%endfor%}
+                    </table>
+                </div>
+            </section>
+        </main>
+    </body>
 </html>

@@ -1,27 +1,42 @@
 <!-- @file injection.html
      @brief Measurement lookup interface for the backend puzzle. -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Injection</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <a href="{{ url_for('player') }}"><button type="button">Back to player</button></a>
-        <h1>Overview of the bank sensor</h1>
-        
-        <form id="sensorForm">
-            <label for="sensorDropdown">Select measurement:</label>
-            <select name="sensorDropdown" id="sensorDropdown">
-                <option value="">-- Select --</option>
-                {% for m in measurements %}
-                <option value="{{ m }}">{{ m }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit">Read value</button>
-        </form>
+        <main class="container">
+            <header class="topbar">
+                <span class="brand">Bye by-pass &middot; bank sensor</span>
+                <a href="{{ url_for('player') }}"><button type="button" class="btn-secondary">Back to player</button></a>
+            </header>
 
-        <h3>Result: <span id="resultValue"></span></h3>
+            <section class="card">
+                <h1>Overview of the bank sensor</h1>
 
+                <form id="sensorForm">
+                    <label for="sensorDropdown">Select measurement:</label>
+                    <div class="inline-form">
+                        <select name="sensorDropdown" id="sensorDropdown">
+                            <option value="">-- Select --</option>
+                            {% for m in measurements %}
+                            <option value="{{ m }}">{{ m }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Read value</button>
+                    </div>
+                </form>
+
+                <div class="result">
+                    <span class="result-label">Result:</span>
+                    <span id="resultValue"></span>
+                </div>
+            </section>
+        </main>
         <script>
             /**
              * @brief Submit the selected measurement key to the backend puzzle API.

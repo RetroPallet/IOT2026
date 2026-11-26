@@ -1,49 +1,69 @@
 <!-- @file player.html
      @brief Player activation, puzzle keys and phase status. -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Player</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <a href="{{ url_for('index') }}"><button type="button">Home</button></a>
+        <main class="container">
+        <header class="topbar">
+            <span class="brand">Bye by-pass &middot; player</span>
+            <a href="{{ url_for('index') }}"><button type="button" class="btn-secondary">Home</button></a>
+        </header>
 
-        <div id="login" hidden>
+        <div id="login" class="card" hidden>
             <h1>Enter activation code</h1>
-            <form id="login-form">
+            <form id="login-form" class="inline-form">
                 <input type="text" id="activation_code" placeholder="Activation code" required>
                 <input type="submit" value="Submit">
             </form>
-            <p id="error" style="color:red"></p>
+            <p id="error" class="error"></p>
         </div>
 
-        <div id="status" hidden>
-            <h1>Hello, <span id="username"></span></h1>
-            <p>Current phase: <strong id="phase"></strong></p>
-            <button type="button" id="reset">Reset (back to PHASE_PUZZLE)</button>
-            <button type="button" id="logout">Logout</button>
+        <div id="status" class="card" hidden>
+            <div class="player-head">
+                <div>
+                    <h1>Hello, <span id="username"></span></h1>
+                    <p class="muted">Current phase: <strong id="phase"></strong></p>
+                </div>
+                <div class="actions">
+                    <button type="button" id="reset" class="btn-danger">Reset (back to PHASE_PUZZLE)</button>
+                    <button type="button" id="logout" class="btn-secondary">Logout</button>
+                </div>
+            </div>
 
             <div id="keys">
                 <form class="key-form" data-phase="PHASE_PUZZLE" hidden>
                     <label>Phase puzzle key:</label>
-                    <input type="text" name="key" required>
-                    <input type="submit" value="Unlock">
+                    <div class="inline-form">
+                        <input type="text" name="key" required>
+                        <input type="submit" value="Unlock">
+                    </div>
                 </form>
                 <form class="key-form" data-phase="SERIAL_PUZZLE" hidden>
                     <label>Serial puzzle key:</label>
-                    <input type="text" name="key" required>
-                    <input type="submit" value="Unlock">
+                    <div class="inline-form">
+                        <input type="text" name="key" required>
+                        <input type="submit" value="Unlock">
+                    </div>
                 </form>
                 <form class="key-form" data-phase="BACKEND_PUZZLE" hidden>
                     <label>Backend puzzle key:</label>
-                    <input type="text" name="key" required>
-                    <input type="submit" value="Unlock">
+                    <div class="inline-form">
+                        <input type="text" name="key" required>
+                        <input type="submit" value="Unlock">
+                    </div>
                 </form>
-                <p id="key-error" style="color:red"></p>
-                <p id="win" hidden><strong>All keys unlocked!</strong></p>
+                <p id="key-error" class="error"></p>
+                <p id="win" class="win" hidden><strong>All keys unlocked!</strong></p>
                 <a id="injection" href="{{ url_for('injection') }}" hidden><button type="button">Go to injection</button></a>
             </div>
         </div>
+        </main>
 
         <script>
             const KEY = 'player_id';

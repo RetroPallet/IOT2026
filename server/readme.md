@@ -12,6 +12,13 @@ pip install -r requirements.txt
 flask --app app.py --debug run
 ```
 
+LoRaWAN downlinks to the device are **disabled by default**. To send them, pass
+`debug=false` explicitly (TTN credentials are read from `server/.env`):
+
+```bash
+debug=false flask --app app.py run
+```
+
 ## Payload for SQL Injection
 
 Use the following JSON payload to trigger the SQL injection and extract the unlock key:
